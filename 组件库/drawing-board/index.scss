@@ -1,0 +1,132 @@
+$button-height: 60rpx;
+$page-background-color: #fbfbfb;
+$font-color: #726f6e;
+$border-color: #d8d7d7;
+
+@mixin ScrollHorizontally {
+  overflow-x: scroll;
+  white-space: nowrap;
+}
+
+@mixin ColorSelect{
+  height: inherit;
+  width: 64rpx;
+  display: inline-block;
+  margin-right: 20rpx;
+  box-sizing: border-box;
+
+  border-radius: 50%;
+  border: 1px solid $border-color;
+  padding: 8rpx;
+  background-clip: content-box;
+}
+
+#Board {
+  width: 100vw;
+  height: 100vh;
+  background-color: $page-background-color;
+
+  .rotate {
+    float: right;
+  }
+
+  .left-right-margin {
+    margin: 20rpx auto 0;
+
+    .DrawingBoard {
+      width: inherit;
+      background-color: white;
+      border-radius: 10px;
+      margin: 0 auto;
+      border: 1px solid $border-color;
+    }
+
+    .total-control-board {
+      width: inherit;
+      height: 64rpx;
+
+      color: $font-color;
+      background-color: $page-background-color;
+      margin-top: 40rpx;
+      display: flex;
+      transition: all 0.3s ease-in;
+
+      .operate {
+        height: inherit;
+        display: flex;
+        flex: 1;
+        font-size: 14px;
+        @include ScrollHorizontally;
+
+        .pencil-color {
+          @include ColorSelect;
+        }
+
+        .board-button {
+          margin-right: 20rpx;
+          display: inline-block;
+          width: 20%;
+          line-height: $button-height;
+          text-align: center;
+          border: 1px solid $border-color;
+          border-radius: 5px;
+        }
+
+        .complete {
+          color: white;
+          border: 1px solid #008ef9;
+          background-color: #008ef9;
+        }
+      }
+
+      .pen-color {
+        height: inherit;
+        flex: 1;
+        @include ScrollHorizontally;
+
+        .color-list {
+          @include ColorSelect;
+        }
+      }
+
+
+      .pen-size {
+        flex: 1;
+        font-size: 14px;
+        border-radius: 6px;
+        line-height: 0;
+        @include ScrollHorizontally;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .size-list {
+          display: inline-block;
+          box-sizing: border-box;
+          background-color: #eee;
+          border-radius: 50%;
+          padding: 10rpx;
+          margin: 0 20rpx 0 20rpx;
+        }
+      }
+    }
+  }
+
+  .rotate {
+    transform: rotate(90deg);
+    margin-top: 36rpx;
+    height: 64rpx;
+  }
+
+  .rotate-board{
+    height: 140rpx !important;
+  }
+
+  .pen-color-rotate{
+    margin-top: 36rpx !important;
+    height: 64rpx !important;
+  }
+}
+
+

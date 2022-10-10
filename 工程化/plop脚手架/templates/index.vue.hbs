@@ -1,0 +1,162 @@
+{{!-- ./plop-templates/component.vue.hbs --}}
+
+<template>
+  <div id="{{ dashCase name }}">
+    <Input :queryData="queryData">
+      <template v-slot:up="{ queryData }">
+        <el-form label-width="60px" :model="queryData" label-position="left" :inline="true">
+          <el-form-item label="姓名">
+            <el-input
+              clearable
+              v-model="queryData.productName"
+              placeholder="请输入内容"
+              size="small"
+            ></el-input>
+          </el-form-item>
+
+          <el-form-item label="手机号">
+            <el-input
+              clearable
+              style="width: 200px"
+              v-model="queryData.phone"
+              placeholder="请输入内容"
+              size="small"
+            ></el-input>
+          </el-form-item>
+
+          <el-form-item label-width="80px" label="在职状态">
+            <el-select
+              clearable
+              v-model="queryData.supplierCode"
+              placeholder="请选择内容"
+              filterable
+              size="small"
+            >
+              <el-option
+                v-for="item in companyList"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+              ></el-option>
+            </el-select>
+          </el-form-item>
+
+          <el-form-item>
+            <el-button type="primary" @click="queryButton" size="small">查询</el-button>
+          </el-form-item>
+        </el-form>
+      </template>
+    </Input>
+
+    <el-row :gutter="10" class="mb8">
+      <el-col :span="1.5">
+        <el-button
+          type="primary"
+          plain
+          icon="el-icon-plus"
+          size="mini"
+          @click="handleAdd"
+          v-hasPermi="['monitor:job:add']"
+        >
+          新增
+        </el-button>
+      </el-col>
+      <right-toolbar :showSearch.sync="showSearch" @queryTable="requestDeploy"></right-toolbar>
+    </el-row>
+
+    <Table
+      :tableData="tableData"
+      :OperateCol="OperateCol"
+      @cell-click="operateHandle"
+      :isRadio="true"
+    ></Table>
+
+    <Pagination @currentPageChange="currentPageChange" :pageOption="pageOption"></Pagination>
+  </div>
+</template>
+
+<script>
+  // * 导入混入
+  import { tableMixin } from '@/utils/mixins/MixinUtils';
+  import { getProduct, listTable, companyInfo } from './api.js';
+  import { Model, companyList } from './dictionary';
+
+  // * 公共
+  // import { download } from 'api/common'
+  // import {filterHandle} from "@/common/utils";
+  // import { companyList, insuranceCompanyList, riskType, teamList } from 'common/dictionarieList/common'
+
+  export default {
+    name: '{{ properCase name }}',
+    mixins: [tableMixin],
+    data: function () {
+      return {
+        //todo 字典
+        Model,
+        companyList,
+
+        //todo 表格展示数据
+        tableData: {
+          resultData: [],
+          needData: [
+            // 表格展示属性:列名、长度、颜色、是否需要点击事件、是否需要操作列
+            ['productName', '姓名', '', '', false, false],
+            ['supplierName', '手机号', '', false, false],
+            ['productTypeName', '销售人员编码', '', false, false],
+            ['premium', '入司时间', '', false, false],
+            ['count', '是否导师', '', false, false],
+            ['count', '导师姓名', '', false, false],
+            ['count', '导师手机号', '', false, false],
+            ['count', '团队名称', '', false, false],
+            ['count', '是否讲师', '', false, false],
+            ['count', '讲师姓名', '', false, false],
+            ['count', '讲师手机号', '', false, false],
+            // ['', '操作', '', '#409EFF', true, true, '修改'],
+          ],
+        },
+        OperateCol: {
+          colName: '操作',
+          width: '200',
+          OperateColData: [{ name: '移除', color: '#409EFF' }],
+        },
+
+        showSearch:true
+      };
+    },
+    created() {
+      this.dataInit();
+      this.requestDeploy();
+    },
+    methods: {
+      // * 公司列表初始化
+      dataInit() {
+        // this.getSelectList(companyInfo, companyList, 'channelCompanyCode', 'channelCompanyName')
+      },
+
+      // *----------------------------------处理页码，过滤函数
+      // * 当前表格请求配置(查询，翻页调用)
+      requestDeploy(current) {
+        const defaultDate = [
+          {
+            data: ['dateStart', 'dateEnd'],
+          },
+        ];
+        //api、查询表格、页、表格数据、当前页、时间数组，过滤函数
+        this.getList(
+          getProduct,
+          this.queryData,
+          this.pageOption,
+          this.tableData,
+          current,
+          defaultDate,
+        );
+      },
+      // * 操作列方法
+      operateHandle(rows) {},
+    },
+  }
+</script>
+
+<style lang="scss" scoped>
+  @import "./index.scss";
+</style>
