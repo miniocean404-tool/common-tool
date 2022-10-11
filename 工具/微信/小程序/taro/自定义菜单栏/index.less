@@ -1,0 +1,92 @@
+page {
+	//css 原生变量定义 使用:var(变量名)
+	box-sizing: border-box;
+
+	.wx-custom-navigation-bar {
+		.place-holder {
+			position: relative;
+			z-index: 100;
+			visibility: hidden;
+		}
+
+		.nav__inner {
+			position: fixed;
+			top: 0;
+			left: 0;
+			z-index: 1001;
+
+			display: flex;
+			align-items: center;
+			width: 100%;
+
+			.nav__left .nav__btn_go-back:active {
+				opacity: 0.5;
+			}
+
+			//左侧导航
+			.nav__left {
+				position: relative;
+
+				display: flex;
+				align-items: center;
+
+				//按钮
+				.nav__button {
+					width: 50%;
+					height: 100%;
+					display: flex;
+					/* prettier-ignore */
+					font-size: 12PX;
+					background-repeat: no-repeat;
+					background-position: center center;
+					background-size: 1em 2em;
+				}
+
+				.nav__btn_go-back {
+					background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='24' viewBox='0 0 12 24'%3E  %3Cpath fill-opacity='.9' fill-rule='evenodd' d='M10 19.438L8.955 20.5l-7.666-7.79a1.02 1.02 0 0 1 0-1.42L8.955 3.5 10 4.563 2.682 12 10 19.438z'/%3E%3C/svg%3E");
+				}
+
+				//按钮主题色
+				.white {
+					background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='24' viewBox='0 0 12 24'%3E  %3Cpath fill-opacity='.9' fill-rule='evenodd' d='M10 19.438L8.955 20.5l-7.666-7.79a1.02 1.02 0 0 1 0-1.42L8.955 3.5 10 4.563 2.682 12 10 19.438z' fill='%23ffffff'/%3E%3C/svg%3E");
+				}
+			}
+
+			.nav__center {
+				/* prettier-ignore */
+				font-size: 17PX;
+				/* prettier-ignore */
+				line-height: 17PX;
+				text-align: center;
+				position: relative;
+				flex: 1;
+				display: -webkit-box;
+				display: -webkit-flex;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				/* prettier-ignore */
+				padding-left: 10PX;
+
+				text {
+					margin-top: -2px;
+				}
+			}
+
+			.nav__right {
+				/* prettier-ignore */
+				margin-right: 10PX;
+			}
+		}
+
+		view,
+		text,
+		scroll-view,
+		input,
+		button,
+		image,
+		cover-view {
+			box-sizing: border-box;
+		}
+	}
+}

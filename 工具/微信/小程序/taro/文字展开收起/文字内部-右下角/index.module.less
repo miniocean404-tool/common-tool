@@ -1,0 +1,52 @@
+@show-text-line-height: 26px;
+@btn-line-height: 20px;
+
+.text-warp-css {
+  // 设置后 calc 的 100% 有效
+  display: flex;
+  word-break: break-all;
+
+  .text {
+    margin-top: 10px;
+    font-size: 14px;
+    line-height: 26px;
+    color: #8c8c8c;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: justify; // 文字两边对齐
+
+    position: relative;
+    max-height: @show-text-line-height * 3;
+    transition: 0.3s max-height;
+
+    &::before {
+      content: '';
+      height: calc(100% - ((@show-text-line-height - @btn-line-height) / 2 + @btn-line-height));
+      float: right;
+    }
+
+    .btn {
+      position: relative;
+      float: right;
+      clear: both;
+      margin-left: 20px;
+      padding: 0 8px;
+      border-radius: 4px;
+      cursor: pointer;
+
+      font-size: 12px;
+      line-height: @btn-line-height;
+      color: #1f8ae0;
+      /* margin-top: -30px; */
+
+      //设置按钮前省略号
+      & .btnText {
+        position: absolute;
+        left: -2px;
+        color: #333;
+        transform: translateX(-100%);
+      }
+    }
+  }
+}
