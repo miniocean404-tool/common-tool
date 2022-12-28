@@ -145,10 +145,11 @@ xmp {
   unicode-range: U+1F000-1F644, U+203C-3299;
 }
 
-@font-face {
-  font-family: Ping fang SC Medium;
-  src: url('../../../assets/font/pingfangsc-medium.otf');
-}
+// 没有字体文件暂时注释
+// @font-face {
+//  font-family: Ping fang SC Medium;
+//  src: url('../../../assets/font/pingfangsc-medium.otf');
+// }
 
 // 适合标题的衬线字体
 .font-serif {
