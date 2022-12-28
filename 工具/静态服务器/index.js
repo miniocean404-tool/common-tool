@@ -13,6 +13,7 @@ const app = express()
 //托管静态资源
 app.use(express.static('./dist'))
 
+// 访问地址为 dist 下面具体目录或文件 例：http://127.0.0.1/index.html
 http.createServer(app).listen(80, () => {
   console.log('http服务器-----http://127.0.0.1')
 })
