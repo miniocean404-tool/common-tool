@@ -12,5 +12,7 @@ module.exports = {
 	jsxSingleQuote: false, // 在jsx中使用单引号代替双引号,
 	eslintIntegration: false, //不让prettier使用eslint的代码格式进行校验
 	stylelintIntegration: false, //不让prettier使用stylelint的代码格式进行校验
-	tslintIntegration: false // 不让prettier使用tslint的代码格式进行校验
+	tslintIntegration: false, // 不让prettier使用tslint的代码格式进行校验
+	bracketSameLine: false, // jsx 的最后一行的箭头是否和属性一行
+	trailingComma: 'all', // 是否有尾部的逗号
 }
