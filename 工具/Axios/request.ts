@@ -77,7 +77,7 @@ request.interceptors.request.use(
 // 响应拦截器,响应拦截器中添加响应错误状态码、数据的判断
 request.interceptors.response.use(
   (res: AxiosResponse) => {
-    if (res.status !== 200) return Promise.reject(res.data)
+    if (res?.status !== 200) return Promise.reject(res.data)
 
     // 从pendingRequest对象中移除请求
     removePendingRequest(res.config)
@@ -99,7 +99,7 @@ request.interceptors.response.use(
       // 添加异常处理
 
       // 处理 http 状态码
-      handleNetworkError(err.response.status)
+      handleNetworkError(err.response?.status)
     }
     //根据上面的自定义状态码抛出错误
     return Promise.reject(err)
