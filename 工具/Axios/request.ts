@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { AxiosResponse, AxiosRequestConfig } from 'axios'
+import { AxiosResponse, InternalAxiosRequestConfig } from 'axios'
 import http from 'http'
 import https from 'https'
 import Qs from 'qs'
@@ -59,7 +59,7 @@ export const request = axios.create({
 
 // 请求拦截器
 request.interceptors.request.use(
-  (config: AxiosRequestConfig) => {
+  (config: InternalAxiosRequestConfig) => {
     removePendingRequest(config) // 检查是否存在重复请求，若存在则取消已发的请求
     addPendingRequest(config) // 把当前请求信息添加到pendingRequest对象中
 

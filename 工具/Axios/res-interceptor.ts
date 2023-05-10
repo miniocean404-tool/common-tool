@@ -1,7 +1,7 @@
 /**
  * @描述 业务码
  */
-export const handleAuthError = (error) => {
+export const handleAuthError = (error: string) => {
   const authErrMap: any = {
     '10031': '登录失效，需要重新登录', // token 失效
     '10032': '您太久没登录，请重新登录~', // token 过期
@@ -27,7 +27,7 @@ export const handleAuthError = (error) => {
 /**
  * @描述 错误码处理
  */
-export const handleNetworkError = (errStatus) => {
+export const handleNetworkError = (errStatus: number) => {
   let errMessage = '未知错误'
 
   if (errStatus) {
@@ -78,7 +78,7 @@ export const handleNetworkError = (errStatus) => {
   console.error(errMessage)
 }
 
-export const handleGeneralError = (error, msg) => {
+export const handleGeneralError = (error: any, msg: string) => {
   if (error.error !== '0') {
     console.error(msg)
     return false
