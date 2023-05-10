@@ -79,7 +79,7 @@ export const handleNetworkError = (errStatus: number) => {
 }
 
 export const handleGeneralError = (error: any, msg: string) => {
-  if (error.error !== '0') {
+  if (error && error.error !== '0') {
     console.error(msg)
     return false
   }
