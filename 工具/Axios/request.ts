@@ -95,6 +95,7 @@ request.interceptors.response.use(
 
     if (axios.isCancel(err)) {
       console.log('已取消的重复请求：' + err.message)
+      return Promise.resolve({})
     } else {
       // 添加异常处理
 
