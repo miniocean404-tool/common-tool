@@ -33,7 +33,7 @@ export const request = axios.create({
     return Qs.stringify(params, { arrayFormat: 'brackets' })
   },
 
-  // 请求后的数据处理 (responseType 的处理)
+  // 请求后的数据处理 (responseType 的处理),一般不用这个函数，响应解析失败可注释
   transformResponse: [
     function (data: AxiosResponse) {
       return JSON.parse(data)
