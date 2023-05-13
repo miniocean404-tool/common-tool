@@ -36,7 +36,7 @@ export const request = axios.create({
   // 请求后的数据处理 (responseType 的处理)
   transformResponse: [
     function (data: AxiosResponse) {
-      return data
+      return JSON.parse(data)
     },
   ],
 
