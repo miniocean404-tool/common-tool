@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { AxiosResponse, AxiosRequestConfig } from 'axios'
+import { AxiosResponse, InternalAxiosRequestConfig } from 'axios'
 import http from 'http'
 import https from 'https'
 import Qs from 'qs'
@@ -33,10 +33,10 @@ export const request = axios.create({
     return Qs.stringify(params, { arrayFormat: 'brackets' })
   },
 
-  // 请求后的数据处理 (responseType 的处理)
+  // 请求后的数据处理 (responseType 的处理),一般不用这个函数，响应解析失败可注释
   transformResponse: [
     function (data: AxiosResponse) {
-      return data
+      return JSON.parse(data)
     },
   ],
 
@@ -59,7 +59,7 @@ export const request = axios.create({
 
 // 请求拦截器
 request.interceptors.request.use(
-  (config: AxiosRequestConfig) => {
+  (config: InternalAxiosRequestConfig) => {
     removePendingRequest(config) // 检查是否存在重复请求，若存在则取消已发的请求
     addPendingRequest(config) // 把当前请求信息添加到pendingRequest对象中
 
@@ -77,7 +77,7 @@ request.interceptors.request.use(
 // 响应拦截器,响应拦截器中添加响应错误状态码、数据的判断
 request.interceptors.response.use(
   (res: AxiosResponse) => {
-    if (res.status !== 200) return Promise.reject(res.data)
+    if (res?.status !== 200) return Promise.reject(res.data)
 
     // 从pendingRequest对象中移除请求
     removePendingRequest(res.config)
@@ -95,11 +95,12 @@ request.interceptors.response.use(
 
     if (axios.isCancel(err)) {
       console.log('已取消的重复请求：' + err.message)
+      return Promise.resolve({})
     } else {
       // 添加异常处理
 
       // 处理 http 状态码
-      handleNetworkError(err.response.status)
+      handleNetworkError(err.response?.status)
     }
     //根据上面的自定义状态码抛出错误
     return Promise.reject(err)
