@@ -43,13 +43,13 @@ $device: (
       $n: 2,
     );
 
-    @media (min-width: $min) and (max-width: $max) {
+    @media screen and (min-width: $min) and (max-width: $max) {
       // 占位符
       @content;
     }
   } @else {
     // 适配不是数组类型而是字符串类型的数据
-    @media (min-width: $size) {
+    @media screen and (min-width: $size) {
       @content;
     }
   }
