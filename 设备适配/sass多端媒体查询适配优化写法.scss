@@ -1,0 +1,74 @@
+// 写法等价于 js 中
+// deviceType = {
+// key:[0px,0px]
+// }
+$device: (
+  'phone': (
+    320px,
+    480px,
+  ),
+  'pad': (
+    481px,
+    768px,
+  ),
+  'notebook': (
+    769px,
+    1024px,
+  ),
+  'desktop': (
+    1025px,
+    1200px,
+  ),
+  'desktop': 1201px,
+);
+
+// 添加不同设备下的
+@mixin respond-to($deviceType) {
+  // 根据设备类型 deviceType 获取 device 的变量值
+  $size: map-get(
+    $map: $device,
+    $key: $deviceType,
+  );
+
+  // 判断是否为数组类型 sass 中 list 是 js 中数组
+  @if type-of($value: $size) == 'list' {
+    // 获取数组中第一项
+    $min: nth(
+      $list: $device,
+      $n: 1,
+    );
+
+    $max: nth(
+      $list: $device,
+      $n: 2,
+    );
+
+    @media (min-width: $min) and (max-width: $max) {
+      // 占位符
+      @content;
+    }
+  } @else {
+    // 适配不是数组类型而是字符串类型的数据
+    @media (min-width: $size) {
+      @content;
+    }
+  }
+
+  // @if ($device == 'phone') { }
+}
+
+// 使用方式
+
+.header {
+  display: flex;
+
+  @include respond-to('phone') {
+    // 这个花括号内会替换 @content 的内用
+    height: 80px;
+  }
+
+  @include respond-to('pad') {
+    // 这个花括号内会替换 @content 的内用
+    height: 60px;
+  }
+}
