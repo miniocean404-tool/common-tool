@@ -23,7 +23,7 @@ $device: (
 );
 
 // 添加不同设备下的
-@mixin respond-to($deviceType) {
+@mixin media-device($deviceType) {
   // 根据设备类型 deviceType 获取 device 的变量值
   $size: map-get(
     $map: $device,
@@ -62,12 +62,12 @@ $device: (
 .header {
   display: flex;
 
-  @include respond-to('phone') {
+  @include media-device('phone') {
     // 这个花括号内会替换 @content 的内用
     height: 80px;
   }
 
-  @include respond-to('pad') {
+  @include media-device('pad') {
     // 这个花括号内会替换 @content 的内用
     height: 60px;
   }
