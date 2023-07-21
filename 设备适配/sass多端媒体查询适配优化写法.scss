@@ -34,12 +34,12 @@ $device: (
   @if type-of($value: $size) == 'list' {
     // 获取数组中第一项
     $min: nth(
-      $list: $device,
+      $list: $size,
       $n: 1,
     );
 
     $max: nth(
-      $list: $device,
+      $list: $size,
       $n: 2,
     );
 
