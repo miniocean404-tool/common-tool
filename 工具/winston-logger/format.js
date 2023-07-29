@@ -3,9 +3,9 @@ const { format } = require("winston");
 const WINSTON_LOG_DIR = "log";
 
 const template = (info) => {
-  return `[${info.level}] (${info.label}) ${[
-    info["timestamp"],
-  ]} 信息: ${JSON.stringify(info.message)}`;
+  const { message, level, label, timestamp } = info;
+  const msg = typeof message === "string" ? message : JSON.stringify(message);
+  return `[${level}] (${label}) ${[timestamp]} message -> ${msg}`;
 };
 
 const globalFLog = format.combine(
