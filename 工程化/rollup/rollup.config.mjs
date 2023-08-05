@@ -1,6 +1,10 @@
 // rollup 官方插件
 // https://github.com/rollup/plugins
 
+// 命令
+// "start-dev": "rollup -c -w --environment NODE_ENV:development",
+// "build": "rollup -c --environment NODE_ENV:production",
+
 import path from 'path'
 const __dirname = path.resolve()
 
