@@ -1,3 +1,5 @@
+import { error } from './utils'
+
 const _Page = Page
 
 export const pageHooks = {
