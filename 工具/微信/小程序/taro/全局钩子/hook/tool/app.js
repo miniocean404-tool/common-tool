@@ -1,27 +1,20 @@
 import { error } from './utils'
+import { AppHooks } from '../app'
 
 const _App = App
 
-export const appHooks = {
-  onLaunch: [],
-  onShow: [],
-  onHide: [],
-  onError: [],
-  onPageNotFound: [],
-}
-
 App = (app) => {
-  Object.keys(appHooks).forEach((hook) => {
-    if (appHooks[hook].length) {
+  Object.keys(AppHooks).forEach((hook) => {
+    if (AppHooks[hook].length) {
       const originHook = app[hook]
       app[hook] = function (...args) {
         originHook?.apply(this, args)
 
-        appHooks[hook].forEach((method) => {
+        AppHooks[hook].forEach((method) => {
           try {
             method.apply(this, args)
           } catch (err) {
-            error('appHooks', hook, method, err)
+            error('AppHooks', hook, method, err)
           }
         })
       }
