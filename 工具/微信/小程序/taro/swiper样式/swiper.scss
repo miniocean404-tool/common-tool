@@ -1,0 +1,20 @@
+// 所有指示点容器
+.custom-style .wx-swiper-dots {
+}
+
+/* 指示点的样式 */
+.custom-style .wx-swiper-dots .wx-swiper-dot {
+  width: 5px;
+  height: 5px;
+  background-color: rgba(140, 140, 140, 0.7) !important;
+  transition: width 0.5s;
+  border-radius: 5px;
+}
+
+/* 选中指示点的样式 */
+.custom-style .wx-swiper-dots .wx-swiper-dot-active {
+  width: 30px;
+  height: 5px;
+  background-color: rgba(140, 140, 140, 0.7) !important;
+  border-radius: 5px;
+}
