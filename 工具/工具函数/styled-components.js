@@ -21,7 +21,7 @@ String.prototype.query = function (strs, ...exprs) {
   let match;
   while ((match = regexp.exec(res))) {
     const { key, value } = match.groups;
-    url.searchParams.set(key, value);
+    url.searchParams.set(key.trim(), value.trim());
   }
 
   return url.href;
