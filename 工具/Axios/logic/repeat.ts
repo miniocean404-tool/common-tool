@@ -23,8 +23,8 @@ export function removePendingRequest(config: InternalAxiosRequestConfig) {
   const requestKey = generateReqKey(config);
 
   if (pendingRequest.has(requestKey)) {
-    const cancelToken = pendingRequest.get(requestKey);
-    cancelToken(requestKey);
+    const cancel = pendingRequest.get(requestKey);
+    cancel(requestKey);
     pendingRequest.delete(requestKey);
   }
 }
