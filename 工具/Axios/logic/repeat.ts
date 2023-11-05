@@ -1,6 +1,8 @@
 import axios, { InternalAxiosRequestConfig } from "axios";
 import Qs from "qs";
 
+// 路由切换取消重复请求：https://juejin.cn/post/6844903905625653262
+// 多个请求下的 loading：https://zhuanlan.zhihu.com/p/68341381?utm_id=0
 // 取消重复请求
 const pendingRequest = new Map();
 
