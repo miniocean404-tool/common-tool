@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <p class="test">点击</p>
+  </body>
+
+  <script>
+    const button = document.querySelector(".test")
+
+    speechSynthesis.addEventListener("voiceschanged", () => {
+      speechSynthesis.getVoices()
+    })
+
+    const speakText = (text, type) => {
+      speechSynthesis.cancel()
+      const utterance = new SpeechSynthesisUtterance(text)
+      utterance.voice = speechSynthesis.getVoices().find((voice) => {
+        return voice.voiceURI === type
+      })
+
+      // utterance.text = text
+      // utterance.lang = "zh-CN"
+      utterance.pitch = 3 // 音高
+      utterance.rate = 1 // 速度
+      utterance.volume = 1 // 声音
+      speechSynthesis.speak(utterance)
+    }
+
+    // 分享
+    button.addEventListener("click", () => {
+      speakText("english", "Microsoft Yaoyao - Chinese (Simplified, PRC)")
+    })
+  </script>
+</html>

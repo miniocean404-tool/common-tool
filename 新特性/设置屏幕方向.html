@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <p class="lock-direction">锁定方向</p>
+    <p class="unlock">解锁</p>
+
+    <p class="full">全屏</p>
+    <p class="exit">退出全屏</p>
+  </body>
+
+  <script>
+    const full = document.querySelector(".full")
+    const exit = document.querySelector(".exit")
+    const lockDirection = document.querySelector(".lock-direction")
+    const angle2 = document.querySelector(".unlock")
+
+    full.addEventListener("click", async () => await document.documentElement.requestFullscreen())
+    exit.addEventListener("click", async () => await document.exitFullscreen())
+
+    // 需要全屏时候才可调用，并且是真实设备
+    lockDirection.addEventListener("click", async () => {
+      // portrait-primary 0°
+      // landscape-primary 旋转 90°
+      // portrait-secondary 旋转 180°
+      // landscape-secondary 旋转 270°
+      await screen.orientation.lock("landscape-primary")
+      console.log(screen.orientation.type)
+    })
+
+    unlock.addEventListener("click", async () => {
+      screen.orientation.unlock()
+    })
+  </script>
+</html>

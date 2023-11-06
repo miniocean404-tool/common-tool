@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+
+  <body></body>
+
+  <script>
+    let wakeLock = null
+
+    async function lockHandler() {
+      wakeLock = await navigator.wakeLock.request("screen")
+    }
+
+    async function releaseHandler() {
+      await wakeLock.release()
+      wakeLock = null
+    }
+  </script>
+</html>

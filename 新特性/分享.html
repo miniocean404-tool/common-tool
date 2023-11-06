@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <p class="test">点击</p>
+  </body>
+
+  <script>
+    const button = document.querySelector(".test")
+    // 分享
+    button.addEventListener("click", () => {
+      // 需要 https 环境
+      navigator.share({
+        title: "标题",
+        text: "文字",
+        url: "https://tapajyoti-bose.vercel.app/",
+      })
+    })
+  </script>
+</html>

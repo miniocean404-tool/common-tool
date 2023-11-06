@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+
+  <body></body>
+
+  <script>
+    // 获取权限
+    navigator.permissions.query({ name: "geolocation" }).then((result) => {
+      if (result.state === "granted") {
+        // now you can use geolocation api
+
+        // 获取位置
+        navigator.geolocation.getCurrentPosition(({ coords }) => {
+          console.log(coords.latitude, coords.longitude)
+        })
+      }
+    })
+  </script>
+</html>
