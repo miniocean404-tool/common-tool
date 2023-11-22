@@ -127,6 +127,13 @@ xmp {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+
+  // Chrome、Safari 等 webkit 浏览器内核
+  // 默认情况下，元素的背景色不会被打印，可通过设置属性来支持
+  -webkit-print-color-adjust: exact;
+  // 火狐
+  print-color-adjust: exact;
+  color-adjust: exact;
 }
 
 *::before,
@@ -141,7 +148,7 @@ xmp {
 @font-face {
   font-family: Emoji;
   // Apple Color Emojiji（苹果 Emoji）Segoe UI Symbol（win8.1/10）Segoe UI Symbol（win7/8）Noto Color Emoji（安卓）
-  src: local('Apple Color Emojiji'), local('Segoe UI Emoji'), local('Segoe UI Symbol'), local('Noto Color Emoji');
+  src: local("Apple Color Emojiji"), local("Segoe UI Emoji"), local("Segoe UI Symbol"), local("Noto Color Emoji");
   // 限制Emoji字体作用的字符范围，不限制的话,兜底字符的Unicode范围覆盖了emoji字体
   //   unicode-range限制了Emoji字体的作用范围，符合该范围则使用Emoji这个font-family
   unicode-range: U+1F000-1F644, U+203C-3299;
@@ -155,12 +162,17 @@ xmp {
 
 // 适合标题的衬线字体
 .font-serif {
-  font-family: Georgia, Cambria, 'Times New Roman', Times, serif;
+  font-family: Georgia, Cambria, "Times New Roman", Times, serif;
 }
 
 // 适合代码的等宽字体：
 .font-mono {
-  font-family: Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+  font-family: Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+@page {
+  size: auto A4 landscape; // 打印A4大小
+  margin: 0cm; // 可以控制打印布局（四周边距）,设置为 0 隐藏打印模式中的页眉页脚信息
 }
 
 html,
