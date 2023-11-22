@@ -172,7 +172,7 @@ xmp {
 
 @page {
   size: auto A4 landscape; // 打印A4大小
-  margin: 0cm; // 可以控制打印布局（四周边距）,设置为 0 隐藏打印模式中的页眉页脚信息
+  margin: 0cm 2cm; // 可以控制打印布局（四周边距）,设置为 0 隐藏打印模式中的页眉页脚信息
 }
 
 html,
