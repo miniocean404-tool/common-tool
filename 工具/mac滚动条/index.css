@@ -1,6 +1,6 @@
-/* https://www.51cto.com/article/716443.html?u_atoken=8171a9a9-be6b-4920-9878-d8d3024cfb49&u_asession=01MZWXZQgqn1l9S5W-jRywouKU1apZRb8F8vRS15G1YstuLCohypvLqW5Zo6ZAFwOexqKb0OX7tpB7q7t04NHjE9sq8AL43dpOnCClYrgFm6o&u_asig=05w-6owfGv64hvnGs4SAf_pMk2rrN-EbjYzlBzRtCHx7kcyBsKFMgAEWtzBxEMWOoN2z-Y3g3-q4ftj_llDI4SgsFLTXhCEvE_og5MOUpH1dMXrAkkn0U4pwhS9IgCBzc2_DFEzVfpQWbjVvh5rWih3gsF0NK6kp09WLl6-OCJKgEquQ7LZJc7c7XM_PtVmJpVksmHjM0JOodanL5-M1Qs1bmTJ-Ny--JU3QF5vegu4rmzt9NVzGKTvOx50cD_oueiwNPV_Z06jdna1u4Rz4r_TBkqJqwOyD2ZN8ej401MUSTUpLHxH1iRKZmnjAu0Zefw&u_aref=X2CAk1aRXzGV9UXwpR4NTszI2as%3D */
 body {
   margin: 0;
+  /* chrome 114 版本开始废弃 */
   overflow: overlay;
   background-color: transparent;
   transition: 0.3s background-color;
@@ -12,23 +12,13 @@ body {
 ::-webkit-scrollbar-thumb {
   background-color: inherit;
   border-radius: 8px;
+
+  /* 添加滚动条的边框 */
   background-clip: content-box;
   border: 2px solid transparent;
 }
 body[scroll],
 ::-webkit-scrollbar-thumb:hover {
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: rgba(0, 0, 0, 0.5);
   transition: 0s;
-}
-div {
-  height: 300px;
-}
-.bg1 {
-  background-color: aquamarine;
-}
-.bg2 {
-  background-color: bisque;
-}
-.bg3 {
-  background-color: pink;
 }
