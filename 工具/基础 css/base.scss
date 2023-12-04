@@ -154,6 +154,18 @@ xmp {
   unicode-range: U+1F000-1F644, U+203C-3299;
 }
 
+// 可变商用字体，可使用 font-variation-settings
+@font-face {
+  font-family: MiSans VF;
+  src: url("./MiSans/MiSans VF.ttf");
+  font-display: block;
+  font-style: normal italic;
+  font-weight: 100 900;
+  font-stretch: 0% 400%;
+  font-feature-settings: normal;
+  font-variation-settings: normal;
+}
+
 // 没有字体文件暂时注释
 // @font-face {
 //  font-family: Ping fang SC Medium;
@@ -187,10 +199,12 @@ body {
   // font-style 是否斜体, font-variant 和 font-weight 必须在 font-size 之前
   // line-height 必须跟在 font-size 后面，由 "/" 分隔，例如 "16px/3"
   // font-family 必须最后指定
-  font: 16px / 1.5 Ping fang SC Medium, system-ui, —apple-system, Segoe UI, Rototo, Emoji, Helvetica, Arial, sans-serif;
+  font: 16px / 1.5 Ping fang SC Medium, system-ui, —apple-system, Segoe UI, Rototo, Emoji, Helvetica, Arial, sans-serif,
+    MiSans VF;
 
   // 张旭鑫推荐 字体 系统字体：system-ui(chrome、safari) —apple-system(firefox)  兜底字体：Segoe UI(window) Arial(旧windows) sans-serif (旧Android) Segoe UI(Android字体) Helvetica(Mac Os iOS)
-  font-family: Ping fang SC Medium, system-ui, —apple-system, Segoe UI, Rototo, Emoji, Helvetica, Arial, sans-serif;
+  font-family: Ping fang SC Medium, system-ui, —apple-system, Segoe UI, Rototo, Emoji, Helvetica, Arial, sans-serif,
+    MiSans VF;
 
   -webkit-font-smoothing: antialiased; // 取消字体抗锯齿
   -moz-osx-font-smoothing: grayscale;
