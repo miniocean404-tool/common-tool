@@ -2,6 +2,7 @@ import domtoimage from "dom-to-image";
 
 const screenshot = async (dom) => {
   window.devicePixelRatio;
+  // svg 转图片后文字换行是设备缩放问题，鼠标滚动或者设置 zoom 放大到原值就正常了
   const base64 = await domtoimage.toSvg(dom);
   return base64;
 };
