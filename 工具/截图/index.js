@@ -23,7 +23,7 @@ function imageToPngBase64(image, scale) {
   return canvas.toDataURL("image/png");
 }
 
-async function download(filename, url) {
+function download(filename, url) {
   const a = document.createElement("a");
   a.href = url;
   a.download = filename;
