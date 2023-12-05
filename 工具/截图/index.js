@@ -1,3 +1,4 @@
+// html-to-image 更好用
 import domtoimage from "dom-to-image";
 
 const screenshot = async (dom) => {
