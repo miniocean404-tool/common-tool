@@ -12,6 +12,7 @@
    url = `${githubAddr}/blob/${branch}/${`src${props.filePath.split("src").slice(-1)[0]}`}#L${line}-L${line+1}`
 ```
 
-## 编码
+## 命令行
 
-1. vscode: code -r -g 完整路径
+1. vscode: code -r -g 完整路径:行数:列数
+2. webstorm64.exe --line 行数 --column 列数 文件路径
