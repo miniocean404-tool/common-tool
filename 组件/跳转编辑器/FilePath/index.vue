@@ -3,18 +3,19 @@ const props = defineProps<{ filePath: string }>()
 
 const isDev = process.env.NODE_ENV === "development"
 
-function open(type: string) {
+function open(type: string,line=0,col=0) {
   let url: string
 
   if (type === "VsCode") {
-    url = `vscode://file/${props.filePath}:0:0`
+    url = `vscode://file/${props.filePath}:${line}:${col}`
   } else if (type === "WebStorm") {
-    url = `phpstorm://open?file=${props.filePath}&line=0&column=0`
+    url = `phpstorm://open?file=${props.filePath}&line=${line}&column=${col}`
   } else {
     const githubAddr = "https://github.com/miniocean404-vue/tool_and_demo_vite_vue3"
     const branch = "master"
-    // url = `https://github.com/wangrongding/frontend-park/blob/main/${`src${props.filePath.split("src").slice(-1)[0]}`}`
-    url = `${githubAddr}/blob/${branch}/${`src${props.filePath.split("src").slice(-1)[0]}`}`
+    const hightLine = '#L$1-L$10'
+
+    url = `${githubAddr}/blob/${branch}/${`src${props.filePath.split("src").slice(-1)[0]}`}#L${line}-L${line+1}${hightLine}`
   }
 
   window.open(url, "_blank")
@@ -34,9 +35,22 @@ function open(type: string) {
         <el-input :model-value="`src${props.filePath.split('src').slice(-1)[0]}`"></el-input>
 
         <!-- 按钮 -->
-        <el-button type="primary" icon="View" size="default" color="#000000" @click="open('GitHub')">在GitHub中打开</el-button>
-        <el-button type="primary" icon="View" color="#26b2f3" :disabled="!isDev" size="default" @click="open('VsCode')">在VsCode中打开</el-button>
-        <el-button type="primary" icon="View" color="#00cdd7" :disabled="!isDev" size="default" @click="open('WebStorm')">在WebStorm中打开</el-button>
+        <el-button type="primary" icon="View" size="default" color="#000000" @click="open('GitHub')">
+          在GitHub中打开
+        </el-button>
+        <el-button type="primary" icon="View" color="#26b2f3" :disabled="!isDev" size="default" @click="open('VsCode')">
+          在VsCode中打开
+        </el-button>
+        <el-button
+          type="primary"
+          icon="View"
+          color="#00cdd7"
+          :disabled="!isDev"
+          size="default"
+          @click="open('WebStorm')"
+        >
+          在WebStorm中打开
+        </el-button>
       </div>
     </el-popover>
   </div>
