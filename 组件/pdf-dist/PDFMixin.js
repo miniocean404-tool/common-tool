@@ -1,7 +1,7 @@
 // 版本 2.2.228
 import PDFjs from "pdfjs-dist";
 import pdfWorker from "pdfjs-dist/build/pdf.worker";
-const fontLink = "https://unpkg.com/pdfjs-dist@${PDFJS.version}}/cmaps/";
+const fontLink = `https://unpkg.com/pdfjs-dist@${PDFjs.version}}/cmaps/`;
 
 export const PDFMixin = {
   data() {
