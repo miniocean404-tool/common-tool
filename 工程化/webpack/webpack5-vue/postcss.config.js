@@ -4,7 +4,7 @@ module.exports = {
 	plugins: [autoprefixer()],
 };
 
-// autoprefixer package.json中添加
+// package.json中添加;
 // "browserslist": [
 //   "> 1%",
 //   "last 2 versions"
