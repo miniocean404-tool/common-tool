@@ -1,4 +1,4 @@
-import confetti from "canvas-confetti";
+import confetti from "canvas-confetti"
 
 const pc = {
   origin: {
@@ -13,7 +13,9 @@ const pc = {
   startVelocity: 120,
   // 五彩纸屑在垂直方向扩散的角度，45 表示五彩纸屑以 Y 轴正方向 22.5 度角发射。
   spread: 120,
-};
+  // 值越小粒子消失得越快，值越大粒子消失得越慢 默认 200
+  ticks: 700,
+}
 
 const phone = {
   origin: {
@@ -28,13 +30,14 @@ const phone = {
   startVelocity: 100,
   // 五彩纸屑在垂直方向扩散的角度，45 表示五彩纸屑以 Y 轴正方向 22.5 度角发射。
   spread: 70,
-};
+  // 值越小粒子消失得越快，值越大粒子消失得越慢 默认 200
+  ticks: 500,
+}
 
 const common = {
   // 发射的角度，0 表示水平向右；90 表示垂直向上；180 表示水平向左；270 表示垂直向下。
   angle: 90,
-  // 值越小粒子消失得越快，值越大粒子消失得越慢 默认 200
-  ticks: 500,
+
   // 粒子下落的速度。1 是全重力，0.5 是半重力，0 表示无重力；大于 1 表示加速下落，负值表示粒子会向上升起。 默认：1
   gravity: 1,
   // 缩放纸屑的大小
@@ -51,6 +54,6 @@ const common = {
   // 五彩纸屑的形状数组，可以为 square 和 circle。默认设置是均匀混合使用这两种形状。
   // ['circle', 'circle', 'square'] 表示使用三分之二的圆圈和三分之一的正方形
   // shapes: ["circle", "circle", "square"],
-};
+}
 
-confetti({ ...common, ...pc });
+confetti({ ...common, ...pc })
