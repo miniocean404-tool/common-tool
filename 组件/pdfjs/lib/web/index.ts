@@ -1,7 +1,8 @@
+// 版本：3.11.174
 import * as PDFJS from "pdfjs-dist";
 import * as PDFViewer from "pdfjs-dist/web/pdf_viewer";
 import PDFWorker from "pdfjs-dist/build/pdf.worker.min.js?url";
-const camp = "https://davincimotor-web-resources.oss-cn-beijing.aliyuncs.com/pdf/cmaps/";
+const camps = new URL("/camps", location.href).href;
 import sandbox from "pdfjs-dist/build/pdf.sandbox.min.js?url";
 
 import "pdfjs-dist/web/pdf_viewer.css";
@@ -30,6 +31,7 @@ export async function renderPDFViewer(url: string) {
   });
 
   const root: HTMLDivElement = document.querySelector(".container")!;
+  root.setAttribute("style", "position: absolute;left: 50%;transform: translateX(-50%);");
 
   const pdfViewer = new PDFViewer.PDFViewer({
     container: root,
@@ -54,7 +56,7 @@ export async function renderPDFViewer(url: string) {
 
   const loadingTask = PDFJS.getDocument({
     url,
-    cMapUrl: camp,
+    cMapUrl: camps,
     cMapPacked: CMAP_PACKED,
     enableXfa: ENABLE_XFA,
   });
