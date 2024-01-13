@@ -18,12 +18,23 @@ const RollupPluginRemoveOthersConsole = () => {
         const includesLines = rows.map((row, idx) => (row.includes(`console.log(`) ? idx : undefined)).filter((n) => n);
 
         const removeLine = includesLines.filter((line) => {
-          const authorInfo = childProcess.execSync(
-            `git blame -L ${line + 1},${line + 1} --porcelain ${id} | ${findStr} "^author "`,
-            { encoding: "utf-8" },
-          );
-          const author = authorInfo.slice(authorInfo.indexOf(`author `) + 7);
-          return ![userName, `Not Committed Yet`].includes(author);
+          if (line) {
+            const isCommit = childProcess.execSync(`git status --porcelain ${filePath}`, {
+              encoding: "utf-8",
+            });
+
+            if (isCommit.startsWith("??")) return;
+
+            const authorInfo = childProcess.execSync(
+              `git blame -L ${line + 1},${line + 1} --porcelain ${filePath} | ${findStr} "^author"`,
+              {
+                encoding: "utf-8",
+              },
+            );
+
+            const author = authorInfo.slice(authorInfo.indexOf(`author `) + 7);
+            return ![userName, `Not Committed Yet`].includes(author);
+          }
         });
 
         return rows
