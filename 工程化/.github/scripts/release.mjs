@@ -31,22 +31,27 @@ async function release() {
     console.log(`无效的版本标志 "${flag}"`);
     process.exit(1);
   }
+  const nextVersion = `${major}.${minor}.${patch}`;
 
   const nextTag = `v${nextVersion}`;
   // await updatelog(nextTag, "release");
 
-  const nextVersion = `${major}.${minor}.${patch}`;
-  packageJson.version = nextVersion;
+  pkg.version = nextVersion;
   tauriPkg.package.version = nextVersion;
 
   // 将新版本写入 package.json 文件
-  fs.writeFileSync("./package.json", JSON.stringify(packageJson, null, 2));
+  fs.writeFileSync("./package.json", JSON.stringify(pkg, null, 2));
   fs.writeFileSync("./src-tauri/tauri.conf.json", JSON.stringify(tauriPkg, null, 2));
+
+  const gitMessage = execSync("git log --pretty=format:%s HEAD -1", { encoding: "utf-8" });
+  const gitBranch = execSync("git rev-parse --abbrev-ref HEAD", { encoding: "utf-8" });
+  const gitHash = execSync("git rev-parse --verify --short HEAD", { encoding: "utf-8" });
 
   // 提交修改的文件，打 tag 标签（tag 标签是为了触发 github action 工作流）并推送到远程
   execSync("git add ./package.json ./UPDATE_LOG.md");
-  execSync(`git commit -m "v${nextVersion}"`);
-  execSync(`git tag -a v${nextVersion} -m "v${nextVersion}"`);
+  execSync("git add .");
+  execSync(`git commit -m "version: v${nextVersion}"`);
+  execSync(`git tag -a v${nextVersion} -m "hash:${gitHash} branch:${gitBranch} message:${gitMessage}"`);
   execSync(`git push`);
   execSync(`git push origin v${nextVersion}`);
   console.log(`发布成功...`);
