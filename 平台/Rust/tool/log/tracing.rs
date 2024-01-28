@@ -1,5 +1,10 @@
 // https://rust-book.junmajinlong.com/ch102/tracing.html
 
+// tracing = "0.1.40"
+// tracing-appender = "0.2.3"
+// tracing-subscriber = { version = "0.3.18", features = ["env-filter"] }
+
+
 use std::{error::Error, io};
 
 use tracing_appender::non_blocking::WorkerGuard;
