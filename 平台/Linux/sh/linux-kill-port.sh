@@ -27,4 +27,4 @@ pid=$(lsof -i:${port} -P -t -sTCP:LISTEN)
 echo "${green}端口: ${port} 对应的 pid 为 ${pid}${none}"
 
 kill -9 $pid
-echo "${green}已杀死 ${pid} 进程${none}"
+echo "${green}已杀死端口 ${port} 进程${none}"
