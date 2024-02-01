@@ -1,0 +1,16 @@
+// theme-red.scss
+/* 财富红 */
+[data-theme="red"] {
+  --color-primary: #df291e;
+  --color-primary-bold: #f84323;
+
+  --color-primary-light: #fb8e71;
+  --color-primary-light-1: #fcb198;
+  --color-primary-light-2: #ffd1d1;
+  --color-primary-lighter: #ffeeee;
+
+  --main-background: linear-gradient(90deg, #df291e 2%, #ff614c 100%);
+
+  --user-info-content-background-image: url("../../assets/main/top-user-info-bg-2.png");
+  --msg-tip-content-background-image: url("../../assets/main/top-user-info-bg-2.png");
+}

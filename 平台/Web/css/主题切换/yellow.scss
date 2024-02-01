@@ -1,0 +1,16 @@
+// theme-orange.scss
+// 阳光黄
+[data-theme="orange"] {
+  --color-primary: #ff7335;
+  --color-primary-bold: #fe9d2e;
+
+  --color-primary-light: #fecb5d;
+  --color-primary-light-1: #ffde8b;
+  --color-primary-light-2: #fcdaba;
+  --color-primary-lighter: #fff3e8;
+
+  --main-background: linear-gradient(90deg, #ff7335 2%, #ffa148 100%);
+
+  --user-info-content-background-image: url("../../assets/main/top-user-info-bg-1.png");
+  --msg-tip-content-background-image: url("../../assets/main/top-user-info-bg-1.png");
+}
