@@ -1,0 +1,16 @@
+// theme-default.scss
+/* 默认主题色-合作蓝色 */
+[data-theme="default"] {
+  --color-primary: #516bd9;
+  --color-primary-bold: #3347b6;
+
+  --color-primary-light: #6c85e1;
+  --color-primary-light-1: #c7d6f7;
+  --color-primary-light-2: #c2d6ff;
+  --color-primary-lighter: #eff4fe;
+
+  --main-background: linear-gradient(90deg, #4e68d7, #768ff3);
+
+  --user-info-content-background-image: url("../../assets/main/top-user-info-bg.png");
+  --msg-tip-content-background-image: url("../../assets/main/top-user-info-bg.png");
+}
