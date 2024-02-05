@@ -4,3 +4,31 @@ $--color-primary-light: var(--color-primary-light) !default;
 $--color-primary-light-1: var(--color-primary-light-1) !default;
 $--color-primary-light-2: var(--color-primary-light-2) !default;
 $--color-primary-lighter: var(--color-primary-lighter) !default;
+
+// View Transition API：https://juejin.cn/post/7207810396420325413?searchId=2024020110353843E11AFBA5EE18FF6AB1
+// View Transition API 产生过渡时，会生成一组伪元素，分别代表着状态变换前的图像和状态变换后的图像，并且默认就带有过滤渐隐渐现的过渡效果，
+// 我们主题切换不需要这种效果，将其默认效果关闭，同时也关闭过渡自带的 mix-blend-mode 效果。
+html::view-transition-old(root),
+html::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+/* 进入dark模式和退出dark模式时，两个图像的位置顺序正好相反 */
+.dark::view-transition-old(root) {
+  z-index: 1;
+}
+.dark::view-transition-new(root) {
+  z-index: 999;
+}
+
+html::view-transition-old(root) {
+  z-index: 999;
+}
+html::view-transition-new(root) {
+  z-index: 1;
+}
+
+.dark {
+  // 应用的主题颜色或应用元素的样式，搭配 View Transition API
+}
