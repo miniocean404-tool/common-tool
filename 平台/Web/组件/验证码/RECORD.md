@@ -9,3 +9,4 @@ node-puzzle - node 服务端切验证码的图：https://github.com/caijf/node-p
 
 文字点击验证码-vue go-captcha-example-vue：https://github.com/wenlng/go-captcha-vue
 vue2: 验证码滑动 https://github.com/yimijianfang/vue-drag-verify?tab=readme-ov-file
+vue3 验证码滑动-支持后端验证：https://github.com/zxiaogong/vue3-action-captcha
