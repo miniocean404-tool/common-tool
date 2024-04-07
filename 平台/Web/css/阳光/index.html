@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>JS Bin</title>
+
+  <style>
+    body {
+      width: 100vw;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .bg {
+      width: 100%;
+      height: 100%;
+      background-color: lightcoral;
+    }
+
+    .sun {
+      position: absolute;
+      inset: 0;
+      background: wheat;
+      clip-path: var(--clip);
+    }
+  </style>
+
+  <script>
+    window.onload = () => {
+      // 光束的数量
+      const points = 50;
+      // 小圆半径
+      const r1 = 100;
+      // 大圆半径
+      const r2 = 9000;
+
+      // 圆心位置
+      const cx = window.innerWidth / 2;
+      const cy = window.innerHeight / 2;
+
+
+      let arr = [];
+      let angPerPoint = (Math.PI * 2) / points;
+      for (let i = 0; i < points; i += 1) {
+        let r = (i % 2 === 0) ? r1 : r2;
+        let x1 = cx + Math.cos(angPerPoint * i) * r;
+        let x2 = cx + Math.cos(angPerPoint * (i + 1)) * r;
+        let y1 = cy + Math.sin(angPerPoint * i) * r;
+        let y2 = cy + Math.sin(angPerPoint * (i + 1)) * r;
+        console.log({ x1, y1, x2, y2 })
+        arr.push([x1, y1]);
+        arr.push([x2, y2])
+      }
+      let path = arr.map(item => `${item[0]}px ${item[1]}px`).join(',')
+
+      let sun = document.querySelector('.sun')
+      sun.style.setProperty('--clip', `polygon(${path})`);
+    }
+  </script>
+
+</head>
+
+<body>
+  <div class="bg">
+    <div class="sun"></div>
+  </div>
+</body>
+
+</html>
