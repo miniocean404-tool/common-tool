@@ -9,6 +9,7 @@ cyan='\033[96m'
 none='\033[0m' #无颜色
 
 # -t 5 等待5秒 read 获取命令行输入, -n 字符串大于0为true
+echo "${green} 请输入端口:${none}"
 read -t 5 port
 if [ ! -n "${port}" ];then
  port=0
