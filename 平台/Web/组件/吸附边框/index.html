@@ -1,0 +1,158 @@
+<!-- 原文章：https://mp.weixin.qq.com/s/2THDr-6d3D8bpNGwg-0cMA -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body,
+        html {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            background: #fff;
+            cursor: none;
+        }
+
+        #pointer-small,
+        #pointer-big {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 12px;
+            height: 12px;
+            background: #999;
+            border-radius: 50%;
+            background-color: #4caf50;
+            z-index: 1;
+            mix-blend-mode: exclusion;
+            pointer-events: none;
+        }
+
+        #pointer-big {
+            width: 42px;
+            height: 42px;
+            background: #fff;
+            transition: .15s ease-out;
+        }
+
+        .g-animation {
+            position: relative;
+            margin: auto;
+            padding: 20px;
+            width: 400px;
+            font-size: 24px;
+            line-height: 1.5;
+            text-align: justify;
+            background: #42b983;
+            color: #fff;
+            border: 3px solid #333;
+            border-radius: 5px;
+        }
+
+        .g-animation:nth-child(2) {
+            background: #ff8c00;
+            border-radius: 0;
+        }
+
+        .g-animation:nth-child(3) {
+            width: 240px;
+            height: 240px;
+            background: #673ab7;
+            border-radius: 50%;
+            font-size: 18px;
+            text-align: center;
+        }
+    </style>
+
+    <script>
+        window.onload = () => {
+            const body = document.querySelector("body");
+            const small_ball = document.getElementById("pointer-small");
+            const big_ball = document.getElementById("pointer-big");
+
+
+            let isHovering = false;
+
+            // 吸附元素在元素之外的宽度
+            const attach_border_width = 20
+
+            // 吸附特效
+            window.addEventListener("mouseover", (event) => {
+                const target = event.target;
+
+                if (target.classList.contains("g-animation")) {
+                    isHovering = true;
+
+                    const rect = target.getBoundingClientRect();
+                    const style = window.getComputedStyle(target);
+
+                    big_ball.style.width = `${rect.width + attach_border_width}px`;
+                    big_ball.style.height = `${rect.height + attach_border_width}px`;
+                    big_ball.style.borderRadius = `${style.borderRadius}`;
+                    big_ball.style.transform = `translate(${rect.left - attach_border_width / 2}px, ${rect.top - 10 / 2}px)`;
+                }
+            });
+
+            window.addEventListener("mouseout", (event) => {
+                const target = event.target;
+                if (target.classList.contains("g-animation")) {
+                    isHovering = false;
+
+                    big_ball.style.width = `42px`;
+                    big_ball.style.height = `42px`;
+                    big_ball.style.borderRadius = `50%`;
+                }
+            });
+
+            body.addEventListener("mousemove", (e) => {
+                window.requestAnimationFrame(function () {
+                    setPosition(e.clientX, e.clientY);
+                });
+            });
+
+
+            // 设置鼠标移动位置
+            const small_half_width = small_ball.offsetWidth / 2;
+            const big_half_width = big_ball.offsetWidth / 2;
+
+            function setPosition(x, y) {
+                window.requestAnimationFrame(function () {
+                    small_ball.style.transform = `translate(${x - small_half_width}px, ${y - small_half_width}px)`;
+
+                    if (!isHovering) {
+                        big_ball.style.transform = `translate(${x - big_half_width}px, ${y - big_half_width}px)`;
+                    }
+                });
+            }
+
+        }
+    </script>
+</head>
+
+<body>
+    <div class="g-animation">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magnam officiis sapiente
+        laboriosam
+        aut earum, nostrum culpa facilis quidem, dolorum aliquid quos rerum consectetur quisquam. Ut porro officiis
+        accusamus perferendis labore.</div>
+
+    <div class="g-animation">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magnam officiis sapiente
+        laboriosam
+        aut earum, nostrum culpa facilis quidem, dolorum aliquid quos rerum consectetur quisquam.</div>
+
+    <div class="g-animation">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magnam officiis sapiente
+        laboriosam
+        aut earum, nostrum culpa facilis quidem.</div>
+
+    <div id="pointer-small"></div>
+    <div id="pointer-big"></div>
+</body>
+
+</html>
