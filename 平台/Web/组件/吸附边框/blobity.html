@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>blobity canvas 吸附</title>
+
+    <style>
+        body {
+            background-color: white;
+        }
+    </style>
+
+    <script src="https://cdn.blobity.dev/by.js"></script>
+    <script>
+        const option = {
+            licenseKey: 'opensource',
+            mode: 'bouncy',
+            // 是否反转颜色，需要设置背景色才能反转颜色
+            invert: true,
+            zIndex: 0,
+
+            // 大球
+            size: 40,
+            color: '#010000',
+
+            // 小球
+            dotColor: '#10b981',
+
+            // 控制可聚焦元素悬停后是否应具有磁性行为
+            magnetic: false,
+            // 控制可聚焦元素的圆角
+            radius: 8,
+            // 聚焦元素 x 边框大小
+            focusableElementsOffsetX: 10,
+            // 聚焦元素 y 边框大小
+            focusableElementsOffsetY: 4,
+            // 可以聚焦的元素
+            focusableElements:
+                '.box,.container',
+        }
+
+        window.onload = () => {
+            const blobity = new Blobity(option)
+        }
+    </script>
+</head>
+
+<body>
+    <div class="box">1</div>
+</body>
+
+</html>
