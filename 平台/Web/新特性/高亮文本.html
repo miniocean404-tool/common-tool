@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hightlight</title>
+
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            const query = document.getElementById("query");
+            const article = document.getElementById("article");
+
+            const treeWalker = document.createTreeWalker(article, NodeFilter.SHOW_TEXT);
+            const textNodes = [];
+
+            let currentNode = treeWalker.nextNode();
+            while (currentNode) {
+                textNodes.push(currentNode);
+                currentNode = treeWalker.nextNode();
+            }
+
+            query.addEventListener("input", (e) => {
+                if (!CSS.highlights) return console.error("CSS 高亮 API 不支持")
+
+                // 清除 HighlightRegistry 之前的搜索接口
+                CSS.highlights.clear();
+
+                const str = e.target.value.trim().toLowerCase();
+                if (!str) return
+
+                // Iterate over all text nodes and find matches.
+                const ranges = textNodes
+                    .map((el) => ({ el, text: el.textContent.toLowerCase() }))
+                    .map(({ el, text }) => {
+                        const indices = [];
+                        let startPos = 0;
+
+                        // 搜索文本
+                        while (startPos < text.length) {
+                            const index = text.indexOf(str, startPos);
+                            if (index === -1) break;
+                            indices.push(index);
+                            startPos = index + str.length;
+                        }
+
+                        //
+                        return indices.map((index) => {
+                            const range = new Range();
+                            range.setStart(el, index);
+                            range.setEnd(el, index + str.length);
+                            return range;
+                        });
+                    });
+
+
+                // 对这个范围创建一个 高亮对象
+                const searchResultsHighlight = new Highlight(...ranges.flat());
+
+                // 设置高亮结果 highlight(name) 为 name 的高亮 css
+                CSS.highlights.set("name", searchResultsHighlight);
+            });
+        })
+    </script>
+
+    <style>
+        ::highlight(name) {
+            background-color: #f06;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+
+    <input type="text" id="query">
+
+    <article id="article">
+        <p>
+            Maxime debitis hic, delectus perspiciatis laborum molestiae labore,
+            deleniti, quam consequatur iure veniam alias voluptas nisi quo. Dolorem
+            eaque alias, quo vel quas repudiandae architecto deserunt quidem, sapiente
+            laudantium nulla.
+        </p>
+        <p>
+            Maiores odit molestias, necessitatibus doloremque dolor illum reprehenderit
+            provident nostrum laboriosam iste, tempore perferendis! Ab porro neque esse
+            voluptas libero necessitatibus fugiat, ex, minus atque deserunt veniam
+            molestiae tempora? Vitae.
+        </p>
+        <p>
+            Dolorum facilis voluptate eaque eius similique ducimus dignissimos assumenda
+            quos architecto. Doloremque deleniti non exercitationem rerum quam alias
+            harum, nisi obcaecati corporis temporibus vero sapiente voluptatum est
+            quibusdam id ipsa.
+        </p>
+    </article>
+</body>
+
+</html>

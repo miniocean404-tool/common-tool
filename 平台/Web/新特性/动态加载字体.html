@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        const font = new FontFace("myfont", "url(myfont.woff)", {
+            style: "italic",
+            weight: "400",
+            stretch: "condensed",
+        });
+
+        // 加载字体
+        font.load().then(() => {
+            // 加载完毕
+        }, (err) => {
+            // 加载异常
+            console.error(err);
+        },);
+
+        // 等待到所有的字体都加载完毕
+        document.fonts.ready.then(() => {
+            // 使用该字体渲染文字（如：在 canvas 中绘制）
+        });
+    </script>
+</body>
+
+</html>

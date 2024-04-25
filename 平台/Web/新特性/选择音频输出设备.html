@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="myButton">按钮</div>
+    <script>
+        // localhost 127.0.0.1 https 中使用，目前仅火狐浏览器支持
+        document.querySelector("#myButton").addEventListener("click", async () => {
+            if (!navigator.mediaDevices.selectAudioOutput) {
+                console.log("selectAudioOutput() 不支持或不在 localhost 127.0.0.1 https 中使用，目前仅火狐浏览器支持");
+                return;
+            }
+
+            // Display prompt to select device
+            const audioDevice = await navigator.mediaDevices.selectAudioOutput();
+
+            // Create an audio element and start playing audio on the default device
+            const audio = document.createElement("audio");
+            audio.src = "https://example.com/audio.mp3";
+            audio.play();
+
+            // Change the sink to the selected audio output device.
+            audio.setSinkId(audioDevice.deviceId);
+        });
+    </script>
+</body>
+
+</html>

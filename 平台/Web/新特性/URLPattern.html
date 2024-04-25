@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // URL Pattern API 定义了一种语法，该语法用于创建URL模式匹配器。这些模式能够与完整的URL或URL的各个组成部分进行匹配。其借鉴了 path-to-regexp 的语法
+        // 匹配模块包含：URL Pattern API 的模式语法包括：
+        //    字面字符串：将精确匹配的文本字符串，例如 "/home" 或 "/contact"。
+        //    通配符：如 "/posts/ " 中的星号 ( ) 表示匹配任何字符序列，直至遇到下一个路径分隔符（/）。
+        //    命名组：如 "/books/:id" 中的 ":id"，它会提取匹配URL中对应部分的值，作为单独的数据项。
+        //    非捕获组：如 "/books{/old}?"，这里的花括号 {...}? 表示该部分模式是可选的，可以匹配0次或1次，且不会作为一个单独的数据项提取出来。
+        //    正则表达式组：如 "/books/(\d+)" 中的 (\d+)，这部分遵循JavaScript正则表达式的规则，用于进行复杂匹配，尽管在URL Pattern API中有一定的限制。例如，此处的正则表达式将匹配一个或多个数字字符，并将其作为一个独立的数据项提取出来。
+        const pattern = new URLPattern({ pathname: "/books/:id/*{/bbw}?" });
+        const url = 'https://example.com/books/123/article/bbw'
+        console.log(pattern.test(url)); // true
+        console.log(pattern.exec(url).pathname.groups); // { id: '123' }
+        console.log(pattern.exec(url));
+
+    </script>
+</body>
+
+</html>
