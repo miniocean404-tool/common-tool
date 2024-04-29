@@ -1,10 +1,6 @@
-const defaultOptions = {
-  distant: 100,
-  duration: 500,
-};
-
 const map = new Map();
 
+let ob;
 const getIntersectionObserver = () => {
   if (ob) return ob;
 
@@ -21,14 +17,13 @@ const getIntersectionObserver = () => {
         }
       }
     },
-    // 元素身体暴露在视口中百分之多少时候视为 isIntersecting
     { threshold: 0.0 },
   );
   return ob;
 };
 
 export function elementRiseSmoothly(options) {
-  options = { ...defaultOptions, ...options };
+  options = { ...{ distant: 100, duration: 500 }, ...options };
 
   const { el, distant, duration } = options;
   if (!isExistViewport(el)) return;
