@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .parent-container {
+      height: 50vh;
+      min-height: 60px;
+      width: 50vw;
+      font-size: 32px;
+      line-height: 60px;
+    }
+
+    .text-container {
+      /* overflow: hidden; */
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      height: 100%;
+      background-color: rgb(243, 204, 204);
+      word-break: break-all;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="parent-container" id="container">
+    <div class="text-container" id="text">
+      蓦然回首，那每一个瞬间的感动都溢满了心扉，高悬的心墙上盛载着青涩与酸甜苦辣的果实，温和而善良的眼神使爱的节日变得更加温存而充盈。
+    </div>
+  </div>
+
+  <script>
+    const boxDom = document.getElementById('container');
+    const textDom = document.getElementById('text');
+
+    function getWebkitLineClamp(boxDom, textDom, lineHeight, fontSize) {
+      if (!boxDom || !textDom) return maxNum
+
+      const boxRect = boxDom.getBoundingClientRect();
+      const textRect = textDom.getBoundingClientRect();
+
+      const range = document.createRange();
+      range.setStart(textDom, 0);
+      range.setEnd(textDom, textDom.childNodes.length);
+      const rangeRect = range.getBoundingClientRect();
+
+      // Reset height
+      textDom.style.height = '100%';
+
+      // 计算最大行数
+      if (rangeRect.height + (lineHeight - fontSize) > textRect.height) {
+        const rowNum = Math.floor(boxRect.height / lineHeight);
+        textDom.style.height = `${rowNum * lineHeight}px`;
+        return rowNum;
+      }
+
+      return maxNum;
+    }
+
+    // 获取文字高度及行高
+    function getRowHeight(boxDom, textDom) {
+      const styles = window.getComputedStyle(textDom)
+      const fontSize = parseFloat(styles.fontSize)
+      let lineHeight = styles.lineHeight
+
+      if (styles.lineHeight === 'normal') {
+        lineHeight = fontSize
+      } else if (styles.lineHeight.includes('px')) {
+        lineHeight = parseFloat(lineHeight);
+      } else if (styles.lineHeight.includes('%')) {
+        lineHeight = parseFloat(fontSize) * parseFloat(lineHeight) / 100;
+      } else {
+        lineHeight = parseFloat(lineHeight);
+      }
+
+      return [fontSize, lineHeight]
+    }
+
+    function updateStyle(row) {
+      Object.assign(textDom.style, {
+        // 最大行数设置
+        WebkitLineClamp: row,
+        overflow: "hidden",
+        textOverflow: "ellipsis",
+        display: "-webkit-box",
+        WebkitBoxOrient: "vertical",
+        height: "100%",
+        backgroundColor: "red",
+        wordBreak: "break-all",
+      });
+    }
+
+    function init() {
+      const maxNum = 999999999;
+      let row = maxNum;
+
+      const [fontSizeHeight, fontLineHeight] = getRowHeight(boxDom, textDom);
+      const resizeObserver = new ResizeObserver(entries => {
+        row = getWebkitLineClamp(boxDom, textDom, fontLineHeight, fontSizeHeight);
+        updateStyle(row);
+      });
+      resizeObserver.observe(boxDom);
+    }
+
+    init();
+  </script>
+</body>
+
+</html>
