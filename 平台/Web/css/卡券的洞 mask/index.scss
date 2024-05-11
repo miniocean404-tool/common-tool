@@ -1,0 +1,8 @@
+// 设置圆角背景模糊
+.circle-corners {
+  mask: radial-gradient(circle at 340px top, transparent 10px, #fafafa 10px),
+    radial-gradient(circle at 640px top, transparent 10px, #fafafa 10px),
+    radial-gradient(circle at 340px bottom, transparent 10px, #fafafa 10px),
+    radial-gradient(circle at 640px bottom, transparent 10px, #fafafa 10px);
+  mask-composite: intersect;
+}
