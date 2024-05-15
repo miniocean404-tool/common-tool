@@ -1,11 +1,15 @@
-const getInstance = (function () {
-  var instance;
+function getInstanceWarrper(fn: any) {
+  const getInstance = (function () {
+    var instance;
 
-  return (fn: any) => {
-    if (!instance) {
-      if (typeof fn === "function") instance = fn();
-      if (typeof fn === "object") instance = new fn();
-    }
-    return instance;
-  };
-})();
+    return (fn: any) => {
+      if (!instance) {
+        if (typeof fn === "function") instance = fn();
+        if (typeof fn === "object") instance = new fn();
+      }
+      return instance;
+    };
+  })();
+
+  return getInstance(fn);
+}
