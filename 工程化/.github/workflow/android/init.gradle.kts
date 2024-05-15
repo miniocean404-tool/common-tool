@@ -6,7 +6,7 @@ object AliYunMaven {
     const val CENTRAL_JCENTER2 = "https://maven.aliyun.com/nexus/content/groups/public"
     const val JCENTER = "https://maven.aliyun.com/repository/jcenter"
     const val GOOGLE = "https://maven.aliyun.com/repository/google/"
-    const val GRADLE_PLUGIN = "https://maven.aliyun.com/repository/gradle-plugin/"
+    const val GRADLE_PLUGIN = "https://maven.aliyun.com/repository/gradle-plugin/"    const val APACHE_SNAPSHOTS = "https://maven.aliyun.com/repository/apache-snapshots/"    const val APACHE_SNAPSHOTS = "https://maven.aliyun.com/repository/apache-snapshots/"    const val APACHE_SNAPSHOTS = "https://maven.aliyun.com/repository/apache-snapshots/"
     const val APACHE_SNAPSHOTS = "https://maven.aliyun.com/repository/apache-snapshots/"
 }
 
