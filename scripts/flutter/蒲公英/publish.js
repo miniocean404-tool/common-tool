@@ -1,27 +1,22 @@
 const getTokenPath = "https://www.pgyer.com/apiv2/app/getCOSToken"
 const getAppInfoPath = "https://www.pgyer.com/apiv2/app/buildInfo"
-const apiKey = "46d4d6729240877a56c4526f0514593d" // https://www.pgyer.com/account/api
+const _apiKey = "46d4d6729240877a56c4526f0514593d" // https://www.pgyer.com/account/api
 const buildType = "android" // android || ios
-const appName = "多屏互动_5.13_240401.apk"
 
 const fs = require("fs")
-const path = require("path")
 const axios = require("axios")
 
-publish(path.join(__dirname, appName))
-
 // 发布应用
-async function publish(appFilePath) {
-  const token = await getToken()
+async function publish({ app, apiKey = _apiKey, buildType }) {
+  const token = await getToken(apiKey, buildType)
 
-  const file = fs.createReadStream(appFilePath)
-  // const file = Buffer.from(fs.readFileSync(appFilePath))
+  const file = fs.createReadStream(app)
+  // const file = Buffer.from(fs.readFileSync(app))
 
   // from 表单上传 文件必须放在 ... 结构下面
   // Buffer.from 和 fs.createReadStream 都可以上传
   const form = axios.toFormData({
     ...token.params,
-    "x-cos-meta-file-name": appName,
     file: file,
   })
 
@@ -30,11 +25,11 @@ async function publish(appFilePath) {
   if (up.status !== 204) return console.log(">>>>> 蒲公英上传失败")
 
   // 延迟一段时间后获取应用信息
-  setTimeout(async () => await getAppInfo(token), 1000)
+  setTimeout(async () => await getAppInfo(apiKey, token), 1000)
 }
 
 // 获取蒲公英 token
-async function getToken() {
+async function getToken(apiKey, buildType) {
   const res = await axios.post(getTokenPath, null, {
     params: {
       _api_key: apiKey,
@@ -46,7 +41,7 @@ async function getToken() {
 }
 
 // 获取应用信息
-async function getAppInfo(token) {
+async function getAppInfo(apiKey, token) {
   const res = await axios.get(getAppInfoPath, {
     params: {
       _api_key: apiKey,
@@ -72,4 +67,8 @@ async function getAppInfo(token) {
     console.log(`下载地址：https://www.pgyer.com/${appUrl}`)
     console.log("更新时间：", updateTime)
   }
+}
+
+module.exports = {
+  publish,
 }
