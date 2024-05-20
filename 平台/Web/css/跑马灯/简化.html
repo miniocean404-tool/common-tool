@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <!-- 源链接 -->
+  <meta content="https://uiverse.io/barisdogansutcu/blue-badger-94">
+
+  <style>
+    .content {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      gap: 15px;
+      width: 300px;
+      height: 100px;
+      position: relative;
+      overflow: hidden;
+      border-radius: 14px;
+
+      .total-box {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 15px;
+        min-width: 900px;
+        height: 100%;
+        white-space: nowrap;
+        overflow: hidden;
+        position: absolute;
+        inset: 0;
+
+        .basic-row-box {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 10px;
+          width: 100%;
+
+          svg {
+            width: 40px;
+          }
+
+          button {
+            width: 40px;
+            height: 40px;
+            background-color: black;
+            border: none;
+            border-radius: 10px;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            transition: all 0.3s ease;
+
+            &:hover {
+              transform: scale(1.1);
+              cursor: pointer;
+            }
+          }
+        }
+
+        .basic-row-box-anim1 {
+          animation: marquee 15s linear infinite;
+        }
+
+        .basic-row-box-anim2 {
+          animation: marquee 21s linear infinite;
+        }
+      }
+
+      /* 阴影 */
+      &::before {
+        content: "";
+        position: absolute;
+        left: 0%;
+        top: 50%;
+        transform: translateY(-50%);
+        bottom: 0;
+        width: 40px;
+        height: 96px;
+        background-image: linear-gradient(90deg, #0000001c, transparent);
+        z-index: 2;
+        border-radius: 10px 0 0 10px;
+      }
+
+      /* 阴影 */
+      &::after {
+        content: "";
+        position: absolute;
+        right: 0%;
+        top: 50%;
+        transform: translateY(-50%);
+        bottom: 0;
+        width: 40px;
+        height: 96px;
+        background-image: linear-gradient(-90deg, #0000001c, transparent);
+        z-index: 9;
+        border-radius: 0 10px 10px 0;
+      }
+    }
+
+    @keyframes marquee {
+      0% {
+        transform: translateX(-10%);
+      }
+
+      100% {
+        transform: translateX(-50%);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="content">
+    <div class="total-box">
+      <div class="basic-row-box basic-row-box-anim1">
+
+        <a class="social-media-link" href="#">
+          <button class="button">
+
+          </button>
+        </a>
+
+        <a class="social-media-link" href="#">
+          <button class="button">
+
+          </button>
+        </a>
+
+        <a class="social-media-link" href="#">
+          <button class="button">
+
+          </button>
+        </a>
+
+        <a class="social-media-link" href="#">
+          <button class="button">
+
+          </button>
+        </a>
+
+        <a class="social-media-link" href="#">
+          <button class="button">
+
+          </button>
+        </a>
+
+        <a class="social-media-link" href="#">
+          <button class="button">
+
+          </button>
+        </a>
+
+        <a class="social-media-link" href="#">
+          <button class="button">
+
+          </button>
+        </a>
+        <a class="social-media-link" href="#">
+          <button class="button">
+
+          </button>
+        </a>
+        <a class="social-media-link" href="#">
+          <button class="button">
+
+          </button>
+        </a>
+
+        <a class="social-media-link" href="#">
+          <button class="button">
+
+          </button>
+        </a>
+
+
+        <a class="social-media-link" href="#">
+          <button class="button">
+
+          </button>
+        </a>
+
+        <a class="social-media-link" href="#">
+          <button class="button">
+
+          </button>
+        </a>
+
+        <a class="social-media-link" href="#">
+          <button class="button">
+
+          </button>
+        </a>
+
+        <a class="social-media-link" href="#">
+          <button class="button">
+
+          </button>
+        </a>
+
+        <a class="social-media-link" href="#">
+          <button class="button">
+
+          </button>
+        </a>
+
+        <a class="social-media-link" href="#">
+          <button class="button">
+
+          </button>
+        </a>
+      </div>
+
+      <div class="basic-row-box basic-row-box-anim2">
+        <a class="social-media-link" href="#">
+          <button class="button">
+
+          </button>
+        </a>
+        <a class="social-media-link" href="#">
+          <button class="button">
+
+          </button>
+        </a>
+        <a class="social-media-link" href="#">
+          <button class="button">
+
+          </button>
+        </a>
+        <a class="social-media-link" href="#">
+          <button class="button">
+
+          </button>
+        </a>
+        <a class="social-media-link" href="#">
+          <button class="button">
+
+          </button>
+        </a>
+        <a class="social-media-link" href="#">
+          <button class="button">
+
+          </button>
+        </a>
+        <a class="social-media-link" href="#">
+          <button class="button">
+
+          </button>
+        </a>
+        <a class="social-media-link" href="#">
+          <button class="button">
+
+          </button>
+        </a>
+        <a class="social-media-link" href="#">
+          <button class="button">
+
+          </button>
+        </a>
+        <a class="social-media-link" href="#">
+          <button class="button">
+
+          </button>
+        </a>
+        <a class="social-media-link" href="#">
+          <button class="button">
+
+          </button>
+        </a>
+        <a class="social-media-link" href="#">
+          <button class="button">
+
+          </button>
+        </a>
+        <a class="social-media-link" href="#">
+          <button class="button">
+
+          </button>
+        </a>
+        <a class="social-media-link" href="#">
+          <button class="button">
+
+          </button>
+        </a>
+      </div>
+    </div>
+  </div>
+
+</body>
+
+</html>
