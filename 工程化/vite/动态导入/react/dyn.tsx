@@ -1,10 +1,11 @@
 import { lazy } from "react"
+import type { RouteObject } from "react-router-dom"
 
 type MetaConfig = Record<string | number | symbol, unknown>
 
 export const dynRouters: Array<any> = getRoutes()
 
-function getRoutes() {
+function getRoutes(): RouteObject[] {
   const pages = import.meta.glob("/src/(pages|view)/**/index.[jt]sx")
 
   const configs = import.meta.glob<MetaConfig>([`/src/(pages|view)/**/config.[tj]s`], {
@@ -18,7 +19,7 @@ function getRoutes() {
     const meta = configs[path.replace("index.tsx", "config.ts")]
     path = path.replace(/\/src\/[pages|views]+(?<path>.*)\/index.[tj]sx/gims, "$<path>") || "/"
 
-    const name = path.split("/").join("-")
+    const id = path.split("/").join("-")
 
     // 需要使用下方方式加载
     // <Suspense fallback={<div></div>}>
@@ -28,8 +29,8 @@ function getRoutes() {
 
     return {
       path,
-      name,
-      meta,
+      id,
+      // meta,
       element: <Page />,
     }
   })
