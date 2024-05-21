@@ -16,7 +16,11 @@ function ErrorPage() {
   } else if (error) {
     return <div>错误原因：{error instanceof Error ? error.message : "未知错误"}</div>
   } else {
-    return <div>Await组件 异步错误 {async_error instanceof Error ? async_error.message : "未知错误"}</div>
+    return (
+      <div>
+        Await 组件 异步错误 {async_error instanceof Error ? async_error.message : "未知错误"}
+      </div>
+    )
   }
 }
 export default ErrorPage

@@ -11,8 +11,6 @@ import { dynRouters } from "./dyn"
 
 type BrowserRouterType = ReturnType<typeof createBrowserRouter>
 
-console.log(dynRouters)
-
 const routes: RouteObject[] = [
   {
     id: "root",
