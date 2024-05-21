@@ -19,7 +19,7 @@ function getRoutes(): RouteObject[] {
     const meta = configs[path.replace("index.tsx", "config.ts")]
     path = path.replace(/\/src\/[pages|views]+(?<path>.*)\/index.[tj]sx/gims, "$<path>") || "/"
 
-    const id = path.split("/").join("-")
+    const id = path.split("/").filter(Boolean).join("-") || "index"
 
     // 需要使用下方方式加载
     // <Suspense fallback={<div></div>}>
@@ -30,6 +30,7 @@ function getRoutes(): RouteObject[] {
     return {
       path,
       id,
+      index: id === "index",
       // meta,
       element: <Page />,
     }
