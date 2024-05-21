@@ -1,0 +1,50 @@
+.toastBgBox {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+
+  .toastBox {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.1);
+
+    min-width: 150px;
+    max-width: 175px;
+
+    padding: 20px 15px 0 15px;
+    background-color: white;
+    border-radius: 25px;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+
+    .icon {
+      display: block;
+      width: 50px;
+      height: 50px;
+    }
+
+    .contentBox {
+      margin-top: 15px;
+      margin-bottom: 20px;
+      text-align: center;
+      line-height: 24px;
+
+      .title {
+        display: block;
+      }
+
+      .desc {
+        display: block;
+      }
+    }
+  }
+}
+
+.toast_bg {
+  background-color: rgba(0, 0, 0, 0.8);
+}
