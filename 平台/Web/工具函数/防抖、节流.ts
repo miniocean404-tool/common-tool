@@ -1,10 +1,14 @@
-interface PerfFunction extends Function {
-  id: NodeJS.Timeout
+type perfFunction<T> = {
+  (this: T, args: any[]): void
+  (this: T, ...args: any[]): void
+}
+interface PerfFunctionWithID<T> extends perfFunction<T> {
+  id?: NodeJS.Timeout
 }
 
 // 防抖 几秒内只能执行一次,再次触发重新计时
-export function debounce(fun: PerfFunction, delay: number) {
-  return function (args: any[]) {
+export function debounce<T, Args extends any[]>(fun: PerfFunctionWithID<T>, delay: number) {
+  return function (this: T, args: Args) {
     let that = this
     let _args = args
     clearTimeout(fun.id)
@@ -15,9 +19,9 @@ export function debounce(fun: PerfFunction, delay: number) {
 }
 
 // 节流 单位时间内只执行一次
-export function throttle(fun: PerfFunction, delay: number) {
+export function throttle<T, Args extends any>(fun: PerfFunctionWithID<T>, delay: number) {
   let last: number, deferTimer: NodeJS.Timeout
-  return function (args: any[]) {
+  return function (this: T, args: Args): any {
     let that = this
     let _args = arguments
     let now = +new Date()
@@ -25,11 +29,11 @@ export function throttle(fun: PerfFunction, delay: number) {
       clearTimeout(deferTimer)
       deferTimer = setTimeout(function () {
         last = now
-        fun.apply(that, _args)
+        fun.apply(that, Array.from(_args))
       }, delay)
     } else {
       last = now
-      fun.apply(that, _args)
+      fun.apply(that, Array.from(_args))
     }
   }
 }
