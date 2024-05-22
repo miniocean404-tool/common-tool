@@ -11,7 +11,7 @@
   clear: both;
   height: 0;
   font-size: 0;
-  content: '';
+  content: "";
 }
 
 .center {
@@ -108,4 +108,10 @@
 
 .round {
   border-radius: 100%;
+}
+
+// 数字等宽
+.num-equal-with {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
 }
