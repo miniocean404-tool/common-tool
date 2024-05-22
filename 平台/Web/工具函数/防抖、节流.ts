@@ -7,8 +7,8 @@ interface PerfFunctionWithID<T> extends perfFunction<T> {
 }
 
 // 防抖 几秒内只能执行一次,再次触发重新计时
-export function debounce<T, Args extends any[]>(fun: PerfFunctionWithID<T>, delay: number) {
-  return function (this: T, args: Args) {
+export function debounce<T, Args extends any>(fun: PerfFunctionWithID<T>, delay: number) {
+  return function (this: T, args: Args): any {
     let that = this
     let _args = args
     clearTimeout(fun.id)
