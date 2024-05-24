@@ -18,10 +18,10 @@
     ],
     "description": "react-组件模板"
   },
-  "taro-css模板": {
-    "prefix": "tarocss",
+  "react-css模板": {
+    "prefix": "reactcss",
     "scope": "css,less,scss",
     "body": [".dav-${TM_DIRECTORY/(.*\\/)(.*)/${2:/downcase}/ig}{", "", "}", ""],
-    "description": "taro-css模板"
+    "description": "react-css模板"
   }
 }
