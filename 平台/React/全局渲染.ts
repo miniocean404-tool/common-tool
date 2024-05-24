@@ -3,7 +3,6 @@ import ReactDOM from "react-dom/client"
 
 export const domRender = (id: string, Component: ReactNode) => {
   const app = document.body
-  const isRendered = document.querySelector(`#${id}`)
 
   const view = document.createElement("div")
   view.id = id
@@ -12,11 +11,14 @@ export const domRender = (id: string, Component: ReactNode) => {
   const root = ReactDOM.createRoot(view)
   root.render(Component)
 
-  if (!isRendered) app?.appendChild(view)
+  // if (!isRendered)
+  app?.appendChild(view)
 
   return root
 }
 
-export const domDestroy = (node: ReactDOM.Root) => {
+export const domDestroy = (id: string, node: ReactDOM.Root) => {
+  const app = document.body
   node.unmount()
+  app.removeChild(document.querySelector(`#${id}`))
 }
