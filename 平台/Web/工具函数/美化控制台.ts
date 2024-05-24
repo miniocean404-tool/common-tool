@@ -1,4 +1,4 @@
-export const log = prettyLog()
+export const pLog = prettyLog()
 
 // 美化打印实现方法
 function prettyLog() {
@@ -76,9 +76,7 @@ function prettyLog() {
         console.log(
           `%c sup?`,
           `font-size: 1px;
-             padding: ${Math.floor((img.height * scale) / 2)}px ${Math.floor(
-            (img.width * scale) / 2,
-          )}px;
+             padding: ${Math.floor((img.height * scale) / 2)}px ${Math.floor((img.width * scale) / 2)}px;
              background-image: url(${dataUri});
              background-repeat: no-repeat;
              background-size: ${img.width * scale}px ${img.height * scale}px;
@@ -100,5 +98,3 @@ function prettyLog() {
     table,
   }
 }
-
-// 创建打印对象
