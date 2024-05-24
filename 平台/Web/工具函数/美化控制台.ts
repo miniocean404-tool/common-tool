@@ -1,5 +1,7 @@
+export const log = prettyLog()
+
 // 美化打印实现方法
-const prettyLog = () => {
+function prettyLog() {
   const isProduction = import.meta.env.MODE === "production"
 
   const isEmpty = (value: any) => {
@@ -74,12 +76,14 @@ const prettyLog = () => {
         console.log(
           `%c sup?`,
           `font-size: 1px;
-           padding: ${Math.floor((img.height * scale) / 2)}px ${Math.floor((img.width * scale) / 2)}px;
-           background-image: url(${dataUri});
-           background-repeat: no-repeat;
-           background-size: ${img.width * scale}px ${img.height * scale}px;
-           color: transparent;
-          `,
+             padding: ${Math.floor((img.height * scale) / 2)}px ${Math.floor(
+            (img.width * scale) / 2,
+          )}px;
+             background-image: url(${dataUri});
+             background-repeat: no-repeat;
+             background-size: ${img.width * scale}px ${img.height * scale}px;
+             color: transparent;
+            `,
         )
       }
     }
@@ -96,5 +100,5 @@ const prettyLog = () => {
     table,
   }
 }
+
 // 创建打印对象
-const log = prettyLog()
