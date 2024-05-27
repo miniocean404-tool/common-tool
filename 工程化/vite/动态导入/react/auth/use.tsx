@@ -1,7 +1,7 @@
 import React from "react"
 
 const AuthContext = React.createContext<boolean | undefined>(false)
-
+// ! 无法全局使用，最好还是使用 redux
 // 可以用 context 存储 auth 状态来进行传递
 export function useAuth() {
   const [authed, setAuthed] = useState<boolean>() //状态
