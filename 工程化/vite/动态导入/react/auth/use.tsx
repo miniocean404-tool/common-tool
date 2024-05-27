@@ -10,18 +10,12 @@ export function useAuth() {
     //认证状态
     authed,
     //登录
-    login() {
-      return new Promise((res) => {
-        setAuthed(true)
-        // res()
-      })
+    async login(username: string, password: string): Promise<void> {
+      setAuthed(true)
     },
     //退出
     logout() {
-      return new Promise((res) => {
-        setAuthed(false)
-        // res()
-      })
+      setAuthed(false)
     },
   }
 }
