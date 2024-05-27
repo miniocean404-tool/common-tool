@@ -1,6 +1,6 @@
-import { getToken } from "@/utils/adapter/token"
+import AuthMiddleware from "./middleware/auth/index"
 import { lazy } from "react"
-import { redirect, type RouteObject } from "react-router-dom"
+import { type RouteObject } from "react-router-dom"
 
 type MetaConfig = Record<string | number | symbol, unknown>
 
@@ -33,15 +33,11 @@ function getRoutes(): RouteObject[] {
       id,
       index: id === "index",
       // meta,
-      element: <Page />,
-      loader: ({ request }) => {
-        const url = new URL(request.url)
-        const path = url.pathname
-
-        if (path !== "/login" && !getToken()) return redirect("/login")
-
-        return {}
-      },
+      element: (
+        <AuthMiddleware>
+          <Page />
+        </AuthMiddleware>
+      ),
     }
   })
 }
