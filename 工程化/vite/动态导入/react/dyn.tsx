@@ -39,6 +39,8 @@ function getRoutes(): RouteObject[] {
         const path = url.pathname
 
         if (path !== "/login" && !getToken()) return redirect("/login")
+
+        return {}
       },
     }
   })
