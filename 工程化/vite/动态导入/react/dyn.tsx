@@ -1,5 +1,6 @@
+import { getToken } from "@/utils/adapter/token"
 import { lazy } from "react"
-import type { RouteObject } from "react-router-dom"
+import { redirect, type RouteObject } from "react-router-dom"
 
 type MetaConfig = Record<string | number | symbol, unknown>
 
@@ -15,7 +16,7 @@ function getRoutes(): RouteObject[] {
     import: "default",
   })
 
-  return Object.entries(pages).map(([path, element]) => {
+  return Object.entries(pages).map<RouteObject>(([path, element]) => {
     const meta = configs[path.replace("index.tsx", "config.ts")]
     path = path.replace(/\/src\/[pages|views]+(?<path>.*)\/index.[tj]sx/gims, "$<path>") || "/"
 
@@ -33,6 +34,12 @@ function getRoutes(): RouteObject[] {
       index: id === "index",
       // meta,
       element: <Page />,
+      loader: ({ request }) => {
+        const url = new URL(request.url)
+        const path = url.pathname
+
+        if (path !== "/login" && !getToken()) return redirect("/login")
+      },
     }
   })
 }

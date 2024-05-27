@@ -19,10 +19,6 @@ const routes: RouteObject[] = [
     children: [
       // 子路由需要在其父路由的页面中添加 <Outlet />
       ...dynRouters,
-      {
-        id: "",
-      },
-
       // {
       //   path: "/home",
       //   index: true,
