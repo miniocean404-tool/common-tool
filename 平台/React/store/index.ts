@@ -3,10 +3,14 @@ import { persistReducer, persistStore } from "redux-persist"
 import { configureStore } from "@reduxjs/toolkit"
 import { persistConfig } from "@/store/plugin/persist"
 import { reducers } from "@/store/feature"
+import { useDispatch, useSelector, useStore } from "react-redux"
 
-type AppRootStateFnType = typeof store.getState
-export type AppRootState = ReturnType<AppRootStateFnType>
+export type AppRootState = ReturnType<typeof store.getState>
 export type AppDispatch = typeof store.dispatch
+
+export const useAppDispatch = useDispatch.withTypes<AppDispatch>()
+export const useAppSelector = useSelector.withTypes<AppRootState>()
+export const useAppStore = useStore.withTypes<typeof store>()
 
 // 函数式组件使用：https://juejin.cn/post/7101688098781659172#heading-3
 // 类组件使用：https://github.com/icesman/issues/issues/1
@@ -26,3 +30,4 @@ export const persist = persistStore(store)
 
 // Demo
 // const auth = useSelector<AppRootState, LoginSlice | undefined>((state) => state.login)
+//   const auth = useSelector((state: AppRootState) => state.login)
