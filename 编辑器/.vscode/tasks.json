@@ -66,6 +66,7 @@
     {
       "label": "添加文件并推送多个仓库",
       "type": "shell",
+      // 执行其他任务
       "dependsOn": ["git-add.", "git-commit-am", "git-push-github", "git-push-origin"],
       "dependsOrder": "sequence",
       "problemMatcher": [],
@@ -73,6 +74,15 @@
         // 任务完成时，是否关闭终端
         "close": true
       }
+      // "group": {
+      //   "kind": "build",
+      //   // 设置当前任务为默认任务，可以配合 launch.json 的 preLaunchTask 使用
+      //   "isDefault": true
+      // },
+      // "runOptions": {
+      //   // 对该任务何时运行进行配置。如果设置为 folderOpen，那么该任务将在文件夹打开时自动运行
+      //   "runOn": "folderOpen"
+      // }
     },
 
     // Git
