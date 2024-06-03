@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        @keyframes success-circle {
+            0% {
+                stroke-dashoffset: 1194;
+            }
+
+            100% {
+                stroke-dashoffset: 0;
+            }
+        }
+
+        @keyframes success-flag {
+            0% {
+                stroke-dashoffset: 350;
+            }
+
+            100% {
+                stroke-dashoffset: 0;
+            }
+        }
+
+        .circle {
+            stroke-dasharray: 1194;
+            stroke-dashoffset: 1194;
+        }
+
+        .flag {
+            stroke-dasharray: 350;
+            stroke-dashoffset: 350;
+        }
+
+        .circle {
+            animation: success-circle 1s ease-out forwards;
+        }
+
+        .flag {
+            animation: success-flag 1s ease-out forwards;
+            animation-delay: 1s;
+        }
+    </style>
+</head>
+
+<body>
+    <svg class="success" xmlns="http://www.w3.org/2000/svg" width="400" height="400" stroke="#68e534" stroke-linecap="
+        round" stroke-linejoin="round" fill="none" stroke="currentColor" stroke-width="20">
+        <circle class="circle" cx=" 200" cy="200" r="190" transform="rotate(-90 200 200)"></circle>
+        <polyline class="flag" stroke-width="24" points="88,214 173,284 304,138"></polyline>
+    </svg>
+</body>
+
+</html>
