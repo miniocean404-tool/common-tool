@@ -1,0 +1,80 @@
+@mixin btnCommon {
+  width: 120px;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+}
+
+.privacy {
+  .bg {
+    position: fixed;
+    inset: 0;
+    z-index: 2;
+    background-color: #00000033;
+  }
+
+  .container {
+    width: 320px;
+    padding: 30px 25px;
+
+    position: fixed;
+    z-index: 3;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #ffffff;
+
+    border-radius: 10px;
+
+    .title {
+      color: #262626;
+      text-align: center;
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 24px; /* 150% */
+      letter-spacing: -0.4px;
+    }
+
+    .desc {
+      margin-top: 15px;
+      color: #8c8c8c;
+      text-align: center;
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 23.8px; /* 140% */
+
+      .webview {
+        color: #07c160;
+      }
+    }
+
+    .btnGroup {
+      margin-top: 30px;
+
+      display: flex;
+      justify-content: space-between;
+
+      text-align: center;
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 23.8px; /* 140% */
+      letter-spacing: 1px;
+      border-radius: 4px;
+
+      .cancel {
+        @include btnCommon;
+        background: rgba(0, 0, 0, 0.05);
+        color: #07c160;
+      }
+
+      .ok {
+        @include btnCommon;
+        background: #07c160;
+        color: #fff;
+      }
+    }
+  }
+}
