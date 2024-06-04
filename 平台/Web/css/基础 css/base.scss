@@ -292,19 +292,31 @@ a:active {
 }
 
 /* Chrome Safari 滚动条样式*/
+// 滚动条整体部分
 //*::-webkit-scrollbar {
 //	width: 0.5em;
 //	height: 0.5em;
 //}
-//
+
+// 滚动条外层轨道
 //*::-webkit-scrollbar-track {
 //	background-color: #eee;
 //}
-//
+
+// 滚动条里面可以拖动的那个
 //*::-webkit-scrollbar-thumb {
 //	border-radius: 50px;
 //	background-color: rgba(0, 0, 0, 0.3);
 //}
+
+// 滚动条两端按钮
+//*::-webkit-scrollbar-button {}
+// 滚动条内层轨道，滚动条中间部分（除去）
+//*::-webkit-scrollbar-track-piece {}
+// 滚动图边角
+//*::-webkit-scrollbar-corner {}
+// 定义右下角拖动块的样式
+//*::-webkit-resizer {}
 
 // 火狐滚动条
 html {
