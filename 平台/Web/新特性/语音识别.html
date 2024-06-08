@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>语音转文字</title>
+    <style>
+        ul {
+            list-style: none;
+            text-align: left;
+            border: 1px dashed pink;
+        }
+
+        li {
+            padding: 5px 0;
+        }
+
+        .warp {
+            max-width: 750px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #8a8aea;
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="warp">
+        <h1>语音转文字</h1>
+        <button id="speek">开始识别</button>
+        <button id="stop">关闭识别</button>
+        <button id="remove">清空识别内容</button>
+        <ul id="text"></ul>
+    </div>
+    <script>
+        window.onload = () => {
+            console.log('页面加载完毕');
+            const speek = document.querySelector('#speek');
+            const text = document.querySelector('#text');
+            const stop = document.querySelector('#stop');
+            const remove = document.querySelector('#remove');
+            const recognition = new webkitSpeechRecognition();
+            let isSpeek = false;
+
+            recognition.continuous = true;
+            recognition.interimResults = true;
+            recognition.lang = 'zh-CN';
+
+            recognition.onresult = function (event) {
+                let result = ''
+                for (let i = event.resultIndex; i <= event.resultIndex; i++) {
+                    if (event.results[i].isFinal) {
+                        result += event.results[i][0].transcript;
+                    }
+                }
+
+                if (result == '关闭麦克风。') {
+                    stopFn()
+                    return
+                }
+
+                if (result === '清空识别内容。') {
+                    removeFn()
+                    return
+                }
+
+                if (result) {
+                    const li = document.createElement("li")
+                    li.innerText = "识别：" + result
+                    text.appendChild(li)
+                }
+
+            }
+
+            speek.addEventListener('click', () => {
+                if (isSpeek) {
+                    recognition.stop();
+                    isSpeek = false;
+                    return;
+                }
+                recognition.start();
+                isSpeek = true;
+            })
+
+            stop.addEventListener('click', () => {
+                stopFn()
+            })
+
+            remove.addEventListener('click', () => {
+                removeFn()
+            })
+
+            function stopFn() {
+                recognition.stop();
+                isSpeek = false;
+                alert("语音识别已关闭！")
+            }
+
+            function removeFn() {
+                const li = document.querySelectorAll("li")
+                li.forEach(item => {
+                    item.parentNode.removeChild(item)
+                })
+            }
+        }
+    </script>
+</body>
+
+</html>
