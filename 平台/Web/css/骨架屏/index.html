@@ -28,14 +28,19 @@
         }
 
         li {
-            background-image: linear-gradient(90deg, #f2f2f2 25%, #e6e6e6 37%, #f2f2f2 63%);
+            /* background-image: linear-gradient(90deg, #f2f2f2 25%, #e6e6e6 37%, #f2f2f2 63%); */
+            background-image: linear-gradient(90deg, #ff0000 25%, #41de6a 37%, #ff0000 63%);
             width: 100%;
             height: 0.6rem;
             list-style: none;
-            background-size: 400% 100%;
+            background-size: 100% 100%;
             margin-top: 0.6rem;
-            background-position: 100% 50%;
-            animation: skeleton-loading 1.4s ease infinite;
+
+            /* 百分比偏移计算 */
+            /* (container width - image width) * (position x%) = (x offset value) */
+            /* (container height - image height) * (position y%) = (y offset value) */
+            background-position: 100% 0;
+            /* animation: skeleton-loading 1.4s ease infinite; */
         }
 
         li:first-child {
@@ -48,11 +53,11 @@
 
         @keyframes skeleton-loading {
             0% {
-                background-position: 100% 50%;
+                background-position: 100% 0;
             }
 
             100% {
-                background-position: 0 50%;
+                background-position: 0 0;
             }
         }
     </style>
