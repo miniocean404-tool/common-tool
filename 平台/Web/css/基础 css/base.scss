@@ -194,11 +194,12 @@ xmp {
 html {
   position: fixed;
   inset: 0;
-  display: inline-block;
-  overflow: auto;
+  overflow: hidden;
 }
+
 body {
   height: 100%;
+  width: 100%;
   overflow: auto;
 }
 
