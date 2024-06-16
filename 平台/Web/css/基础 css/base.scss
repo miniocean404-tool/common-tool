@@ -198,13 +198,13 @@ html {
 }
 
 body {
-  height: 100%;
-  width: 100%;
   overflow: auto;
 }
 
 html,
 body {
+  width: 100%;
+  height: 100%;
   // electron 无边框窗口拖拽
   -webkit-app-region: drag;
   user-select: none;
