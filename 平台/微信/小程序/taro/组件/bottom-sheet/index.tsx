@@ -141,7 +141,7 @@ const DavBottomSheet: FC<PropsWithChildren<DavBottomSheetProps>> = ({
         {/*滑动卡片*/}
         <MovableView
           onChange={onChnage}
-          className={`${styles.upSlide} ${className || ""}`}
+          className={`${styles.MovableView} ${className || ""}`}
           style={{ height: cardHeight }}
           y={CardStatePostion[cardState]}
           direction="vertical"
@@ -151,12 +151,12 @@ const DavBottomSheet: FC<PropsWithChildren<DavBottomSheetProps>> = ({
           animation={true}
           damping={damping || 60}
         >
-          <View className={styles.content}>
+          <View className={styles.card}>
             <View className={styles.indicatorBox}>
               <View className={styles.indicator}></View>
             </View>
 
-            {children}
+            <View className={styles.content}>{children}</View>
           </View>
 
           {isShowButton && (
