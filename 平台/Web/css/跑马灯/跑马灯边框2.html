@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        /* 定义一个全局的css变量 该宽度决定了边框的宽度 */
+        :root {
+            --border-width: 5px;
+        }
+
+        /* 定义盒子区域的宽高 包含边框所占区域 */
+        .d2 {
+            position: relative;
+            width: 200px;
+            height: 60px;
+            /* 为了让内容区域不被边框覆盖 设置等宽的padding */
+            padding: var(--border-width);
+            margin: 200px auto;
+            /* 设置元素圆角 */
+            border-radius: 10px;
+            text-align: center;
+            line-height: 60px;
+            color: #333;
+            /* 看原理就注释这里 */
+            overflow: hidden;
+        }
+
+        /* 利用伪元素::after 定义盒子内容区域 */
+        .d2::after {
+            content: '';
+            position: absolute;
+            /* 使用css变量定位内容区域位置 */
+            left: var(--border-width);
+            top: var(--border-width);
+            /* 根据css变量设置内容区域的宽高 */
+            width: calc(100% - var(--border-width) * 2);
+            height: calc(100% - var(--border-width) * 2);
+            background: #ccc;
+            /* 设置元素层级小于父级元素 使父元素的内容能够显示在该内容区域之上 */
+            z-index: -1;
+            /* 设置圆角 要比父元素的圆角小一些 */
+            border-radius: 6px;
+        }
+
+        /* 利用伪元素::before 定义盒子边框区域 */
+        .d2::before {
+            content: '';
+            position: absolute;
+            /* 利用定位和位移将元素的中心点定位到父元素的中心点 */
+            left: 50%;
+            top: 50%;
+            transform: translateY(-50%) translateX(-50%);
+            width: 220px;
+            height: 220px;
+            /* 设置该元素的渐变背景 该背景决定了跑马灯边框的颜色 */
+            background: linear-gradient(-45deg, #000, yellow 60%);
+            /* 设置该元素的层级 要小于用伪元素::after 定义的盒子内容区域 */
+            z-index: -2;
+            /* 利用动画旋转该元素 */
+            animation: rotate2 1.5s linear infinite;
+            /* 设置旋转的圆心为元素的中心点 */
+            transform-origin: 50% 50%;
+        }
+
+        /* 声明旋转动画 旋转的同时 保持元素位置不变 */
+        @keyframes rotate2 {
+            0% {
+                transform: translateY(-50%) translateX(-50%) rotate(0deg);
+            }
+
+            100% {
+                transform: translateY(-50%) translateX(-50%) rotate(360deg);
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+    <!-- 跑马灯边框的根元素 -->
+    <div class="d2">跑马灯边框2</div>
+</body>
+
+</html>
