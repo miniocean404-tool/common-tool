@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        .wrap {
+            width: 300px;
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            outline: 2px solid #9747FF;
+            gap: 5px;
+            overflow: hidden;
+
+            &::after {
+                content: "+" counter(num);
+                padding: .2em .5em;
+                background-color: #FFE8A3;
+                color: #191919;
+                border-radius: 4px;
+            }
+
+            .con {
+                /* 计数器初始值，默认为 0 */
+                counter-reset: num;
+
+                /* 滚动时间线 */
+                /* <axios>表示滚动方向，支持以下几个关键值 */
+                /* block：滚动容器的块级轴方向*（默认）*。 */
+                /* inline：滚动容器内联轴方向。 */
+                /* y：滚动容器沿 y 轴方向。 */
+                /* x：滚动容器沿 x 轴方向。 */
+
+                /* <scroller>表示滚动容器，支持以下几个关键值 */
+                /* nearest：使用最近的祖先滚动容器*（默认）* */
+                /* root：使用文档视口作为滚动容器。 */
+                /* self：使用元素本身作为滚动容器。 */
+                /* animation-timeline: scroll(x self); */
+
+                display: flex;
+                gap: 5px;
+                padding: 5px;
+                overflow: hidden;
+            }
+
+            .tag {
+                /* 计数器增量值，默认为 1 */
+                counter-increment: num 1;
+                animation: appear;
+                /* 视图进度时间线 */
+                /* 这个概念非常像JS中的Intersection_Observer_API[9]，也就「交叉观察者」，可以「监测到元素在可视区」的情况 */
+                /* <axios>表示滚动方向，支持以下几个关键值 */
+                /* block：滚动容器的块级轴方向*（默认）*。 */
+                /* inline：滚动容器内联轴方向。 */
+                /* y：滚动容器沿 y 轴方向。 */
+                /* x：滚动容器沿 x 轴方向。 */
+                animation-timeline: view(inline);
+                animation-range: contain;
+
+                padding: .2em .5em;
+                background-color: #c49ef5;
+                color: #fff;
+                border-radius: 4px;
+            }
+        }
+
+        /* 原理是 animation-timeline 这个动画在元素进入时候会自动应用样式，在加上  counter-increment 增长数值，就实现了*/
+        @keyframes appear {
+
+            from,
+            to {
+                background-color: #9747FF;
+                counter-increment: num 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 文章：https://mp.weixin.qq.com/s?__biz=MzIyMDc1NTYxNg==&mid=2247487775&idx=1&sn=54d09243e36c7d5470982d4237bf8303&chksm=97c672d0a0b1fbc6676ce29a16e13f186689e253d0d7c1454fb95c8d9530b7d443468b94ad4b&scene=21#wechat_redirect -->
+    <h3>CSS 标签超出显示数量</h3>
+
+    <div class="wrap">
+        <div class="con">
+            <a class="tag">HTML</a>
+            <a class="tag">CSS</a>
+            <a class="tag">JavaScript</a>
+            <a class="tag">Flutter</a>
+            <a class="tag">Vue</a>
+            <a class="tag">React</a>
+            <a class="tag">Svelte</a>
+        </div>
+    </div>
+    <input type="range" min="200" value="300" max="800"
+        oninput="this.previousElementSibling.style.width = this.value + 'px'">
+</body>
+
+</html>
