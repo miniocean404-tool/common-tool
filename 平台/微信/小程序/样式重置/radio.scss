@@ -1,17 +1,38 @@
-// 默认样式
+// 未选中样式
 .radio .wx-radio-input {
-  border-radius: 3px;
-  background: rgba(218, 62, 75, 1);
-  border: none;
+  border-radius: 4.8px;
+  border: 0.8px solid rgba(255, 214, 214, 1);
+  background: rgba(255, 255, 255, 1);
+}
+
+// 未选中的对钩（自定义强制写上的）
+.radio .wx-radio-input::before {
+  font: normal normal normal 14px / 1 "weui";
+  content: "\EA08";
+  color: #ffffff;
+  font-size: 18px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -48%) scale(0.73);
+  -webkit-transform: translate(-50%, -48%) scale(0.73);
+  color: rgba(255, 214, 214, 1);
 }
 
 // 选中样式
 .radio .wx-radio-input.wx-radio-input-checked {
-  background-color: #1f8ae0 !important;
+  background-color: rgba(218, 62, 75, 1) !important;
   border: none !important;
 }
 
 // 选中的对勾
 .radio .wx-radio-input.wx-radio-input-checked::before {
-  color: #ffffff;
+  // 去除对钩替换样式
+  // content: "";
+  // width: 25rpx;
+  // height: 25rpx;
+  // border-radius: 50%;
+  // background-color: #fff;
+
+  color: white;
 }
