@@ -3,7 +3,8 @@ import { domDestroy, domRender } from "@/utils/global/render"
 import { nanoid } from "nanoid/non-secure"
 import { createRef, type PropsWithChildren } from "react"
 import { document } from "@tarojs/runtime"
-import type { ITouchEvent, TouchEventFunction } from "@tarojs/components"
+import type { ITouchEvent } from "@tarojs/components"
+import BottomSheetProvider from "@/components/common/bottom-sheet/provider"
 
 type CreateBottomSheetProps = Omit<PropsWithChildren<DavBottomSheetProps>, "parentRef" | "onComplete"> & { id: string }
 
@@ -35,20 +36,22 @@ export const createBottomSheet = (props: CreateBottomSheetProps) => {
     domDestroy(node)
   }
 
-  const onSure = (e: ITouchEvent) => {
+  const onSure = (e: ITouchEvent, value: any) => {
     domDestroy(node)
-    props.onSure && props.onSure(e)
+    props.onSure && props.onSure(e, value)
   }
 
   const node = domRender(
     `__bottom_sheet_${props.id}`,
-    <DavBottomSheet
-      {...props}
-      onSure={onSure}
-      onMounted={onMounted}
-      onComplete={onComplete}
-      ref={ref}
-    ></DavBottomSheet>,
+    <BottomSheetProvider>
+      <DavBottomSheet
+        {...props}
+        onSure={onSure}
+        onMounted={onMounted}
+        onComplete={onComplete}
+        ref={ref}
+      ></DavBottomSheet>
+    </BottomSheetProvider>,
   )
 
   return domDestroy.bind(null, node)

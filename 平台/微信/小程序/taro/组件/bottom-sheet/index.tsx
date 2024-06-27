@@ -22,9 +22,10 @@ export interface DavBottomSheetProps {
 
   parentRef?: ForwardedRef<DavBottomSheetRef>;
 
-  isShowButton?: boolean;
   buttonText?: string;
-  onSure?: TouchEventFunction;
+
+  render?: (onValue: (value: any) => void) => JSX.Element;
+  onSure?: (event: ITouchEvent, value?: any) => void;
   onCancel?: () => void;
   onMounted?: () => void;
   onComplete?: () => void;
@@ -53,8 +54,8 @@ const DavBottomSheet: FC<PropsWithChildren<DavBottomSheetProps>> = ({
   fullHeight,
   damping,
   parentRef,
-  isShowButton,
   buttonText,
+  render,
   onSure,
   onCancel,
   onMounted,
@@ -62,6 +63,8 @@ const DavBottomSheet: FC<PropsWithChildren<DavBottomSheetProps>> = ({
 }) => {
   const [cardState, setCardState] = useState(CardState.Close);
   const cardStateRef = useRef({ y: 0, isMove: false });
+  const [buttonDisable, setButtonDisable] = useState(true);
+  const innerValueRef = useRef<any>(null);
 
   const windowHeight = getSystemInfoSync().windowHeight;
   const cardHeight = (fullHeight && pxTransform(fullHeight)) || windowHeight * (4 / 5);
@@ -96,6 +99,7 @@ const DavBottomSheet: FC<PropsWithChildren<DavBottomSheetProps>> = ({
     if (gap >= 0) {
       setCardState(CardState.Close);
       onCancel && onCancel();
+      innerValueRef.current = null;
     }
 
     cardStateRef.current.isMove = false;
@@ -103,12 +107,13 @@ const DavBottomSheet: FC<PropsWithChildren<DavBottomSheetProps>> = ({
 
   const innerOnsure = (e: ITouchEvent) => {
     setCardState(CardState.Close);
-    onSure && onSure(e);
+    onSure && !buttonDisable && onSure(e, innerValueRef.current);
   };
 
   const backgroundClick = () => {
     setCardState(CardState.Close);
     onCancel && onCancel();
+    innerValueRef.current = null;
   };
 
   const innerToggle = () => {
@@ -117,7 +122,13 @@ const DavBottomSheet: FC<PropsWithChildren<DavBottomSheetProps>> = ({
     } else if (cardState === CardState.Expand) {
       setCardState(CardState.Close);
       onCancel && onCancel();
+      innerValueRef.current = null;
     }
+  };
+
+  const onValue = (value: any) => {
+    innerValueRef.current = value;
+    setButtonDisable(false);
   };
 
   useImperativeHandle(
@@ -156,13 +167,16 @@ const DavBottomSheet: FC<PropsWithChildren<DavBottomSheetProps>> = ({
               <View className={styles.indicator}></View>
             </View>
 
-            <View className={styles.content}>{children}</View>
+            <View className={styles.content}>
+              {children && children}
+              {render && render(onValue)}
+            </View>
           </View>
 
-          {isShowButton && (
+          {buttonText && (
             // 不会带着拖动，但是还是会触发父组件的 touchStart touchEnd 事件
             <View catchMove>
-              <DavButton className={styles.sureButton} onClick={innerOnsure}>
+              <DavButton className={styles.sureButton} onClick={innerOnsure} disable={buttonDisable}>
                 {buttonText}
               </DavButton>
             </View>
