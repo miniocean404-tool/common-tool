@@ -1,0 +1,58 @@
+// https://juejin.cn/post/7055845836298649636
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  line-height: 1.5;
+  // 默认情况下浏览器会使用 “亚像素抗锯齿（subpixel antialiasing）”。这种技术可以利用每个像素内的 R/G/B 灯光使文本更易于阅读
+  // 令人困惑的是，像 Chrome 和 Safari 这样的 MacOS 浏览器，在默认情况下仍然使用亚像素抗锯齿。因此，我们需要将 -webkit-font-smoothing 设置为 antialiased 来显式关闭亚像素抗锯齿
+  -webkit-font-smoothing: antialiased;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+  // 自动使用连字符（在支持它们的语言中）表示硬换行。这也使得硬换行更为常见。如果你有非常窄的文本栏，可以使用一下它。在我个人的 CSS 重置样式中并为包含它，但它值得尝试！
+  hyphens: auto;
+}
+
+#root,
+#__next {
+  // 正如我们在 滚蛋吧，z-index 中看到的那样，isolation 属性允许我们创建新的堆栈上下文，而无需设置 z-index。
+  // 这是有益的，因为它允许我们保证某些高优先级元素（模态、下拉列表、工具提示）在应用程序中始终显示在其他元素之上。没有奇怪的堆叠背景错误，没有 层出不穷的 z-index。
+  isolation: isolate;
+}

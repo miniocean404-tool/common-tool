@@ -1,0 +1,205 @@
+//https://juejin.cn/post/7055845836298649636#heading-7
+
+@import url(./tool.scss);
+
+/* 初始化 */
+a,
+abbr,
+acronym,
+address,
+applet,
+area,
+article,
+aside,
+audio,
+b,
+base,
+basefont,
+bdi,
+bdo,
+big,
+blockquote,
+body,
+br,
+button,
+canvas,
+caption,
+center,
+cite,
+code,
+col,
+colgroup,
+datalist,
+dd,
+del,
+details,
+dir,
+div,
+dfn,
+dialog,
+dl,
+dt,
+em,
+embed,
+fieldset,
+figcaption,
+figure,
+font,
+footer,
+form,
+frame,
+frameset,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+head,
+header,
+hr,
+html,
+i,
+iframe,
+img,
+input,
+ins,
+isindex,
+kbd,
+keygen,
+label,
+legend,
+li,
+link,
+map,
+mark,
+menu,
+menuitem,
+meta,
+meter,
+nav,
+noscript,
+object,
+ol,
+optgroup,
+option,
+output,
+p,
+param,
+pre,
+progress,
+q,
+rp,
+rt,
+ruby,
+s,
+samp,
+script,
+section,
+select,
+small,
+source,
+span,
+strike,
+strong,
+style,
+sub,
+summary,
+sup,
+table,
+tbody,
+td,
+textarea,
+tfoot,
+th,
+thead,
+time,
+title,
+tr,
+track,
+tt,
+u,
+ul,
+var,
+video,
+wbr,
+xmp,
+page,
+view,
+text,
+image {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+// *::before,
+// *::after {
+//   box-sizing: border-box;
+//   margin: 0;
+//   padding: 0;
+// }
+
+html,
+body,
+page {
+  height: 100%;
+  line-height: 1.5; // WCAG 标准规定，行高应至少为 1.5。
+  font: 16px/1 "PingFang SC", "Microsoft YaHei", sans-serif;
+  -webkit-font-smoothing: antialiased; // 取消字体抗锯齿
+  -moz-osx-font-smoothing: grayscale;
+}
+
+img,
+image {
+  border: none;
+}
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+dl,
+li,
+menu,
+ol,
+ul {
+  list-style: none;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit; // 在默认情况下，按钮和输入框不会从它们的父项继承排版样式。相反，他们有自己怪异的风格。
+  outline: none;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+text {
+  overflow-wrap: break-word; // 如果没有足够的空间容纳一行中的所有字符，文本将自动换行。
+}
+
+a,
+a:link,
+a:visited,
+a:hover,
+a:active {
+  text-decoration: none; // 设置a标签的下划线
+  hyphens: auto; // 连字符
+}
+
+#root,
+#__next {
+  isolation: isolate;
+}
