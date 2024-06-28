@@ -1,16 +1,15 @@
-import { document } from '@tarojs/runtime'
-import { render, unmountComponentAtNode } from '@tarojs/react'
-import Taro from '@tarojs/taro'
+import { document } from "@tarojs/runtime"
+import { render, unmountComponentAtNode } from "@tarojs/react"
+import Taro from "@tarojs/taro"
 
-export const domRender = (id, component) => {
+export const domRender = (id: string, Component: JSX.Element) => {
   const pageElement = getPageRoot()
 
-  const view = document.createElement('view')
+  const view = document.createElement("view")
   view.id = id
 
   // 在 view 上渲染组件
-  render(component, view)
-
+  render(Component, view)
   pageElement?.appendChild(view)
 
   return view
