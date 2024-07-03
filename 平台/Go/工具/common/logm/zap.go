@@ -1,18 +1,16 @@
 // 文章：https://blog.csdn.net/weixin_52000204/article/details/126651319
 // 文章颜色：https://blog.csdn.net/cczj0/article/details/128978811
 
-// 使用 log.InitLogger(配置)
-
-package log
+package logm
 
 import (
-	"go.uber.org/zap"
-	"go.uber.org/zap/zapcore"
-	"gopkg.in/natefinch/lumberjack.v2"
-	"ms_template_go/src/load/config"
 	"os"
 	"runtime"
 	"time"
+
+	"go.uber.org/zap"
+	"go.uber.org/zap/zapcore"
+	"gopkg.in/natefinch/lumberjack.v2"
 )
 
 var logger *zap.Logger
@@ -75,7 +73,7 @@ func getLogWriter(filename string, maxsize, maxBackup, maxAge int) zapcore.Write
 }
 
 // InitLogger 初始化Logger
-func InitLogger(con config.Logger) {
+func InitLogger(con Logger) {
 	// 获取日志写入位置
 	writeSyncer := getLogWriter(con.Location+"/"+con.FileName+".log", con.MaxSize, con.MaxBackups, con.MaxAge)
 
@@ -100,5 +98,4 @@ func InitLogger(con config.Logger) {
 
 	// 替换zap包中全局的logger实例，后续在其他包中只需使用zap.L()调用即可
 	zap.ReplaceGlobals(logger)
-	return
 }
