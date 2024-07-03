@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>视频抽帧</title>
+    <style>
+        video {
+            box-shadow: 0 0 5px blue;
+            margin: 10px 0;
+
+        }
+
+        #imgs img {
+            width: 200px;
+            margin: 5px;
+            border-radius: 5px;
+            border: 1px dashed black;
+        }
+
+        #imgs img:hover {
+            cursor: pointer;
+            box-shadow: 0 0 5px blue;
+            border: 1px dashed blue;
+        }
+
+        label {
+            padding: 10px 20px;
+            background-color: #7d7ded;
+            color: #fff;
+            border-radius: 5px;
+            border: none;
+            outline: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <h1>视频抽帧</h1>
+        <label for="file">选择视频</label>
+        <input type="file" id="file" style="display: none;" />
+        <label onclick="handle()">视频抽帧</label>
+    </div>
+    <p style="margin: 10px 0" id="imgs"></p>
+</body>
+<script>
+    let times = 0,
+        video,
+        type = false
+    document.querySelector("input").onchange = (e) => {
+        // 获取选择的视频文件
+        let videoFile = e.target.files[0];
+        let baseUrl = URL.createObjectURL(videoFile);
+        video = document.createElement("video");
+        // 设置视频当前播放时间为指定的时间点
+        video.currentTime = times;
+        video.width = 500
+        video.controls = true
+        // 设置视频静音
+        video.muted = true;
+        video.src = baseUrl
+        video.autoplay = true
+        video.oncanplay = async () => {
+            type = true
+            let timer = setInterval(() => {
+                if (times < video.duration) {
+                    times++
+                } else {
+                    times = 0
+                    clearInterval(timer)
+                    timer = null
+                    type = false
+                    alert('视频已结束！')
+                }
+            }, 1000)
+            document.body.appendChild(video)
+        }
+        // 调用captureFrame函数捕获视频帧，参数为选择的视频文件和时间点0
+    };
+
+    // 绘制视频帧到canvas上的函数
+    async function drawImage(video) {
+        // 返回一个Promise对象
+        return new Promise((resolve, reject) => {
+            // 创建一个canvas元素
+            const canvas = document.createElement("canvas");
+            // 设置canvas的宽度和高度与视频的宽度和高度相同
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            // 获取2D绘图上下文
+            const ctx = canvas.getContext("2d");
+            // 在canvas上绘制视频帧
+            ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+            // 将canvas转换为Blob对象
+            canvas.toBlob((blob) => {
+                // 将绘制好的图像以及Blob URL通过resolve方法传递出去
+                resolve({
+                    blob, // 可用于上传至服务器端
+                    url: URL.createObjectURL(blob),
+                });
+            });
+        });
+    }
+
+    // 捕获视频帧的函数
+    async function captureFrame(video, time) {
+        if (time > video.duration) {
+            alert("指定时间超过视频时长");
+        }
+        // console.log(video);
+        // 调用drawImage函数绘制视频帧到canvas上，并获取绘制结果的URL
+        const { url } = await drawImage(video);
+        // 获取页面上的img元素
+        const img = new Image()
+        img.width = 500
+        img.src = url;
+        img.title = '点击下载'
+        img.setAttribute('id', `${Date.now()}`)
+        img.setAttribute('onclick', `download(${Date.now()})`)
+        document.getElementById('imgs').appendChild(img)
+    }
+
+    function handle() {
+        if (!type) return alert('请先选择视频！')
+        captureFrame(video, times);
+    }
+
+    function download(e) {
+        let dom = document.getElementById(`${e}`).getAttribute('src')
+        let a = document.createElement('a')
+        a.setAttribute('download', `${e}.png`)
+        a.href = dom
+        a.click()
+    }
+</script>
+
+</html>
