@@ -6,11 +6,20 @@ package cmd
 import (
 	"fmt"
 	"os"
-	"reflect"
 
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )
+
+type LoadOption func(*LoadOptions)
+
+type LoadOptions struct {
+	Init CMDRun
+}
+
+type CMDRun = func(CMDRunInitMode)
+
+type CMDRunInitMode = func(mode string)
 
 var rootCmd = &cobra.Command{
 	// 命令名称
@@ -35,7 +44,7 @@ var rootCmd = &cobra.Command{
 	PreRun: func(cmd *cobra.Command, args []string) {},
 	// 当执行命令时会调用此函数
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("命令执行了")
+		// fmt.Println("命令执行了")
 	},
 	// 在 Run 函数执行之后执行。
 	PostRun: func(cmd *cobra.Command, args []string) {},
@@ -50,18 +59,34 @@ var rootCmd = &cobra.Command{
 	SuggestionsMinimumDistance: 1,
 }
 
-func Load(opts ...any) {
-	initCmd(opts...)
+func Load(opts ...LoadOption) {
+	cobra.OnInitialize(func() {
+		mode := rootCmd.PersistentFlags().Lookup("mode").Value.String()
+
+		o := LoadOptions{
+			Init: func(init CMDRunInitMode) {
+				init(mode)
+			},
+		}
+
+		for _, opt := range opts {
+			opt(&o)
+		}
+	})
+
+	initCmd()
+
 	err := rootCmd.Execute()
 	if err != nil {
 		os.Exit(1)
 	}
+
 }
 
 // PersistentFlags 表示当前命令及其子命令所有命令可用的标志
 // Flags 表示当前命令可用的标志
 // MarkFlagRequired("region") 表示必须使用的标志
-func initCmd(opts ...any) {
+func initCmd() {
 	setUsage()
 	setHelp()
 
@@ -80,12 +105,4 @@ func initCmd(opts ...any) {
 
 	// 用于添加子命令
 	// rootCmd.AddCommand(addCmd)
-
-	for _, opt := range opts {
-		t := reflect.TypeOf(opt)
-		if t.Kind() == reflect.Func {
-			// 将传递的函数设置为在调用每个命令的 Execute 方法时运行。
-			cobra.OnInitialize(opt.(func()))
-		}
-	}
 }

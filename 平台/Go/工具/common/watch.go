@@ -1,10 +1,10 @@
 package common
 
 import (
+	"fmt"
 	"time"
 
 	"github.com/fsnotify/fsnotify"
-	"go.uber.org/zap"
 )
 
 var Watcher, err = fsnotify.NewWatcher()
@@ -13,7 +13,7 @@ func WatchFile(file string, fn func()) {
 	fn()
 
 	if err != nil {
-		zap.S().Error(err)
+		panic(fmt.Errorf("watch 错误: %#v", err))
 	}
 	defer Watcher.Close()
 
@@ -36,14 +36,14 @@ func WatchFile(file string, fn func()) {
 				if !ok {
 					return
 				}
-				zap.S().Error(err)
+				panic(fmt.Errorf("watch 错误: %#v", err))
 			}
 		}
 	}()
 
 	err = Watcher.Add(file)
 	if err != nil {
-		zap.S().Error(err)
+		panic(fmt.Errorf("watch 错误: %#v", err))
 	}
 
 	// 等待数据
