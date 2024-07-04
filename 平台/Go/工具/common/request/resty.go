@@ -58,7 +58,7 @@ func (c *ClientInstance) createClient(baseUrl string, con Request) *resty.Client
 	c.config = con
 	return resty.New().
 		SetBaseURL(baseUrl).
-		SetHeader("Body-Type", "application/json").
+		SetHeader("Content-Type", "application/json").
 		SetRetryCount(con.MaxTries).
 		SetRetryWaitTime(time.Duration(con.IntervalSec) * time.Second).
 		SetRetryMaxWaitTime(time.Duration(con.IntervalSec*2) * time.Second).
@@ -67,5 +67,21 @@ func (c *ClientInstance) createClient(baseUrl string, con Request) *resty.Client
 			MaxIdleConnsPerHost: 10,                // 设置最大并发连接数为 10
 			IdleConnTimeout:     120 * time.Second, // 设置空闲连接的保持时间为 90s,默认 90s
 		}).
-		SetDebug(false)
+		SetDebug(true)
+}
+
+func New(baseUrl string) *resty.Client {
+	return resty.New().
+		SetBaseURL(baseUrl).
+		SetHeader("Content-Type", "application/json").
+		SetRetryCount(10).
+		SetRetryWaitTime(time.Duration(5) * time.Second).
+		SetRetryMaxWaitTime(time.Duration(5*2) * time.Second).
+		SetTimeout(time.Duration(10) * time.Second).
+		SetTransport(&http.Transport{
+			MaxIdleConnsPerHost: 10,                // 设置最大并发连接数为 10
+			IdleConnTimeout:     120 * time.Second, // 设置空闲连接的保持时间为 90s,默认 90s
+		}).
+		SetContentLength(true).
+		SetDebug(true)
 }

@@ -67,7 +67,7 @@ func OptionalParams(options ...TestOption) {
 	// 	Param2: "",
 	// }
 
-	// 应用所有选项
+	// 应用所有可选参数
 	for _, option := range options {
 		option(&opts)
 	}
