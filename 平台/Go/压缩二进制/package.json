@@ -1,0 +1,5 @@
+{
+    "scripts": {
+        "compress": "upx.exe -9 dist/binary/windows-amd64.exe"
+    }
+}
