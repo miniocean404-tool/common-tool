@@ -5,17 +5,26 @@ import (
 	"fmt"
 	"os"
 	"os/exec"
+	"path"
+	"runtime"
 )
 
 var entry = `src/main.go`
-var dist = `dist/bin`
+var dist = `dist/`
 
-type BuildPlatform struct {
+type TargetOs struct {
 	os   string
 	arch string
 }
 
-var await = []BuildPlatform{
+type BuildInfo struct {
+	entry string
+	out   string
+	dist  string
+	TargetOs
+}
+
+var build = []TargetOs{
 	{"windows", "amd64"},
 	{"windows", "386"},
 	{"darwin", "amd64"},
@@ -25,8 +34,21 @@ var await = []BuildPlatform{
 }
 
 func main() {
-	for _, platform := range await {
-		buildCommand(entry, platform.os, platform.arch)
+	var compress []BuildInfo
+	for _, platform := range build {
+		out := getOut(platform.os, platform.arch)
+
+		// 打包
+		buildCommand(entry, out, platform.os, platform.arch)
+		// 开始压缩
+		switch platform.os {
+		case "windows":
+			compress = append(compress, BuildInfo{entry, out, dist, platform})
+		}
+	}
+
+	for _, info := range compress {
+		upxCompress(getDir(), info.out)
 	}
 }
 
@@ -34,12 +56,55 @@ func main() {
 // 386 也称 x86 对应 32位操作系统
 // amd64 也称 x64 对应 64位操作系统
 // arm 这种架构一般用于嵌入式开发。 比如 Android ， IOS ， Win mobile , TIZEN 等
-func buildCommand(target string, platform string, arch string) {
+func buildCommand(target string, out string, platform string, arch string) {
 	// 表示CGO禁用 交叉编译中不能使用CGO的
 	os.Setenv("CGO_ENABLED", "0")
 	os.Setenv("GOOS", platform)
 	os.Setenv("GOARCH", arch)
 
+	cmd := exec.Command("go", "build", "-o", out, `-ldflags=-w -s`, target)
+	// defer cmd.Process.Kill()
+
+	var stdout bytes.Buffer // 也可以输出到 bytes.Buffer 的 out 中
+	cmd.Stdout = &stdout    // 把执行命令的标准输出定向到out
+	cmd.Stderr = os.Stderr  // 把命令的错误输出定向到 os
+
+	// start 异步执行 run 同步阻塞
+	err := cmd.Run()
+
+	if err != nil {
+		fmt.Printf("打包名称执行错误: %v\n", err)
+		return
+	}
+
+	fmt.Printf("%s %s 打包完成\n", platform, arch)
+}
+
+// upx 压缩
+func upxCompress(cwd string, target string) {
+	upx := path.Join(cwd, "upx.exe")
+
+	fmt.Println(upx, target)
+
+	if _, err := os.Stat(upx); os.IsNotExist(err) {
+		fmt.Println("upx.exe 不存在")
+		return
+	}
+
+	cmd := exec.Command(upx, "-9", target)
+
+	cmd.Stdout = os.Stdout
+	cmd.Stderr = os.Stderr
+
+	err := cmd.Run()
+
+	if err != nil {
+		fmt.Printf("压缩执行错误: %v\n", err)
+		return
+	}
+}
+
+func getOut(platform string, arch string) string {
 	var outName string
 
 	switch platform {
@@ -49,19 +114,15 @@ func buildCommand(target string, platform string, arch string) {
 		outName = fmt.Sprintf(`%s/%s-%s`, dist, platform, arch)
 	}
 
-	cmd := exec.Command("go", "build", "-o", outName, `-ldflags=-w -s`, target)
-	// defer cmd.Process.Kill()
+	return outName
+}
 
-	var out bytes.Buffer   // 也可以输出到 bytes.Buffer 的 out 中
-	cmd.Stdout = &out      // 把执行命令的标准输出定向到out
-	cmd.Stderr = os.Stderr // 把命令的错误输出定向到 os
+func getDir() string {
+	_, file, _, ok := runtime.Caller(1)
 
-	// start 异步执行 run 同步阻塞
-	err := cmd.Run()
-	if err != nil {
-		fmt.Printf("err: %v\n", err)
-		return
+	if ok {
+		return path.Dir(file)
+	} else {
+		return ""
 	}
-
-	fmt.Println("打包完成")
 }
