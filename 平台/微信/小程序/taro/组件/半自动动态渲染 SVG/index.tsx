@@ -5,6 +5,7 @@ import Taro from "@tarojs/taro"
 import { renderToString } from "react-dom/server"
 import "@tarojs/taro/html5.css"
 
+// 使用：Component2SVGBase64(<ManualAddressIcon fill={fileColor}></ManualAddressIcon>)
 export const Component2SVGBase64 = (Component: JSX.Element) => {
   return stringToBase64(renderToString(Component))
 }
