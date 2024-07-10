@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>瀑布流</title>
+    <style>
+        .box {
+            /* 几列 */
+            column-count: 2;
+            /* 列间距 */
+            column-gap: 10px;
+        }
+
+        .box div {
+            height: 160px;
+            background-color: #d3d3d3;
+            color: #000000;
+            text-align: center;
+            font-size: 30px;
+
+            margin-bottom: 10px;
+            /* 避免在该元素内部发生分页或者分栏 如果不够 排在下一列*/
+            break-inside: avoid;
+        }
+
+        /* 仅仅为了展示 */
+        .box div:nth-child(2n) {
+            height: 300px;
+            background-color: red;
+        }
+
+        .box div:nth-child(3n+1) {
+            height: 180px;
+            background-color: blue;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <div>1</div>
+        <div>2</div>
+        <div>3</div>
+        <div>4</div>
+        <div>5</div>
+        <div>6</div>
+        <div>7</div>
+        <div>8</div>
+        <div>9</div>
+        <div>10</div>
+        <div>11</div>
+        <div>12</div>
+        <div>13</div>
+        <div>14</div>
+        <div>15</div>
+        <div>16</div>
+    </div>
+</body>
+
+</html>

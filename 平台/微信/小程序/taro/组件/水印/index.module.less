@@ -1,0 +1,26 @@
+.dav-watermark {
+	.img {
+		position: fixed;
+		z-index: 999999999;
+		top: -50%;
+		left: 0;
+		width: 200vw;
+		height: 200vh;
+
+		background-size: 240px 160px;
+		background-repeat: repeat;
+		pointer-events: none;
+		transform: rotate(-15deg);
+	}
+
+	.right {
+		transform: rotate(-15deg) translate(-120px, 80px);
+	}
+
+	.canvas {
+		position: fixed;
+		left: 100vw;
+		pointer-events: none;
+		visibility: hidden;
+	}
+}
