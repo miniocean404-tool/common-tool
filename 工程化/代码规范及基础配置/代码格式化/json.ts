@@ -1,28 +1,27 @@
-import prettier from "prettier/standalone";
-import parserJson5 from "prettier/parser-babel";
-import Base from "./base";
+import * as prettier from "prettier/standalone"
+import pluginBabel from "prettier/plugins/babel"
+import pluginEstree from "prettier/plugins/estree"
 
-export const formatter = new (class extends Base<'json'> {
-    async beautify(): Promise<string> {
-        return prettier.format(this.code, {
-            parser: "json",
-            plugins: [parserJson5],
-            quoteProps: "preserve",
-            trailingComma: "none",
-            tabWidth: this.getOptionValue('tab', 4),
-            printWidth: 1
-        });
-    }
+export async function beautify(code: string): Promise<string> {
+  return prettier.format(code, {
+    parser: "json",
+    plugins: [pluginBabel, pluginEstree],
+    quoteProps: "preserve",
+    trailingComma: "none",
+    tabWidth: 4,
+    printWidth: 1,
+  })
+}
 
-    async compress(): Promise<string> {
-        return prettier.format(this.code, {
-            parser: "json",
-            plugins: [parserJson5],
-            quoteProps: "preserve",
-            trailingComma: "none",
-            tabWidth: 0,
-        }).replace(/[\n\r]/g, "")
-    }
-})
+export async function compress(code: string): Promise<string> {
+  let format = await prettier.format(code, {
+    parser: "json",
+    plugins: [pluginBabel],
+    quoteProps: "preserve",
+    trailingComma: "none",
+    tabWidth: 0,
+  })
+  format = format.replace(/[\n\r]/g, "")
 
-
+  return format
+}
