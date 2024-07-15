@@ -1,6 +1,10 @@
 // https://juejin.cn/post/7347905080508678171?searchId=2024070913523997E50509D73E5C77BF1F
 // https://juejin.cn/post/6989620511579832328?searchId=202407091457485DCBA6CC351C3C889F7A
 
+// TextEncoder 垫片
+import "fastestsmallesttextencoderdecoder"
+// import * as encoding from "text-encoding";
+
 import Taro from "@tarojs/taro"
 import { renderToString } from "react-dom/server"
 import "@tarojs/taro/html5.css"
