@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+
+<html lang="en" style="color-scheme: dark;">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>边框流光</title>
+    <meta name="description" content="Speed up your website by 70%">
+    <meta name="next-size-adjust">
+
+    <style>
+        @keyframes border-beam {
+            to {
+                content: "";
+                /* 指定元素移动距离 */
+                offset-distance: 100%;
+            }
+        }
+
+        body {
+            --border: 0 0% 18%;
+            --color-one: #af73d8;
+            --color-two: #885ee5;
+            --animation-delay: 400ms;
+            --size: 200;
+            --duration: 12;
+            --anchor: 90;
+            --border-width: 1.5;
+            --color-from: var(--color-one);
+            --color-to: var(--color-two);
+            --delay: -11s;
+        }
+
+        .container {
+            position: relative;
+            margin-top: 4rem;
+            perspective: 2000px;
+            border-radius: .75em;
+            border: 1px solid hsl(var(--border));
+
+            .box {
+                position: absolute;
+                inset: 0;
+                border: calc(var(--border-width) * 1px) solid transparent;
+                border-radius: inherit;
+
+                /* 核心 */
+                /* 把第一个 transparent 绘制到 padding 框(因为目前是被撑开的所以内部 padding 就是内容，也可以设置 content-box)、把第二个 white 绘制到被剪裁到边框内(border 内的边框)*/
+                /* mask-image 叠加了两层 image */
+                mask-image: linear-gradient(transparent, transparent), linear-gradient(white, white);
+                mask-clip: padding-box, border-box;
+                mask-composite: intersect;
+
+                &::after {
+                    content: "";
+                    position: absolute;
+                    aspect-ratio: 1 / 1;
+                    background: linear-gradient(to left, var(--color-from), var(--color-to), transparent);
+                    width: calc(var(--size) * 1px);
+
+                    /* 核心 offset */
+                    /* offset-path 设置可移动的路径 */
+                    offset-path: rect(0 auto auto 0 round calc(var(--size) * 1px));
+                    /* 元素自身的左上角 x y 在对应 offset-path 上 0,0 的位置 */
+                    offset-anchor: calc(var(--anchor) * 1%) 50%;
+                    animation: border-beam calc(var(--duration) * 1s) infinite linear;
+                    animation-delay: var(--delay);
+                }
+            }
+
+            .content {
+                position: relative;
+                width: 100%;
+                height: 300px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="box">
+        </div>
+
+        <div class="content">
+            内容
+        </div>
+    </div>
+</body>
+
+</html>
