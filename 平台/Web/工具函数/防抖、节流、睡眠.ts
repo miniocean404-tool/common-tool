@@ -37,3 +37,11 @@ export function throttle<T, Args extends any>(fun: PerfFunctionWithID<T>, delay:
     }
   }
 }
+
+export function sleep(time: number) {
+  return new Promise<void>((resolve) => {
+    setTimeout(() => {
+      resolve()
+    }, time)
+  })
+}
