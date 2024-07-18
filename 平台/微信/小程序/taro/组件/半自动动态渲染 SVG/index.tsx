@@ -9,7 +9,8 @@ import Taro from "@tarojs/taro"
 import { renderToString } from "react-dom/server"
 import "@tarojs/taro/html5.css"
 
-// 使用：Component2SVGBase64(<ManualAddressIcon fill={fileColor}></ManualAddressIcon>)
+// 1. 使用：Component2SVGBase64(<ManualAddressIcon fill={fileColor}></ManualAddressIcon>)
+// 2. 开发环境需要打开 mini.debugReact，生产环境不需要
 export const Component2SVGBase64 = (Component: JSX.Element) => {
   return stringToBase64(renderToString(Component))
 }
@@ -22,9 +23,9 @@ function base64ToString(base64: string) {
 }
 
 function stringToBase64(html: string) {
-  const arrayBuffer = new TextEncoder().encode(html).buffer
+  const arrayBuffer = new TextEncoder().encode(html)
   const base64 = Taro.arrayBufferToBase64(arrayBuffer)
 
-  // 构造 data:image/svg+xml 格式的URL
+  // 构造 data:image/svg+xml 格式的 URL
   return `data:image/svg+xml;base64,${base64}`
 }
