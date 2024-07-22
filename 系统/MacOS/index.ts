@@ -6,3 +6,6 @@ console.log(
     getDesk ? "(target of front window as alias)" : "(path to desktop)"
   }'`,
 )
+
+// 打开当前路径下的文件夹
+console.log(`open .`)
