@@ -1,3 +1,5 @@
+// 文章：https://juejin.cn/post/7000282509959233567
+
 package pdf
 
 import (
@@ -24,7 +26,6 @@ func PDFHeaderFooterHandle() (header string, footer string) {
 }
 
 func PrintToPDF(url *url.URL, header string, footer string, res *[]byte) chromedp.Tasks {
-
 	return chromedp.Tasks{
 		// 等待元素加载
 		chromedp.Navigate(url.String()),
@@ -44,15 +45,15 @@ func PrintToPDF(url *url.URL, header string, footer string, res *[]byte) chromed
 			params := page.
 				PrintToPDF().
 				WithMarginTop(0).
-				WithScale(1).
+				WithScale(.5).
 				WithPaperWidth(8.27).
 				WithPaperHeight(11.7).
 				WithPrintBackground(true).
 				WithDisplayHeaderFooter(true).
 				WithHeaderTemplate(header).
 				WithFooterTemplate(footer).
-				WithMarginTop(Cm2inchies(2)).
-				WithMarginBottom(Cm2inchies(2)).
+				WithMarginTop(Cm2inchies(3)).
+				WithMarginBottom(Cm2inchies(3)).
 				WithMarginLeft(Cm2inchies(1)).
 				WithMarginRight(Cm2inchies(1)).
 				// 给页面优先级声明的任何 CSS @page 大小超过 width 和 height 或 format 选项中声明的大小。 默认为 false，它将缩放内容以适合纸张大小。

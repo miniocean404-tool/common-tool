@@ -55,9 +55,9 @@ func OpenDir(dir string) {
 	var cmd *exec.Cmd
 	switch runtime.GOOS {
 	case "windows":
-		cmd = exec.Command("open", dir)
-	case "darwin":
 		cmd = exec.Command("explorer", dir)
+	case "darwin":
+		cmd = exec.Command("open", dir)
 	}
 	cmd.Run()
 }

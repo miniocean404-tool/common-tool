@@ -12,13 +12,14 @@ import (
 	"github.com/chromedp/chromedp"
 )
 
-var user = User{username: "", passowrd: ""}
+var user = User{username: "18515450826", passowrd: "123456"}
 
-var baseUrl = ``
+var baseUrl = `https://cn.testing.davincimotor.com`
+var target = `/Users/user/Desktop/self-code/script/go-script`
 
 var tasks = []pdf.Task{
-	{Name: "用户手册", Path: ""},
-	{Name: "保修手册", Path: ""},
+	{Name: "用户手册", Path: "/book/user"},
+	{Name: "保修手册", Path: "/book/fix"},
 }
 
 func Exec() {
@@ -36,7 +37,6 @@ func Exec() {
 
 		for _, task := range tasks {
 			task.Url.Path = task.Path
-			// 文章：https://juejin.cn/post/7000282509959233567
 			if err := chromedp.Run(ctx, pdf.PrintToPDF(task.Url, header, footer, &buf)); err != nil {
 				log.Fatal(err)
 			}
@@ -47,7 +47,6 @@ func Exec() {
 
 			pdf.OpenDir(path.Dir(task.Name))
 		}
-
 	})
 
 	fmt.Println("生成结束")
@@ -55,12 +54,7 @@ func Exec() {
 
 func initTask() []pdf.Task {
 	for i, task := range tasks {
-		cwd, err := os.Getwd()
-		if err != nil {
-			log.Fatalln(err)
-		}
-
-		tasks[i].Name = path.Join(cwd, fmt.Sprint(task.Name, ".pdf"))
+		tasks[i].Name = path.Join(target, fmt.Sprint(task.Name, ".pdf"))
 		tasks[i].Url = getBaseUrl()
 	}
 
