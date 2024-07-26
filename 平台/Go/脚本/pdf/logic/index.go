@@ -25,7 +25,7 @@ var tasks = []pdf.Task{
 func Exec() {
 	log.SetFlags(log.Lmsgprefix | log.Ldate | log.Ltime | log.Lshortfile)
 
-	tasks := initTask()
+	tasks := initParams()
 
 	wg := sync.WaitGroup{}
 
@@ -56,13 +56,18 @@ func Exec() {
 	wg.Wait()
 
 	pdf.OpenDir(output)
-	fmt.Println("生成结束")
+	fmt.Println("✅ 生成结束")
 }
 
-func initTask() []pdf.Task {
+func initParams() []pdf.Task {
 	for i, task := range tasks {
 		tasks[i].Name = path.Join(output, fmt.Sprint(task.Name, ".pdf"))
 		tasks[i].Url = getBaseUrl()
+	}
+
+	err := os.MkdirAll(output, os.ModePerm)
+	if err != nil {
+		log.Fatalln("创建输出文件夹错误")
 	}
 
 	return tasks
