@@ -8,6 +8,7 @@ import (
 	"net/url"
 	"os"
 	"path"
+	"sync"
 
 	"github.com/chromedp/chromedp"
 )
@@ -26,8 +27,13 @@ func Exec() {
 
 	tasks := initTask()
 
+	wg := sync.WaitGroup{}
+
 	for _, task := range tasks {
+		wg.Add(1)
+
 		go pdf.InitChromeDp(func(ctx context.Context) {
+			defer wg.Done()
 			var buf []byte
 			if err := chromedp.Run(ctx, Login(getBaseUrl(), user)); err != nil {
 				log.Fatal(err)
@@ -44,11 +50,12 @@ func Exec() {
 				log.Fatal(err)
 			}
 
-			pdf.OpenDir(path.Dir(task.Name))
-
 		})
 	}
 
+	wg.Wait()
+
+	pdf.OpenDir(output)
 	fmt.Println("生成结束")
 }
 
