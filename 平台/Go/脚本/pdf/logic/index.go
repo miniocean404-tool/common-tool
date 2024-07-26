@@ -13,9 +13,8 @@ import (
 )
 
 var user = User{username: "18515450826", passowrd: "123456"}
-
 var baseUrl = `https://cn.testing.davincimotor.com`
-var target = `/Users/user/Desktop/self-code/script/go-script`
+var output = `/Users/user/Desktop/work-code/front-end/davinci-web/assets/pdf`
 
 var tasks = []pdf.Task{
 	{Name: "用户手册", Path: "/book/user"},
@@ -27,15 +26,15 @@ func Exec() {
 
 	tasks := initTask()
 
-	pdf.InitChromeDp(func(ctx context.Context) {
-		var buf []byte
-		if err := chromedp.Run(ctx, Login(getBaseUrl(), user)); err != nil {
-			log.Fatal(err)
-		}
+	for _, task := range tasks {
+		go pdf.InitChromeDp(func(ctx context.Context) {
+			var buf []byte
+			if err := chromedp.Run(ctx, Login(getBaseUrl(), user)); err != nil {
+				log.Fatal(err)
+			}
 
-		header, footer := pdf.PDFHeaderFooterHandle()
+			header, footer := pdf.PDFHeaderFooterHandle()
 
-		for _, task := range tasks {
 			task.Url.Path = task.Path
 			if err := chromedp.Run(ctx, pdf.PrintToPDF(task.Url, header, footer, &buf)); err != nil {
 				log.Fatal(err)
@@ -46,15 +45,16 @@ func Exec() {
 			}
 
 			pdf.OpenDir(path.Dir(task.Name))
-		}
-	})
+
+		})
+	}
 
 	fmt.Println("生成结束")
 }
 
 func initTask() []pdf.Task {
 	for i, task := range tasks {
-		tasks[i].Name = path.Join(target, fmt.Sprint(task.Name, ".pdf"))
+		tasks[i].Name = path.Join(output, fmt.Sprint(task.Name, ".pdf"))
 		tasks[i].Url = getBaseUrl()
 	}
 
