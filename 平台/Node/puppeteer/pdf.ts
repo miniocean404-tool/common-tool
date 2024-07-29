@@ -8,8 +8,8 @@ const web = ``
 const targetDir = "./"
 
 const generateAddress = [
-  { name: "用户手册", url: "/book/user" },
-  { name: "保修手册", url: "/book/fix" },
+  // { name: "用户手册", url: "" },
+  { name: "保修手册", url: "" },
 ]
 
 const user: User = {
@@ -80,31 +80,38 @@ async function genPDF({ page, url, name }: GeneratePDF) {
   await page.evaluateHandle("document.fonts.ready")
 
   // 页眉模板（图片使用base64，此处的src的base64为占位值）
-  const headerTemplate = `<div
-style="width: calc(100% - 28px); margin-top: -13px; font-size:8px;border-bottom:2px solid #e1dafb;padding:6px 14px;display: flex; justify-content: space-between; align-items:center;">
-<span style="color: #9a7ff7; font-size: 12px; font-family: my-font;">李钟航的报告模板</span>
-<img style="width: 80px; height: auto;" src="data:image/png;base64,iVBORw0KGgoAAAxxxxxx" />
-</div>`
+  const headerTemplate = `
+    <div style="width:100%;padding: 40px 40px 0;box-sizing: border-box;border:1px solid red">
+      <div style="display: flex;justify-content: flex-end;">
+          <img src="./logo.png" style="margin-bottom: 10px;" width="100" height="15" alt="">
+      </div>
+      <div style="border-top: .5px solid #262626;"></div>
+    </div>
+    `
   // 页脚模板（pageNumber处会自动注入当前页码）
-  const footerTemplate = `<div
-style="width:calc(100% - 28px);margin-bottom: -20px; font-size:8px; padding:15px 14px;display: flex; justify-content: space-between; ">
-<span style="color: #9a7ff7; font-size: 10px;">这里是页脚文字</span>
-<span style="color: #9a7ff7; font-size: 13px;" class="pageNumber"></span>
-</div>`
+  const footerTemplate = `
+    <div style="width: 100%;padding: 0px 40px 40px;box-sizing: border-box;border:1px solid blue">
+      <div style="display: flex;justify-content: space-between;">
+          <span style="font-size: 12px;color: #8C8C8C;">DC100 用户手册</span>
+          <span style="font-size: 12px;color: #333333;" class="pageNumber">1</span>
+      </div>
+    </div>
+  `
 
   await page.pdf({
-    scale: 1,
+    scale: 0.5,
     path: `${targetDir}${name}.pdf`,
     format: "a4",
     displayHeaderFooter: true,
+    // header 与 footer 每个中间会穿插 20 px 大小的空白
     headerTemplate,
     // 页脚的模板
     footerTemplate,
     margin: {
-      top: "70px",
-      bottom: "70px",
-      left: "70px",
-      right: "70px",
+      top: "86px",
+      bottom: "77px",
+      left: "40px",
+      right: "40px",
     },
     // 给页面优先级声明的任何CSS @page 大小超过 width 和 height 或 format 选项中声明的大小。 默认为 false，它将缩放内容以适合纸张大小。
     preferCSSPageSize: true,
@@ -125,4 +132,3 @@ function oepnDir(dir: string) {
     default:
   }
 }
-oepnDir(".")
