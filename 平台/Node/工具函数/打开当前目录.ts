@@ -1,3 +1,5 @@
+import child_process from "child_process"
+
 function oepnDir(dir: string) {
   switch (process.platform) {
     case "darwin":
