@@ -5,6 +5,7 @@ enum ENUM_TYPE {
   LITTLE = "little",
 }
 
+// 枚举满足这个约束是因为枚举是遍历每一个值的，相当于联合类型
 type EnumValue<T extends string | number | bigint | boolean | null | undefined> = `${T}`
 type EnumKey<T> = keyof T
 

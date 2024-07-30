@@ -2,8 +2,8 @@
 const demo = {
   name: "名字",
   age: 12,
-}
+} as const
 
-const autoFill = <T extends object>(key: T, value: keyof T) => {}
+const autoFill = <T extends object>(key: keyof T, value: T[keyof T]) => {}
 
-autoFill(demo, "name")
+autoFill<typeof demo>("name", "名字")
