@@ -83,7 +83,7 @@ declare type TypeSelectorOfComplexSelector<ComplexSelector extends string> =
       ? // 获取选择器最后一个字符串
         Last<CompoundSelectors> extends infer LastCompoundSelector
         ? LastCompoundSelector extends string
-          ? // 将最后一个选择器去除 选择器标识
+          ? // 将最后一个选择器去除 选择器标识 或 直接获取元素 例：div.classname
             TypeSelectorOfCompoundSelector<LastCompoundSelector>
           : never
         : never
