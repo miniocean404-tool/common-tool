@@ -7,20 +7,12 @@ type CombinatorTokens = [" ", ">", "+", "~", "|", "|"]
 // 不为空的只读数组
 type NonEmptyReadonlyArray<T> = [T, ...(readonly T[])]
 
-// 依次获取每一个元素进行分割，最终获取元素 tag
-// 1. 右侧是将第一次分割的字符串继续使用剩余所有的分割符进行递归分割，左侧是将剩余的按照 1 的方式继续分割
-// 例：type Resut = FlatmapSplitWithSeps<["a+", ">", "c"], [">", "+", "~", "|", "|"]> => ["a", "", "", "", "c"]
-type FlatmapSplitWithSeps<
-  Inputs extends readonly string[],
-  Seps extends readonly string[],
-  Acc extends string[] = [],
-> = Inputs extends [infer FirstInput, ...infer RestInputs]
-  ? FirstInput extends string
-    ? RestInputs extends readonly string[]
-      ? FlatmapSplitWithSeps<RestInputs, Seps, [...Acc, ...SplitWithSeps<FirstInput, Seps>]>
-      : Acc
-    : Acc
-  : Acc
+// 获取数组最后一个元素
+type Last<Arr extends NonEmptyReadonlyArray<unknown>> = Arr extends [infer Head, ...infer Tail]
+  ? Tail extends NonEmptyReadonlyArray<unknown>
+    ? Last<Tail>
+    : Head
+  : never
 
 // 根据字符串将 前缀 和 后缀 分割，并获取其具体值，然后递归将后缀字符串继续分割
 // 例：type Resut = Split<"a _ > b > c", ">"> => ["a _ ", " b ", " c"]
@@ -38,6 +30,21 @@ type Drop<Arr extends readonly unknown[], Remove, Acc extends unknown[] = []> = 
     : Drop<Tail, Remove, [...Acc, Head]>
   : Acc
 
+// 依次获取每一个元素进行分割，最终获取元素 tag
+// 1. 右侧是将第一次分割的字符串继续使用剩余所有的分割符进行递归分割，左侧是将剩余的按照 1 的方式继续分割
+// 例：type Resut = FlatmapSplitWithSeps<["a+", ">", "c"], [">", "+", "~", "|", "|"]> => ["a", "", "", "", "c"]
+type FlatmapSplitWithSeps<
+  Inputs extends readonly string[],
+  Seps extends readonly string[],
+  Acc extends string[] = [],
+> = Inputs extends [infer FirstInput, ...infer RestInputs]
+  ? FirstInput extends string
+    ? RestInputs extends readonly string[]
+      ? FlatmapSplitWithSeps<RestInputs, Seps, [...Acc, ...SplitWithSeps<FirstInput, Seps>]>
+      : Acc
+    : Acc
+  : Acc
+
 // 递归将字符串按照分隔符分割，第一次是空格
 // 例如 type Result = SplitWithSeps<"a+ > c", CombinatorTokens> => ["a", "", "", "", "c"]
 type SplitWithSeps<Input extends string, Seps extends readonly string[]> = Seps extends [
@@ -52,15 +59,7 @@ type SplitWithSeps<Input extends string, Seps extends readonly string[]> = Seps 
     : never
   : [Input]
 
-type CompoundSelectorsOfComplexSelector<ComplexSelector extends string> = SplitWithSeps<
-  ComplexSelector,
-  CombinatorTokens
-> extends infer IntermediateTokens
-  ? IntermediateTokens extends readonly string[]
-    ? Drop<IntermediateTokens, "">
-    : never
-  : never
-
+// 获 div.indicator、input[type=password] 这种选择器字符串获取具体的 html 元素类型
 type TypeSelectorOfCompoundSelector<CompoundSelector extends string> = SplitWithSeps<
   CompoundSelector,
   BeginSubclassSelectorTokens
@@ -72,11 +71,13 @@ type TypeSelectorOfCompoundSelector<CompoundSelector extends string> = SplitWith
     : never
   : never
 
-// 获取数组最后一个元素
-type Last<Arr extends NonEmptyReadonlyArray<unknown>> = Arr extends [infer Head, ...infer Tail]
-  ? Tail extends NonEmptyReadonlyArray<unknown>
-    ? Last<Tail>
-    : Head
+type CompoundSelectorsOfComplexSelector<ComplexSelector extends string> = SplitWithSeps<
+  ComplexSelector,
+  CombinatorTokens
+> extends infer IntermediateTokens
+  ? IntermediateTokens extends readonly string[]
+    ? Drop<IntermediateTokens, "">
+    : never
   : never
 
 export type ElementFor<TagName extends keyof HTMLElementTagNameMap | keyof SVGElementTagNameMap> =
@@ -86,7 +87,7 @@ export type ElementFor<TagName extends keyof HTMLElementTagNameMap | keyof SVGEl
     ? SVGElementTagNameMap[TagName]
     : never
 
-// 根据 CompoundSelectorsOfComplexSelector 获取到最终的元素数组后获取最后一个元素，通过 TypeSelectorOfCompoundSelector 将选择器标识去除，最终获取到元素类型字符串
+// 根据 CompoundSelectorsOfComplexSelector 获取到最终的元素数组后获取最后一个元素，通过 TypeSelectorOfCompoundSelector 将选择器标识及右侧去除，最终获取到元素类型字符串
 type TypeSelectorOfComplexSelector<ComplexSelector extends string> =
   CompoundSelectorsOfComplexSelector<ComplexSelector> extends infer CompoundSelectors
     ? CompoundSelectors extends NonEmptyReadonlyArray<string>
