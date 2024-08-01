@@ -1,0 +1,4 @@
+// 将其应用于除 .excluded 之外的 scrollbar
+*:not(.excluded)::-webkit-scrollbar {
+  display: none;
+}
