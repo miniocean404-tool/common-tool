@@ -1,0 +1,19 @@
+{
+  "name": "swc-bot",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "get-nightly-version": "ts-node ./src/nightly-version.ts"
+  },
+  "devDependencies": {
+    "@types/node": "22.0.0",
+    "ts-node": "^10.9.2",
+    "typescript": "5.5.4"
+  },
+  "dependencies": {
+    "@octokit/rest": "20.1.1",
+    "yaml": "2.5.0"
+  }
+}
