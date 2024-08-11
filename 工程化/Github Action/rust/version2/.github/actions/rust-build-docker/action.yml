@@ -31,6 +31,16 @@ inputs:
     default: ""
     description: "构建后执行的命令"
 
+  build:
+    required: true
+    default: ""
+    description: "构建命令"
+
+  working-directory:
+    required: false
+    default: "."
+    description: "命令工作目录"
+
 runs:
   using: composite
   steps:
@@ -54,8 +64,9 @@ runs:
           npm install -g corepack@0.24.1
           corepack enable
 
-          cd packages &&
-          RUST_TARGET=${{ inputs.target }} pnpm build:node --target ${{ matrix.settings.target }}
+          # RUST_TARGET=${{ inputs.target }} 用于指定目标平台
+          ${{ inputs.build }}
+
           ${{ inputs.post }}
         '
 
