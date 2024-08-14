@@ -24,24 +24,24 @@ on:
   workflow_call:
     inputs:
       package:
+        description: "发布的包名"
         type: string
         required: true
+
       version:
+        description: "版本号"
         type: string
         required: true
-      buildCli:
-        type: boolean
-        required: true
+
       skipBuild:
+        description: "是否跳过构建"
         type: boolean
         required: true
+
       skipPublishing:
+        description: "是否跳过发布"
         type: boolean
         required: true
-      profile:
-        type: string
-        required: false
-        default: release
 
 jobs:
   check-if-build-required:
@@ -122,8 +122,8 @@ jobs:
           isNeedNode: true
           name: bindings-${{ matrix.settings.target }}-node
           path: |
-            ./bindings/binding_compress_node/image-compress*
-            ./bindings/binding_explore_node/explore*
+            ./packages/image-compress/image-compress*
+            ./packages/explore/explore*
           target: ${{ matrix.settings.target }}
           image: ${{ matrix.settings.docker }}
           pre: ${{ matrix.settings.setup }}
@@ -133,8 +133,8 @@ jobs:
             ${{ matrix.settings.post }}
 
             if [[ '${{ matrix.settings.target }}' == "x86_64-apple-darwin" ]]; then
-              strip -x ./bindings/binding_compress_node/*.node
-              strip -x ./bindings/binding_explore_node/*.node
+              strip -x ./packages/image-compress/*.node
+              strip -x ./packages/explore/*.node
             fi
 
   build-wasm:
@@ -167,6 +167,7 @@ jobs:
             # 默认打包在 pkg 目录下
             # 文档：https://rustwasm.github.io/docs/wasm-pack/commands/build.html
             wasm-pack build ./bindings/binding_compress_wasm --out-name image-compress-${{ matrix.settings.target }} --release --target ${{ matrix.settings.target }} --scope giegie
+            # sed -i -e 's/"name": "@giegie\/binding_compress_wasm"/"name": "@giegie\\/image-compress-wasm-web"/g' pkg/package.json
 
   publish:
     needs:
@@ -190,7 +191,7 @@ jobs:
           fi
 
       - name: 安装依赖
-        run: corepack enable && pnpm install
+        run: pnpm i
 
       - name: 下载所有 artifacts
         uses: actions/download-artifact@v4
@@ -207,24 +208,39 @@ jobs:
           cp -r -v ./packages/artifacts/**/*.wasm ./packages/artifacts
         shell: bash
 
-      #     - name: 移动 artifacts 文件
-      #       shell: bash
-      #       working-directory: .
-      #       run: |
-      #         chmod +x ./.github/scripts/cli_artifacts_rename.sh
-      #         ./.github/scripts/cli_artifacts_rename.sh
+      - name: Napi 归档 image-compress
+        working-directory: ./packages/image-compress
+        run: |
+          # tar -czvf ./packages/artifacts.tar.gz ./packages/artifacts
+          pnpm run artifacts
 
-      # - name: 发布 npm 包及长传 .node 文件到 github release
-      #   # npm config set provenance true 命令设置发布 npm 包时候自动发布 GitHub Release: https://docs.npmjs.com/generating-provenance-statements
-      #   if: ${{ !inputs.skipPublishing }}
-      #   run: |
-      #     npm config set provenance true
-      #     echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> ~/.npmrc
-      #     echo "npmAlwaysAuth:true\n npmAuthToken: '$NPM_TOKEN'\n" >> ~/.npmrc
-      #     (cd packages/core && yarn workspaces foreach -Rt npm publish --tolerate-republish --tag $NPM_TAG)
-      #   env:
-      #     GITHUB_TOKEN: ${{ github.token }}
-      #     NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Napi 归档 explore
+        working-directory: ./packages/explore
+        run: |
+          pnpm run artifacts
+
+      - name: 展示 image-compress npm 归档
+        working-directory: ./packages/image-compress
+        shell: bash
+        run: ls -R ./npm
+
+      - name: 展示 explore npm 归档
+        working-directory: ./packages/explore
+        shell: bash
+        run: ls -R ./npm
+
+      - name: 发布 npm 包及长传 .node 文件到 github release
+        if: ${{ !inputs.skipPublishing }}
+        run: |
+          # npm config set provenance true 命令设置发布 npm 包时候自动发布 GitHub Release: https://docs.npmjs.com/generating-provenance-statements
+          # npm publish --tolerate-republish --tag $NPM_TAG # --tolerate-republish 代表允许重复发布
+          npm config set provenance false
+          echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> ~/.npmrc
+          echo "npmAlwaysAuth:true\n npmAuthToken: '$NPM_TOKEN'\n" >> ~/.npmrc
+          # pnpm run publish
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: 通过 Action 上传二进制到 gh release
         uses: softprops/action-gh-release@v2
