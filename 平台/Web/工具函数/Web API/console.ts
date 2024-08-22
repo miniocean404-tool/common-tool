@@ -2,6 +2,8 @@ export const pLog = prettyLog()
 
 // 美化打印实现方法
 function prettyLog() {
+  // ! 需要修改为你的环境
+  // @ts-ignore
   const isProduction = import.meta.env.MODE === "production"
 
   const isEmpty = (value: any) => {

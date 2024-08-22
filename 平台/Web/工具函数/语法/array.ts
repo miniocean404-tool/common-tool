@@ -1,3 +1,12 @@
+// 打乱数组: 这在彩票程序中很常见，但并不是真正随机的。
+export const shuffleArray = (array: number[]) => array.sort(() => Math.random() - 0.5)
+
+// 获取一组数的平均值
+export const average = (...args: number[]) => args.reduce((a, b) => a + b, 0) / args.length
+
+// 简单去重
+export const uniqueArray = (...arr: number[]) => [...new Set(arr)]
+
 // 数组去重
 export function unique<T extends { [key: string]: any }>(arr: T[]) {
   function equals(value1: T, value2: T) {

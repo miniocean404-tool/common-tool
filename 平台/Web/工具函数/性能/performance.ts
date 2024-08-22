@@ -2,6 +2,7 @@ type perfFunction<T> = {
   (this: T, args: any[]): void
   (this: T, ...args: any[]): void
 }
+
 interface PerfFunctionWithID<T> extends perfFunction<T> {
   id?: NodeJS.Timeout
 }
@@ -36,12 +37,4 @@ export function throttle<T, Args extends any>(fun: PerfFunctionWithID<T>, delay:
       fun.apply(that, Array.from(_args))
     }
   }
-}
-
-export function sleep(time: number) {
-  return new Promise<void>((resolve) => {
-    setTimeout(() => {
-      resolve()
-    }, time)
-  })
 }
