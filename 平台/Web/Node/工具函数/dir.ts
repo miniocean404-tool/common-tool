@@ -1,8 +1,27 @@
-// commonjs 适用于 11.0.4 版本
-const globby = require("globby");
+// @ts-ignore
+import globby from "globby"
+import fs from "fs"
+import child_process from "child_process"
 
-const readDir = async () => {
-  const basePath = "";
+export function oepnDir(dir: string) {
+  switch (process.platform) {
+    case "darwin":
+      child_process.exec("open .")
+      break
+    case "win32":
+      child_process.exec("explorer .")
+      // child_process.exec("start .")
+      break
+
+    default:
+  }
+}
+
+export const createDir = (dir: string) => !fs.existsSync(dir) && fs.mkdirSync(dir, { recursive: true })
+
+// commonjs 适用于 11.0.4 版本
+export const readDir = async () => {
+  const basePath = ""
 
   const dirs = await globby([`./`], {
     cwd: basePath,
@@ -40,7 +59,7 @@ const readDir = async () => {
       // files: ["*", "*.jpg"],
       extensions: ["vue", "js", "json", "html"],
     },
-  });
+  })
 
-  return dirs;
-};
+  return dirs
+}

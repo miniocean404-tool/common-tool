@@ -1,14 +1,3 @@
-// 清除所有 cookie
-const clearCookies = document.cookie
-  .split(";")
-  .forEach(
-    (cookie) =>
-      (document.cookie = cookie.replace(/^ +/, "").replace(/=.*/, `=;expires=${new Date(0).toUTCString()};path=/`)),
-  )
-
-// 是否为深色模式
-const isDarkMode = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches
-
 // 确定当前选项卡是否处于活动状态
 const checkTabInView = () => !document.hidden
 

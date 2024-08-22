@@ -1,3 +1,6 @@
+// @ts-ignore
+import { UAParser } from "ua-parser-js"
+
 export const isAppleDevice = () => /Mac|iPod|iPhone|iPad/.test(navigator.platform)
 
 // 获取当前尺寸的设备类型
@@ -17,4 +20,9 @@ export function getPlatform(ua: string) {
     isWeChatBrowser,
     isMiniProgram,
   }
+}
+
+const { device } = UAParser(navigator.userAgent)
+export function isMobile() {
+  return device.type === "mobile"
 }

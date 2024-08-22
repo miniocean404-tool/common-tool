@@ -1,6 +1,7 @@
 // https://juejin.cn/post/7000282509959233567
 // "puppeteer": "22.14.0"
 
+// @ts-ignore
 import puppeteer, { type Page } from "puppeteer"
 import child_process from "node:child_process"
 
