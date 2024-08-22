@@ -1,10 +1,5 @@
 // https://rust-book.junmajinlong.com/ch102/tracing.html
 
-// tracing = "0.1.40"
-// tracing-appender = "0.2.3"
-// tracing-subscriber = { version = "0.3.18", features = ["env-filter"] }
-
-
 use std::{error::Error, io};
 
 use tracing_appender::non_blocking::WorkerGuard;
@@ -23,22 +18,28 @@ use super::time::LocalTimer;
 // 直接初始化，采用默认的Subscriber，默认只输出INFO、WARN、ERROR级别的日志
 // tracing_subscriber::fmt::init();
 
-pub fn init_tracing() -> Result<WorkerGuard, Box<dyn Error + 'static>> {
+pub fn init_tracing(path: &str) -> Result<WorkerGuard, Box<dyn Error>> {
     // 使用 tracing_appender，指定日志的输出目标位置
     // 参考: https://docs.rs/tracing-appender/0.2.0/tracing_appender/
 
     // 设置日志过滤器，只输出项目下的不含第三方库的日志 过滤器格式：https://docs.rs/tracing-subscriber/0.3.18/tracing_subscriber/filter/struct.EnvFilter.html#example-syntax
+    // tauri 中不能添加，会导致程序无法启动
     let my_create = env!("CARGO_PKG_NAME").replace('-', "_");
     let filter = EnvFilter::from_default_env().add_directive(my_create.parse()?);
 
-    let file_appender = tracing_appender::rolling::daily("./logs", "tracing.log");
+    let file_appender = tracing_appender::rolling::daily(path, "tracing.log");
     // 如果 non_blocking 不在 main 中，需要把 guard 返回给 main
     let (_non_blocking, guard) = tracing_appender::non_blocking(file_appender);
 
-    let tty = fmt::layer().with_writer(io::stdout).event_format(get_formart(true));
-    let file = fmt::layer().with_writer(_non_blocking).event_format(get_formart(false));
+    let tty = fmt::layer()
+        .with_writer(io::stdout)
+        .event_format(get_formart(true));
+    let file = fmt::layer()
+        .with_writer(_non_blocking)
+        .event_format(get_formart(false));
 
     let registry = Registry::default().with(filter).with(tty).with(file);
+
     registry.init();
 
     // 初始化并设置日志格式(定制和筛选日志)
