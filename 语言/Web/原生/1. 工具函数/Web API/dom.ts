@@ -9,3 +9,15 @@ function isExistViewport(el: HTMLElement) {
   const rect = el.getBoundingClientRect()
   return rect.top > window.innerHeight
 }
+
+// 是否在视口中 2
+function checkEleIsScreen(dom) {
+  const cb = (entry) => {
+    if (entry.isIntersecting) {
+      console.log("目标可被看见")
+    }
+  }
+
+  const observer = new IntersectionObserver(cb, { threshold: 1.0 })
+  observer.observe(dom)
+}

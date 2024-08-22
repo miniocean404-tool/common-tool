@@ -3,6 +3,10 @@ import { UAParser } from "ua-parser-js"
 
 export const isAppleDevice = () => /Mac|iPod|iPhone|iPad/.test(navigator.platform)
 
+// UA 确定设备是移动设备还是台式机/笔记本电脑
+const detectDeviceType = () =>
+  /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ? "Mobile" : "Desktop"
+
 // 获取当前尺寸的设备类型
 export const getSizeDeviceType = () => {
   return {

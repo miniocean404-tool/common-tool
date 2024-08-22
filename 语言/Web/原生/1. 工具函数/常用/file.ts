@@ -6,6 +6,30 @@ export const downloadUrl = (url: string, filename: string) => {
   a.click()
 }
 
+// 通过后端响应头 disposition 下载文件
+function downloadFile(blob, { name = "默认文件名", disposition, suffix = "zip", mime }) {
+  // disposition 是 content-disposition: attachment;filename*=utf-8''%E9%94%99%E8%AF%AF%E6%95%B0%E6%8D%AE.xls
+  if (disposition) {
+    let name1 = disposition.match(/filename=(.*);/)[1] // 获取filename的值
+    let name2 = disposition.match(/filename\*=(.*)/)[1] // 获取filename*的值
+
+    name1 = decodeURIComponent(name1)
+    name2 = decodeURIComponent(name2.substring(6)) // 这个下标6就是UTF-8''
+
+    if (name1 || name2) name = name1 || name2
+  }
+
+  if (!blob.type && mime) blob = new Blob([blob], { type: mime })
+  const href = URL.createObjectURL(blob)
+
+  const a = document.createElement("a")
+  a.download = `${name}.${suffix}`
+  a.href = href
+  a.click()
+
+  URL.revokeObjectURL(href)
+}
+
 // 格式化文件尺寸
 function formartFileSize(bytes: number) {
   if (bytes === 0) return "0 B"
