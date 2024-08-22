@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>骨架屏</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <style>
+      @keyframes skeleton {
+          0% {
+              background-position: 100% 0;
+          }
+
+          100% {
+              background-position: 0 0;
+          }
+      }
+
+      body {
+          background-color: aliceblue;
+      }
+
+      .screen-root {
+          width: 100%;
+          height: 100%;
+          display: flex;
+          justify-content: center;
+          margin-top: 20vh;
+      }
+
+      ul {
+          background-color: #fff;
+          margin: 0 auto;
+          padding: 20px;
+          width: 40vw;
+      }
+
+      li {
+          /* background-image: linear-gradient(90deg, #f2f2f2 25%, #e6e6e6 37%, #f2f2f2 63%); */
+          background-image: linear-gradient(90deg, #ff0000 25%, #41de6a 37%, #ff0000 63%);
+          width: 100%;
+          height: 0.6rem;
+          list-style: none;
+          background-size: 400% 100%;
+          margin-top: 0.6rem;
+          background-position: 100% 0%;
+
+          /* 百分比偏移计算 */
+          /* (container width - image width) * (position x%) = (x offset value) */
+          /* (container height - image height) * (position y%) = (y offset value) */
+          animation: skeleton 1.4s ease infinite;
+      }
+
+      li:first-child {
+          width: 38%;
+      }
+
+      li:last-child {
+          width: 61%;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="screen-root">
+      <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+      </ul>
+    </div>
+  </body>
+</html>
