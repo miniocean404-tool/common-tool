@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <!-- 文章：https://mp.weixin.qq.com/s?__biz=MzIyMDc1NTYxNg==&mid=2247487775&idx=1&sn=54d09243e36c7d5470982d4237bf8303&chksm=97c672d0a0b1fbc6676ce29a16e13f186689e253d0d7c1454fb95c8d9530b7d443468b94ad4b&scene=21#wechat_redirect -->
+    <style>
+        body {
+            margin: 0;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 10px;
+            background-color: #F44336;
+            transform-origin: 0 50%;
+
+            /* 注意：动画时长不能为 0，因为为0表示动画不执行，所以必须写上一个任意非零时间，或者直接为auto */
+            animation: grow-progress auto linear;
+
+            /* 「CSS 滚动驱动动画」指的是将「动画的执行过程由页面滚动」进行接管，也就是这种情况下，「动画只会跟随页面滚动的变化而变化」，也就是滚动多少，动画就执行多少，「时间不再起作用」但是动画时间必须是数值或 auto */
+            animation-timeline: scroll();
+        }
+
+        main {
+            padding: 10px;
+        }
+
+        div {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100px;
+            margin: 10px;
+            background-color: beige;
+            color: coral;
+            font-size: 60px;
+
+
+            animation: appear 1s linear forwards,
+                disappear 1s linear forwards;
+
+            /* 「视图进度时间线（view progress timeline）」。其实表示的是一个元素出现在页面视野范围内的进度，也就是关注的是元素自身位置。元素刚刚出现之前代表 0%进度，元素完全离开之后代表 100% 进度， */
+            animation-timeline: view();
+
+            /* 设置动画沿时间轴开始和结束的位置 */
+            /* animation-range 如果设置 20% 就代表 元素刚刚出现之前代表 0%进度，元素移动 20% 代表 100%完成进度 */
+            /* 默认 cover：元素刚刚出现之前代表 0%进度，元素完全离开之后代表 100% 进度 */
+            /* contain：元素已经完全进入滚动容器可见范围开始为（0%）到刚好要准备开始离开的过程为（100% ），也就是元素必须完全在可见范围才会触发 */
+            /* entry：从元素首次开始进入滚动端口的点（0％进度）到其元素完全进入滚动端口的点（100％） */
+            /* exit：从元素首次开始退出滚动端口的点（0％进度）到其元素完全退出滚动端口的点（100％） */
+            /* 对应 animation 的第一个，第二个动画 */
+            animation-range: entry, exit;
+        }
+
+        div:nth-child(odd) {
+            background-color: wheat
+        }
+
+        @keyframes grow-progress {
+            from {
+                transform: scaleX(0);
+            }
+
+            to {
+                transform: scaleX(1);
+            }
+        }
+
+        @keyframes appear {
+            0% {
+                opacity: 0;
+                transform: scaleX(0);
+            }
+
+            100% {
+                opacity: 1;
+                transform: scaleX(1);
+            }
+
+            /* 可以写为 */
+            /* entry 0% {
+                opacity: 0;
+                transform: scaleX(0);
+            }
+
+            entry 100% {
+                opacity: 1;
+                transform: scaleX(1);
+            } */
+        }
+
+        @keyframes disappear {
+            0% {
+                opacity: 1;
+                transform: scaleX(1);
+            }
+
+            100% {
+                opacity: 0;
+                transform: scaleX(0);
+            }
+
+            /* 可以写为 */
+            /*
+            exit 0% {
+                opacity: 1;
+                transform: scaleX(1);
+
+            exit 100% {
+                opacity: 0;
+                transform: scaleX(0);
+            }
+            } */
+        }
+    </style>
+</head>
+
+<body>
+    <div>欢</div>
+    <div>迎</div>
+    <div>关</div>
+    <div>注</div>
+    <div>前</div>
+    <div>端</div>
+    <div>侦</div>
+    <div>探</div>
+    <div>欢</div>
+    <div>迎</div>
+    <div>关</div>
+    <div>注</div>
+    <div>前</div>
+    <div>端</div>
+    <div>侦</div>
+    <div>探</div>
+</body>
+
+</html>

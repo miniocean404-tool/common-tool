@@ -17,7 +17,7 @@
             overflow: hidden;
 
             &::after {
-                content: "+" counter(num);
+                content: "+" counter(counter-name);
                 padding: .2em .5em;
                 background-color: #FFE8A3;
                 color: #191919;
@@ -26,7 +26,7 @@
 
             .con {
                 /* 计数器初始值，默认为 0 */
-                counter-reset: num;
+                counter-reset: counter-name;
 
                 /* 滚动时间线 */
                 /* <axios>表示滚动方向，支持以下几个关键值 */
@@ -49,13 +49,13 @@
 
             .tag {
                 /* 计数器增量值，默认为 1 */
-                counter-increment: num 1;
+                counter-increment: counter-name 1;
                 animation: appear;
                 /* 视图进度时间线 */
                 /* 这个概念非常像JS中的Intersection_Observer_API[9]，也就「交叉观察者」，可以「监测到元素在可视区」的情况 */
                 /* <axios>表示滚动方向，支持以下几个关键值 */
-                /* block：滚动容器的块级轴方向*（默认）*。 */
-                /* inline：滚动容器内联轴方向。 */
+                /* block：滚动容器的块轴上的滚动条，即垂直于行内文本流方向的轴。对于水平书写模式（例如标准英语），这与 相同y，而对于垂直书写模式，则与 相同x。（默认）*。 */
+                /* inline：滚动容器内联轴上的滚动条，即与行内文本流方向平行的轴。对于水平书写模式，这与 x 相同，而对于垂直书写模式，这与 y 相同。 */
                 /* y：滚动容器沿 y 轴方向。 */
                 /* x：滚动容器沿 x 轴方向。 */
                 animation-timeline: view(inline);
@@ -68,13 +68,12 @@
             }
         }
 
-        /* 原理是 animation-timeline 这个动画在元素进入时候会自动应用样式，在加上  counter-increment 增长数值，就实现了*/
+        /* 原理是 animation-timeline 这个动画在可见的时候才会执行，.tag 为每个元素已经 +1 ,后边动画应用后把增加的数覆盖掉了就形成了计数*/
         @keyframes appear {
 
             from,
             to {
-                background-color: #9747FF;
-                counter-increment: num 0;
+                counter-increment: counter-name 0;
             }
         }
     </style>
