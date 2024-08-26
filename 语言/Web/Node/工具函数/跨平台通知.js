@@ -14,7 +14,7 @@ notifier.notify(
     icon: image,
     contentImage: image,
     sound: true, // 可选：播放通知声音
-    wait: true, // 可选：等待用户响应
+    wait: true, // 可选：等待用户响应,用户点击通知时才消失
     timeout: 10, // 优先与 wait
     // closeLabel: "取消",
     // dropdownLabel: "aaaa",
