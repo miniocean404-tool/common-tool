@@ -11,11 +11,11 @@ notifier.notify(
     title: "到点了",
     subtitle: "下班辣下班辣",
     message: "还不下班，都什么时候了",
-    icon: image,
+    // icon: image,
     contentImage: image,
     sound: true, // 可选：播放通知声音
     wait: true, // 可选：等待用户响应,用户点击通知时才消失
-    timeout: 10, // 优先与 wait
+    // timeout: 10, // 优先于 wait
     // closeLabel: "取消",
     // dropdownLabel: "aaaa",
     // actions: ["确定", "取消"],
