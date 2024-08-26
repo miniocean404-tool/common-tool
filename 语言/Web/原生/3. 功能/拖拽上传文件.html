@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>拖拽上传</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    .box {
+      position: relative;
+      width: 150px;
+      height: 150px;
+      border-radius: 5px;
+      border: 1px dashed #dcdfe6;
+      overflow: hidden;
+      background-color: #fff;
+
+      .input {
+        /* 通过 div click 事件触发 input 点击 */
+        display: none;
+
+        /* 另一种方式直接点击 input,隐藏 input 样式 */
+        /*
+          display: block;
+          width: 100%;
+          height: 100%;
+          opacity: 0;
+          cursor: pointer;
+        */
+      }
+
+      .add-icon {
+        position: absolute;
+        z-index: 0;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        width: 1em;
+        height: 1em;
+      }
+
+      .show {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        background-size: 100%, 100%;
+        background-origin: 50%, 50%;
+        z-index: 1;
+      }
+    }
+
+    .draging {
+      border-color: #409eff;
+      background-color: rgba(240, 248, 255, 1);
+    }
+
+    .uploading {}
+  </style>
+
+  <script>
+    window.addEventListener("DOMContentLoaded", () => {
+      const box = document.querySelector('.box')
+      const input = document.querySelector('.input')
+      const show = document.querySelector('.show')
+
+      box.addEventListener("click", () => {
+        input.click()
+      })
+
+      input.addEventListener('change', upload)
+
+      // e.preventDefault 阻止拖拽后打开新的窗口打开文件
+      box.addEventListener("dragenter", (e) => {
+        e.preventDefault()
+        console.log('文件进入区域');
+        e.target.classList.add('draging')
+      })
+
+      box.addEventListener("dragover", (e) => {
+        e.preventDefault()
+        console.log('文件在区域上方移动');
+      })
+
+      box.addEventListener("dragleave", (e) => {
+        e.preventDefault()
+        console.log('文件离开区域');
+        e.target.classList.remove('draging')
+      })
+
+      box.addEventListener("drop", (e) => {
+        e.preventDefault()
+        console.log('文件放下');
+        e.target.classList.remove('draging')
+
+        // 获取拖拽的东西的类型 非 (mime) 类型
+        const types = e.dataTransfer.types
+
+        if (!types.includes('Files')) {
+          alert("不支持的类型")
+        }
+
+        const files = e.dataTransfer.files
+        input.files = files
+        upload()
+      })
+
+      function upload(e) {
+        const files = input.files
+        const file = files[0]
+        console.log(`开始上传了, 上传类型是: ${e ? '点击上传' : "拖拽上传"}`);
+        const url = URL.createObjectURL(file)
+
+        if (file.type.includes("image")) {
+          show.style.backgroundImage = `url(${url})`
+        }
+      }
+    })
+
+
+  </script>
+</head>
+
+<body>
+  <div class="box">
+    <input class="input" type="file">
+
+    <div class="add-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024">
+        <path fill="currentColor"
+          d="M480 480V128a32 32 0 0 1 64 0v352h352a32 32 0 1 1 0 64H544v352a32 32 0 1 1-64 0V544H128a32 32 0 0 1 0-64z">
+        </path>
+      </svg>
+    </div>
+
+    <div class="show"></div>
+  </div>
+</body>
+
+</html>
