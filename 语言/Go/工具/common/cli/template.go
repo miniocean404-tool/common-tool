@@ -1,4 +1,4 @@
-package cmd
+package cli
 
 func setHelp() {
 	// 我们可以使用 rootCmd.SetHelpCommand 来控制 help 命令输出，使用 rootCmd.SetHelpFunc 来控制 -h/--help 输出

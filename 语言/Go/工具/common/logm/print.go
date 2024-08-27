@@ -1,8 +1,9 @@
 package logm
 
-import "github.com/davecgh/go-spew/spew"
+import (
+	"github.com/gookit/goutil/dump"
+)
 
-// Pretty 漂亮的打印
-func Pretty(prop interface{}) {
-	spew.Dump(prop)
+func Dump(prop interface{}) {
+	dump.P(prop)
 }

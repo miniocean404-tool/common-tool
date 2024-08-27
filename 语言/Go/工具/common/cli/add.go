@@ -1,7 +1,7 @@
 // https://juejin.cn/post/7231197051203256379?searchId=20240703151053C05BB883D7FAB21092AF
 // https://blog.csdn.net/Gherbirthday0916/article/details/135336124
 
-package cmd
+package cli
 
 import (
 	"fmt"
