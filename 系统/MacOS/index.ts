@@ -8,4 +8,6 @@ console.log(
 )
 
 // 打开当前路径下的文件夹
+// open https://www.baidu.com/ 打开网页
+// open file://xxxx 打开文件
 console.log(`open .`)
