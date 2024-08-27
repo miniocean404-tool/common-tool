@@ -20,6 +20,11 @@
 
         .clone {
             span {
+                /* box-decoration-break 属性用来定义当元素跨多行、多列或多页时，元素的片段应如何呈现 */
+                /* 主要用于指定背景（background）、外边距（margin）、内边距（padding）、边框（border）、边框图片（border-image）、盒阴影（box-shadow）和裁剪（clip-path）样式，在行内元素中的渲染方式 */
+
+                /* slice：默认值。当元素跨越多行、多列或跨页时，其背景、边框等样式会在每个片段的开始和结束处被裁剪，导致视觉上的不连续。 */
+                /* clone：当元素跨越多行、多列或跨页时，每个片段都会独立地渲染其背景、边框等样式，从而保持视觉上的连续性。 */
                 -webkit-box-decoration-break: clone;
                 box-decoration-break: clone;
             }
