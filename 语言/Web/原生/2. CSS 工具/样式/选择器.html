@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        /* :focus-within: 表示当元素或其任意后代元素被聚焦时，将匹配该元素 */
+        .hover:focus-within {
+            background-color: red;
+        }
+
+        /* :has 对 :has 前的元素进行限制，限制为 :has() 括号内选中的选择器选中的情况下 */
+        .title:has(+ input[data-require=""])::after {
+            content: "*";
+            color: red;
+        }
+
+        /* ::first-letter：选中元素内部第一个字母 */
+        .first-text::first-letter {
+            font-size: 4em;
+            text-transform: uppercase;
+            float: left;
+            line-height: 1;
+            margin-right: 10px;
+        }
+
+        /* ::selection: 文字选中 */
+        .content::selection {
+            background-color: red;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="first-text">
+        首字下沉
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.
+    </div>
+
+    <div class="content">
+        首字下沉
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.
+    </div>
+
+
+    <div class="hover">
+        <!-- 子元素聚焦 -->
+        <input type="text">
+    </div>
+
+    <div class="require">
+        <!-- 必填项 -->
+        <span class="title"></span>
+        <input data-require="" type="text">
+    </div>
+
+
+</body>
+
+</html>

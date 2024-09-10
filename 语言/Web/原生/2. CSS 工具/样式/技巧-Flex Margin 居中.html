@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .flex {
+            display: flex;
+            background-color: bisque;
+            margin-bottom: 5px;
+        }
+
+        .block {
+            width: 100px;
+            height: 100px;
+        }
+
+        .red {
+            background-color: red;
+        }
+
+        .blue {
+            background-color: blue;
+        }
+
+        .green {
+            background-color: green;
+        }
+
+        .grey {
+            background-color: grey;
+        }
+
+        .margin-grid {
+            display: flex;
+            background-color: bisque;
+            height: 600px;
+            flex-wrap: wrap;
+
+            &>div {
+                --n: 7;
+                --space: calc(100% / var(--n) - 100px);
+                --margin: calc(var(--space) / 2);
+                margin: 10px var(--margin);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="flex" style="height: 300px;">
+        <div class="block red" style="margin: auto;">居中</div>
+    </div>
+
+
+    <div class="flex">
+        <div class="block red">1</div>
+        <div class="block blue">2</div>
+        <div class="block green" style="margin-left: auto;">3</div>
+        <div class="block grey">4</div>
+    </div>
+
+
+    <div class="flex">
+        <div class="block red">1</div>
+        <div class="block blue">2</div>
+        <div class="block green" style="margin: 0 auto;">3</div>
+        <div class="block grey">4</div>
+    </div>
+
+    <div class="margin-grid">
+        <div class="block red">1</div>
+        <div class="block blue">2</div>
+        <div class="block green">3</div>
+        <div class="block grey">4</div>
+        <div class="block red">1</div>
+        <div class="block blue">2</div>
+        <div class="block green">3</div>
+        <div class="block grey">4</div>
+        <div class="block red">1</div>
+        <div class="block blue">2</div>
+        <div class="block green">3</div>
+        <div class="block grey">4</div>
+        <div class="block red">1</div>
+        <div class="block blue">2</div>
+        <div class="block green">3</div>
+        <div class="block grey">4</div>
+    </div>
+</body>
+
+</html>
