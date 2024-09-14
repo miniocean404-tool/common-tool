@@ -1,0 +1,20 @@
+/**
+ * 将一种颜色与白色混合。它不同于 lighten()
+ *
+ * @param {color} $color
+ * @param {number (percentage)} $percent [要加入的白色的量]
+ * @return {color}
+ *
+ * @example
+ *   .element {
+ *     background-color: tint(#6ecaa6 , 40%);
+ *   }
+ *
+ *   // CSS Output
+ *   .element {
+ *     background-color: #a8dfc9;
+ *   }
+ */
+@function tint($color, $percent) {
+  @return mix(#fff, $color, $percent);
+}

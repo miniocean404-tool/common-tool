@@ -1,0 +1,20 @@
+/**
+ * 将一种颜色与黑色混合。它不同于 darken()
+ *
+ * @param {color} $color
+ * @param {number (percentage)} $percent [黑色:要加入的黑色的量]
+ * @return {color}
+ *
+ * @example
+ *   .element {
+ *     background-color: shade(#ffbb52, 60%);
+ *   }
+ *
+ *   // CSS Output
+ *   .element {
+ *     background-color: #664a20;
+ *   }
+ */
+@function shade($color, $percent) {
+  @return mix(#000, $color, $percent);
+}
