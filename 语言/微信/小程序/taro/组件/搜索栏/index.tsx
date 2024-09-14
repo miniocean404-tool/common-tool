@@ -26,6 +26,7 @@ const DavSearchBar: React.FC<DavSearchBarProps> = (props) => {
     actionName = "搜索",
     inputType = "text",
     enableNative = true,
+    onClick = () => {},
     onChange = () => {},
     onFocus = () => {},
     onBlur = () => {},
@@ -109,7 +110,7 @@ const DavSearchBar: React.FC<DavSearchBarProps> = (props) => {
 
   return (
     <View className={rootCls} style={customStyle}>
-      <View className="at-search-bar__input-cnt">
+      <View className="at-search-bar__input-cnt" onClick={onClick}>
         <View className="at-search-bar__placeholder-wrap" style={placeholderWrapStyle}>
           <Image className="at-search-bar__search" src={search_icon}></Image>
           <Text className="at-search-bar__placeholder" style={placeholderStyle}>

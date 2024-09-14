@@ -63,11 +63,14 @@ export interface DavSearchBarProps extends DavComponent {
    * @supported alipay
    */
   enableNative?: boolean
+
+  onClick?: CommonEventFunction
+
   /**
    * 输入框值改变时触发的事件
    * @description 必填，开发者需要通过 onChange 事件来更新 value 值变化
    */
-  onChange: (value: string, event: CommonEvent) => void
+  onChange?: (value: string, event: CommonEvent) => void
   /**
    * 输入框聚焦时触发
    * @description height 参数在基础库 1.9.90 起支持
