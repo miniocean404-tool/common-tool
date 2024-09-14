@@ -178,4 +178,11 @@ $color-border-light: tint($color-border-base, 30%) !default;
     right: 0;
     z-index: $zindex-search-bar;
   }
+
+  /* modifiers */
+  &--sticky {
+    position: sticky;
+    top: 0;
+    z-index: $zindex-search-bar;
+  }
 }

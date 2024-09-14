@@ -28,6 +28,12 @@ export interface DavSearchBarProps extends DavComponent {
    */
   fixed?: boolean
   /**
+   * 是否粘性定位顶部
+   * @type {boolean}
+   * @default false
+   */
+  sticky?: boolean
+  /**
    * 是否聚焦
    * @type {boolean}
    * @default false

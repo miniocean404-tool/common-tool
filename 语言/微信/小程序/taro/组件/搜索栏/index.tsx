@@ -20,6 +20,7 @@ const DavSearchBar: React.FC<DavSearchBarProps> = (props) => {
     placeholder = "搜索",
     maxLength = 140,
     fixed = false,
+    sticky = false,
     focus = false,
     disabled = false,
     showActionButton = false,
@@ -80,6 +81,7 @@ const DavSearchBar: React.FC<DavSearchBarProps> = (props) => {
     "at-search-bar",
     {
       "at-search-bar--fixed": fixed,
+      "at-search-bar--sticky": sticky,
     },
     className,
   )
@@ -134,7 +136,7 @@ const DavSearchBar: React.FC<DavSearchBarProps> = (props) => {
           onConfirm={handleConfirm}
         />
 
-        <View className="at-search-bar__clear" style={clearIconStyle} onTouchStart={handleClear}>
+        <View className="at-search-bar__clear" style={clearIconStyle} onClick={handleClear}>
           <Image className="at-search-bar__close" src={clone_icon}></Image>
         </View>
       </View>
