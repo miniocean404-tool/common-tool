@@ -1,0 +1,66 @@
+// https://developer.mozilla.org/zh-CN/docs/Web/CSS/display
+.disaply {
+  display: block;
+
+  // 行内布局，支持左右 margin
+  display: inline;
+
+  // 行内布局，支持上下左右 margin
+  display: inline-block;
+
+  // 块级 flex 布局
+  display: flex;
+  // 行内 flex 布局
+  display: inline-flex;
+
+  // 块级 grid 布局
+  display: grid;
+
+  // 行内 grid 布局
+  display: inline-grid;
+
+  // 该元素生成一个块级元素盒，其会建立一个新的区块格式化上下文，定义格式化上下文的根元素
+  // 块级元素
+  display: flow-root;
+
+  // 去除元素内的空格，该元素的行为类似于 HTML 中的 <table> 元素。它定义了一个块级别的盒子。
+  // 上下布局的 inline-block
+  display: table;
+  // 该元素的行为类似于 HTML 的 <tr> 元素。
+  display: table-row;
+  // 该元素的行为类似于 HTML 的 <tbody> 元素。
+  display: table-row-group;
+  // 该元素的行为类似于 HTML 的 <thead> 元素。
+  display: table-header-group;
+  // 该元素的行为类似于 HTML 的 <tfoot> 元素。
+  display: table-footer-group;
+  // 该元素的行为类似于 HTML 的 <tr> 元素。
+  display: table-row;
+  // 该元素的行为类似于 HTML 的 <td> 元素。
+  display: table-cell;
+  // 该元素的行为类似于 HTML 的 <colgroup> 元素。
+  display: table-column-group;
+  // 该元素的行为类似于 HTML <col> 元素。
+  display: table-column;
+  // 该元素的行为类似于 HTML 的 <caption> 元素。
+  display: table-caption;
+
+  // 隐藏元素
+  display: none;
+  // Dom 中移除这个元素，但是保留子元素的内容
+  display: contents;
+
+  // list-item 的单独值将导致元素的行为类似于一个列表元素。其可以与 list-style-type 和 list-style-position 一起使用。
+  display: list-item;
+
+  // 该元素的行为类似行级元素并且根据 ruby 格式化模型布局它的内容。它的行为像关联的 HTML 的 <ruby> 元素(中文汉字拼音或字符标注)。
+  display: ruby;
+  // 该元素的行为类似于 HTML 的 <rb> 元素。
+  display: ruby-base;
+  // 该元素的行为类似于 HTML 的 <rt> 元素。
+  display: ruby-text;
+  // 该元素是作为匿名盒子生成的。
+  display: ruby-base-container;
+  // 该元素的行为类似于 HTML 的 <rtc> 元素。
+  display: ruby-text-container;
+}
