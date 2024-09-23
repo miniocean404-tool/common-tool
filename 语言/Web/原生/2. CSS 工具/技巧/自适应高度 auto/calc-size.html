@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>calc-size 自适应高度 Chrome 129+</title>
+
+
+    <style>
+        .dyn_box {
+            height: 0;
+            transition: .3s
+        }
+
+        .button:hover~.dyn_box {
+            /* 为了兼容之前的浏览器，还必须保留height: auto的写法 */
+            /* 如果是已经存在的项目，可能会有很多地方需要都要改成这种写法，有一定的侵入性。 */
+            /* 为此，浏览器还提供了一个interpolate-size属性，这个属性可以设置插值计算的规则，有两个关键词 */
+            /* interpolate-size: numeric-only;   默认值  */
+            /* interpolate-size: allow-keywords; */
+            /* 其中第一个numeric-only，表示仅限数值，也就是只有真实的数值才会有过渡效果（目前浏览器的默认效果），第二个allow-keywords表示允许所有关键词，当然包括auto属性 有了这个属性，要做的事情就更简单了，只需要在全局:root加上这个属性 */
+            /* :root{
+                interpolate-size: allow-keywords;
+            } */
+            /* 这样就全局生效了，无需在每个地方就加上 calc-size(auto)，只需要 height: auto; 是不是非常方便呢？ */
+            height: auto;
+
+            /* 支持其他尺寸关键词，比如 */
+            /* height: calc-size(min-content) */
+            /* height: calc-size(max-content) */
+            /* height: calc-size(fit-content) */
+            /* height: calc-size(auto + 10px) */
+            /* height: calc-size(max-content - 10px) */
+            height: calc-size(auto);
+        }
+    </style>
+</head>
+
+<body>
+    <button class="button">悬浮</button>
+
+    <!-- 文章：https://mp.weixin.qq.com/s/lyjly1P0D1PYm8_X0UKopw -->
+    <div class="dyn_box">
+        <span>1fr</span>
+        <span>1fr</span>
+        <span>1fr</span>
+    </div>
+</body>
+
+</html>

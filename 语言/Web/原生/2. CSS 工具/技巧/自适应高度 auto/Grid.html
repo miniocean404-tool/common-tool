@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grid 自适应高度</title>
+
+    <style>
+        .dyn_box {
+            display: grid;
+            /* 设置默认 0 高度 */
+            grid-template-rows: 0fr;
+            transition: .3s;
+            overflow: hidden;
+
+            .auto {
+                /* 隐藏 grid 默认 min-content 的高度, */
+                /* 可以改固定数字然后通过 grid-template-rows: 1fr 增长到最大高度 */
+                min-height: 0;
+            }
+        }
+
+        .button:hover~.dyn_box {
+            background-color: red;
+            /* 鼠标悬浮时候自动改变高度 */
+            grid-template-rows: 1fr;
+        }
+    </style>
+</head>
+
+<body>
+    <button class="button">悬浮</button>
+
+    <div class="dyn_box">
+        <div class="auto">
+            <span>1fr</span>
+            <span>1fr</span>
+            <span>1fr</span>
+        </div>
+    </div>
+</body>
+
+</html>
