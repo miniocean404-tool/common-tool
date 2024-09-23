@@ -1,0 +1,42 @@
+#dav-upload {
+  .upload-card-container {
+    width: 300px;
+    height: 200px;
+    border-radius: 22.5px;
+    border: 1px dashed #e8e8e8;
+    position: relative;
+    overflow: hidden;
+
+    .bottom-tip-img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: inherit;
+      height: inherit;
+    }
+
+    .finish-img {
+      width: inherit;
+      height: inherit;
+    }
+
+    .state {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 70px;
+      height: 70px;
+    }
+  }
+
+  .up-tip-text {
+    margin: 10px 20px;
+    font-size: 12px;
+    line-height: 22px;
+
+    .reload {
+      color: rgba(31, 138, 224, 1);
+    }
+  }
+}

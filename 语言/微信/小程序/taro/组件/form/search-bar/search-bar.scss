@@ -1,0 +1,188 @@
+@use "sass:math";
+
+$hd: 2 !default; // 基本单位
+
+// 上下内间距
+$spacing-v-sm: 4px * $hd !default;
+// 左右内间距
+$spacing-v-md: 8px * $hd !default;
+
+$color-white: #fff !default;
+$color-bg: #fff !default;
+$color-bg-grey: #f7f7f7 !default;
+$color-black-0: #000 !default;
+
+$at-search-bar-btn-color: rgba(31, 138, 224, 1) !default;
+
+$zindex-search-bar: 800 !default;
+
+$at-search-bar-font-size: 16px;
+$at-search-bar-input-height: 30px;
+$at-search-bar-input-padding: 25px;
+$at-search-bar-btn-padding: 16px;
+$at-search-bar-placeholder-padding: 12px;
+$at-search-bar-input-bg-color: $color-bg-grey;
+$at-search-bar-input-color: $color-black-0;
+$at-search-bar-placholder-color: #bfbfbf;
+
+$color-border-base: #c5d9e8 !default;
+$color-border-light: tint($color-border-base, 30%) !default;
+
+@mixin hairline-common() {
+  content: "";
+  position: absolute;
+  transform-origin: center;
+  box-sizing: border-box;
+  pointer-events: none;
+}
+
+@mixin hairline-base($color: $color-border-light, $style: solid) {
+  @include hairline-common();
+
+  top: -50%;
+  left: -50%;
+  right: -50%;
+  bottom: -50%;
+  border: 0 $style $color;
+  transform: scale(0.5);
+}
+
+@mixin hairline-bottom($color: $color-border-light, $style: solid, $width: 1px) {
+  position: relative;
+
+  &::after {
+    @include hairline-base($color, $style);
+
+    border-bottom-width: $width;
+  }
+}
+
+@function tint($color, $percent) {
+  @return mix(#fff, $color, $percent);
+}
+
+.at-search-bar {
+  display: flex;
+  align-items: center;
+  padding: $spacing-v-sm $spacing-v-md;
+  background-color: $color-bg;
+  overflow: hidden;
+  box-sizing: border-box;
+  @include hairline-bottom();
+
+  /* elements */
+  &__input-cnt {
+    position: relative;
+    flex: 1;
+    width: 100%;
+    height: $at-search-bar-input-height;
+    background-color: $at-search-bar-input-bg-color;
+    border-radius: 4px;
+    overflow: hidden;
+    display: flex;
+  }
+
+  &__placeholder-wrap {
+    // position: absolute;
+    // top: 0;
+    // left: 0;
+
+    display: flex;
+    align-self: center;
+    align-items: center;
+    justify-content: center;
+    padding: 0 $at-search-bar-placeholder-padding;
+    // width: 100%;
+    height: $at-search-bar-input-height;
+    line-height: 0;
+    vertical-align: middle;
+    opacity: 1;
+    transition: flex 0.3s;
+    // background: #0084ff;
+
+    .at-icon {
+      color: $at-search-bar-placholder-color;
+      font-size: $at-search-bar-font-size;
+      flex-shrink: 0;
+    }
+  }
+
+  &__search {
+    width: 24px;
+    height: 24px;
+  }
+
+  &__placeholder {
+    margin-left: $at-search-bar-placeholder-padding;
+    color: $at-search-bar-placholder-color;
+    font-size: $at-search-bar-font-size;
+    flex-shrink: 0;
+  }
+
+  &__input {
+    position: absolute;
+    display: block;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: $at-search-bar-input-height !important;
+    padding: 0 $at-search-bar-input-padding + $at-search-bar-placeholder-padding;
+    color: $at-search-bar-input-color;
+    font-size: $at-search-bar-font-size !important;
+    text-align: left;
+    background-color: transparent;
+    transition: width 0.3s;
+    box-sizing: border-box;
+  }
+
+  &__clear {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 0;
+    right: $at-search-bar-placeholder-padding;
+    height: $at-search-bar-input-height;
+    width: $at-search-bar-input-padding;
+    color: $at-search-bar-placholder-color;
+    font-size: $at-search-bar-font-size;
+    line-height: 0;
+    vertical-align: middle;
+  }
+
+  &__close {
+    width: 24px;
+    height: 24px;
+  }
+
+  &__action {
+    flex: none;
+    display: block;
+    padding: 0 $at-search-bar-btn-padding;
+    height: $at-search-bar-input-height;
+    color: $at-search-bar-btn-color;
+    font-size: $at-search-bar-font-size;
+    line-height: $at-search-bar-input-height;
+    border-radius: 4px;
+    transition:
+      margin-right 0.3s,
+      opacity 0.3s;
+    opacity: 0;
+  }
+
+  /* modifiers */
+  &--fixed {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: $zindex-search-bar;
+  }
+
+  /* modifiers */
+  &--sticky {
+    position: sticky;
+    top: 0;
+    z-index: $zindex-search-bar;
+  }
+}

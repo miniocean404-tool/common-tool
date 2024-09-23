@@ -1,0 +1,12 @@
+.button-native {
+  // 处理小程序有按钮有黑边的问题
+  &:after {
+    border: none;
+  }
+}
+
+// 处理小程序禁用按钮颜色
+.button-native[disabled] {
+  background-color: #fafafa;
+  color: #bfbfbf;
+}

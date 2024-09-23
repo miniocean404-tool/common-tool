@@ -1,0 +1,80 @@
+$background-color: #fff;
+
+.dav-popup {
+  position: fixed;
+  inset: 0;
+
+  .mask {
+    position: absolute;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+  }
+
+  .content {
+    position: absolute;
+    background-color: $background-color;
+    overflow: hidden;
+  }
+
+  .center {
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .top {
+    top: 0;
+    width: 100%;
+  }
+
+  .topOpen {
+    transform: translateY(0);
+  }
+
+  .topClose {
+    transform: translateY(-100%);
+  }
+
+  .bottom {
+    bottom: 0;
+    width: 100%;
+  }
+
+  .bottomOpen {
+    transform: translateY(0);
+  }
+
+  .bottomClose {
+    transform: translateY(100%);
+  }
+
+  .left {
+    left: 0;
+    height: 100%;
+  }
+
+  .leftOpen {
+    transform: translateX(0);
+  }
+
+  .leftClose {
+    transform: translateX(-100%);
+  }
+
+  .right {
+    right: 0;
+    height: 100%;
+  }
+
+  .rightOpen {
+    transform: translateX(0);
+  }
+
+  .rightClose {
+    transform: translateX(100%);
+  }
+}
+
+.animation {
+  transition: all 0.3s ease-in-out;
+}

@@ -1,0 +1,26 @@
+.dav-button {
+  width: 300px;
+  height: 44px;
+  line-height: 44px;
+  background-color: rgba(26, 26, 26);
+  border-radius: 25px;
+  text-align: center;
+  border: 0;
+  font-weight: bold;
+  color: white;
+
+  // 处理小程序有按钮有黑边的问题
+  &:after {
+    border: none;
+  }
+}
+
+.dav-shadow-button {
+  box-shadow: 0 1px 10px rgba(0, 0, 0, 0.1);
+}
+
+// 处理小程序禁用按钮颜色
+.dav-button[disabled] {
+  background-color: #fafafa;
+  color: #bfbfbf;
+}
