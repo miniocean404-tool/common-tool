@@ -8,6 +8,8 @@ import { Parser } from "m3u8-parser"
 import path from "path"
 import z from "zod"
 
+await download("https://test-streams.mux.dev/x36xhzz/url_6/193039199_mp4_h264_aac_hq_7.m3u8")
+
 export async function download(url: string) {
   // 1. 解析 m3u8 文件
   const content = await fetch(url).then((res) => res.text())
@@ -16,7 +18,9 @@ export async function download(url: string) {
   parser.push(content)
   parser.end()
 
-  if (!isValidManifest(parser.manifest)) return { success: false, message: `Unvalid Manifest` }
+  if (!isValidManifest(parser.manifest)) {
+    throw new Error("无效的 m3u8 Manifest")
+  }
 
   const segments =
     parser.manifest.segments?.map((segment: any, i: number) => ({
@@ -24,7 +28,7 @@ export async function download(url: string) {
       index: i,
     })) ?? []
 
-  const downloaded = []
+  const downloaded: string[] = []
   await Promise.allSettled(
     segments?.map(async (segment) => {
       const fileId = `${segment.index}.ts`
