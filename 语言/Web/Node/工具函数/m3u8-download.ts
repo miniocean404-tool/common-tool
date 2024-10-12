@@ -50,6 +50,8 @@ export async function download(url: string) {
     downloadedIds.forEach(function (videoName) {
       videos = videos.addInput(path.join(process.cwd(), `./data/${videoName}`))
     })
+
+    // 必须安装 ffmpeg
     // fluent-ffmpeg 必须条件：https://github.com/fluent-ffmpeg/node-fluent-ffmpeg?tab=readme-ov-file#prerequisites
     videos
       .mergeToFile(path.join(process.cwd(), `./data/${outputFileName}.mp4`), path.join(process.cwd(), `./data`))
