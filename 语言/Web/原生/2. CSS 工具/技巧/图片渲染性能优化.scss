@@ -1,0 +1,4 @@
+.img {
+  // 让屏幕之外的元素不立即渲染，大量 dom 渲染时可以提高性能
+  content-visibility: auto;
+}

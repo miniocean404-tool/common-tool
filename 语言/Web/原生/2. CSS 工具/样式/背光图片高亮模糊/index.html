@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>背光图片高亮模糊</title>
+    <style>
+        .box {
+            margin: auto;
+            position: relative;
+            background-image: url('./microsoft.png');
+            width: 128px;
+            height: 128px;
+        }
+
+        .box:after {
+            width: 120%;
+            height: 120%;
+
+            content: "";
+            position: absolute;
+            background-image: inherit;
+            background-size: 100%;
+            background-repeat: no-repeat;
+            /* filter: blur(20px); */
+            filter: blur(30px);
+            z-index: -1;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+    </div>
+</body>
+
+</html>
