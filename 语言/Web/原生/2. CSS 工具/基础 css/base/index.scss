@@ -158,16 +158,16 @@ xmp {
 }
 
 // 可变商用字体，可使用 font-variation-settings
-@font-face {
-  font-family: MiSans VF;
-  src: url("../MiSans/MiSans VF.ttf");
-  font-display: block;
-  font-style: normal italic;
-  font-weight: 100 900;
-  font-stretch: 0% 400%;
-  font-feature-settings: normal;
-  font-variation-settings: normal;
-}
+// @font-face {
+//   font-family: MiSans VF;
+//   src: url("../MiSans/MiSans VF.ttf");
+//   font-display: block;
+//   font-style: normal italic;
+//   font-weight: 100 900;
+//   font-stretch: 0% 400%;
+//   font-feature-settings: normal;
+//   font-variation-settings: normal;
+// }
 
 // 没有字体文件暂时注释
 // @font-face {
@@ -191,15 +191,15 @@ xmp {
 }
 
 // 解决微信及 webview 动态底部导航栏导致 100vh 抽搐的问题
-html {
-  position: fixed;
-  inset: 0;
-  overflow: hidden;
-}
+// html {
+//   position: fixed;
+//   inset: 0;
+//   overflow: hidden;
+// }
 
-body {
-  overflow: auto;
-}
+// body {
+//   overflow: auto;
+// }
 
 html,
 body {
@@ -209,8 +209,9 @@ body {
   -webkit-app-region: drag;
   user-select: none;
 
-  // 设置 BFC
-  overflow: auto;
+  // 设置 BFC 会影响 lenis 滚动使用
+  // overflow: auto;
+
   // font-style 是否斜体, font-variant 和 font-weight 必须在 font-size 之前
   // line-height 必须跟在 font-size 后面，由 "/" 分隔，例如 "16px/3"
   // font-family 必须最后指定
@@ -224,8 +225,8 @@ body {
   -webkit-font-smoothing: antialiased; // 取消字体抗锯齿
   -moz-osx-font-smoothing: grayscale;
 
-  // 设置默认 锚点滚动 及 scrollIntoView({ behavior: 'smooth' }) 的效果
-  scroll-behavior: smooth;
+  // 设置默认 锚点滚动 及 scrollIntoView({ behavior: 'smooth' }) 的效果 会影响 lenis 滚动使用
+  // scroll-behavior: smooth;
 
   // windows 防止界面加载因为滚动条而导致界面晃动，Mac 浏览器滚动条不会占据位置
   // stable 右边会预留位置
