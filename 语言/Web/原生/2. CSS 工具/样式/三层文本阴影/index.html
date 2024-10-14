@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        @font-face {
+            src: url("https://www.axis-praxis.org/fonts/webfonts/MetaVariableDemo-Set.woff2") format("woff2");
+            font-family: "Meta";
+            font-style: normal;
+            font-weight: normal;
+        }
+
+        body {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+            background-color: #8357eb;
+            width: 100vw;
+            height: 100vh;
+        }
+
+        .container:hover {
+            -webkit-text-stroke: 4px #ffffff;
+            font-variation-settings: "wght" 900, "ital" 1;
+            color: transparent;
+            text-shadow: 10px 10px 0px #07bccc, 15px 15px 0px #01e647,
+                20px 20px 0px #e9b701, 25px 25px 0px #f40468, 45px 45px 10px #482896;
+        }
+
+        .container {
+            letter-spacing: 24px;
+            font-family: "Meta", sans-serif;
+            font-variation-settings: "wght" 100, "ital" 0;
+            text-shadow: none;
+            cursor: pointer;
+            transition: all 0.5s;
+            color: #7aa9a9;
+            font-size: 10rem;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">CSS</div>
+</body>
+
+</html>
