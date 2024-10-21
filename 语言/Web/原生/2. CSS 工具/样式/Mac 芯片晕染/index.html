@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+        }
+
+        .center {
+            height: 100%;
+            position: relative;
+            display: grid;
+            align-items: center;
+            place-items: center;
+
+            .chip {
+                position: absolute;
+                z-index: 3;
+            }
+
+            .container {
+                position: absolute;
+                display: grid;
+                align-items: center;
+                place-items: center;
+
+
+                .bg {
+                    position: absolute;
+                    width: 590px;
+                    height: 590px;
+                    z-index: 0;
+
+                    background-image: linear-gradient(58deg, #ebd6c7, #eea4bc 24%, #be88c4 48%, #9186e7 66%, #92c9f9 83%, #c7f8ff);
+                    filter: blur(60px);
+                    border-radius: 100%;
+                }
+
+                .chip-bg {
+                    position: absolute;
+                    z-index: 1;
+
+                    width: 378px;
+                    height: 378px;
+
+                    background-image: linear-gradient(46deg,
+                            #fbf4ec,
+                            #ebd6c7 16%,
+                            #eea4bc 34%,
+                            #be88c4 55%,
+                            #9186e7 71%,
+                            #92c9f9 88%,
+                            #c7f8ff 100%,
+                            #c7f8ff 0);
+                    filter: blur(15px);
+                }
+
+                .chip-shadow {
+                    width: 370px;
+                    height: 370px;
+                    position: absolute;
+                    z-index: 2;
+                    filter: blur(10px);
+                    background-color: #1d1d1f;
+                }
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="center">
+        <img class="chip" src="./chip.png"></img>
+        <div class="container">
+            <div class="bg"></div>
+            <div class="chip-bg"></div>
+            <div class="chip-shadow"></div>
+        </div>
+    </div>
+</body>
+
+</html>
