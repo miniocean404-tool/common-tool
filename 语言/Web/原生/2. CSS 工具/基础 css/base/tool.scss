@@ -115,3 +115,39 @@
   font-variant-numeric: tabular-nums;
   font-feature-settings: "tnum";
 }
+
+.rainbow {
+  width: 100%;
+  height: 96px;
+  position: relative;
+  pointer-events: none;
+
+  &::before {
+    content: "";
+    position: absolute;
+    width: 60%;
+    height: 80%;
+    z-index: 0;
+    left: 50%;
+    bottom: -20%;
+
+    transform: translate(-50%, 0) rotate(0) skewX(0) skewY(0) scaleX(1) scaleY(1);
+
+    filter: blur(64px);
+    opacity: 0.2;
+    background-size: 200%;
+
+    background-image: linear-gradient(90deg, #ff4242, #a1ff42, #42a1ff, #42d0ff, #a142ff);
+    animation: rainbow var(--speed, 2s) infinite linear;
+  }
+}
+
+@keyframes rainbow {
+  0% {
+    background-position: 0;
+  }
+
+  100% {
+    background-position: 200%;
+  }
+}
