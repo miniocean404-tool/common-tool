@@ -1,4 +1,13 @@
 {
   // npm 脚本排除
-  "npm.exclude": ["**/.next/**"]
+  "npm.exclude": ["**/.next/**"],
+
+  // i18n-ally
+  "i18n-ally.localesPaths": ["./locales"], // 翻译文件夹路径 (相对于项目根目录)，你也可以使用 Glob 匹配模式。
+  "i18n-ally.enabledFrameworks": ["custom"],
+  "i18n-ally.keystyle": "nested", // 翻译路径格式
+  "i18n-ally.enabledParsers": ["ts", "json"], // 指定启用文件格式
+  "i18n-ally.namespace": true,
+  "i18n-ally.extract.autoDetect": true,
+  "i18n-ally.sourceLanguage": "zh-CN"
 }
