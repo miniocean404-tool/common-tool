@@ -19,7 +19,10 @@ const msg = require("fs").readFileSync(msgPath, "utf-8").trim()
 // ci:持续集成修改
 // chore:其他修改, 比如改变构建流程、或者增加依赖库、工具等
 
-const commitRE = /^(.* )?(revert: )?(dev|feat|fix|docs|dx|style|refactor|perf|test|workflow|build|ci|chore|types|wip|release)(\(.+\))?(.{1,10})?: .{1,50}/
+const emojiRE = "(\ud83c[\udf00-\udfff])|(\ud83d[\udc00-\ude4f\ude80-\udeff])|[\u2600-\u2B55]"
+const commitRE = new RegExp(
+  `^(${emojiRE}* )?(revert: )?(dev|feat|fix|docs|dx|style|refactor|perf|test|workflow|build|ci|chore|types|wip|release)(\(.+\))?(.{1,10})?: .{1,50}`,
+)
 const mergeRe = /^(Merge pull request|Merge branch)/
 
 if (!commitRE.test(msg)) {
