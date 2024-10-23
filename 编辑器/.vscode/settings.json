@@ -1,0 +1,4 @@
+{
+  // npm 脚本排除
+  "npm.exclude": ["**/.next"]
+}
