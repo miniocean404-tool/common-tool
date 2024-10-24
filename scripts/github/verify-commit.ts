@@ -21,15 +21,15 @@ const msg = require("fs").readFileSync(msgPath, "utf-8").trim()
 
 const emojiRE = "(\ud83c[\udf00-\udfff])|(\ud83d[\udc00-\ude4f\ude80-\udeff])|[\u2600-\u2B55]"
 const commitRE = new RegExp(
-  `^(${emojiRE}* )?(revert: )?(dev|feat|fix|docs|dx|style|refactor|perf|test|workflow|build|ci|chore|types|wip|release)(\(.+\))?(.{1,10})?: .{1,50}`,
+  `^((${emojiRE})* )?(revert: )?(dev|feat|fix|docs|dx|style|refactor|perf|test|workflow|build|ci|chore|types|wip|release)(\(.+\))?(.{1,10})?: .{1,50}`,
 )
 const mergeRe = /^(Merge pull request|Merge branch)/
 
 if (!commitRE.test(msg)) {
   if (!mergeRe.test(msg)) {
-    console.log(msg)
+    console.log("提交的消息: ", msg)
     console.error(
-      `  ${chalk.bgRed.white(" 错误 ")} ${chalk.red(`错误的消息格式`)}\n\n${chalk.red(
+      ` ${chalk.bgRed.white(" 错误 ")} ${chalk.red(`错误的消息格式`)}\n\n${chalk.red(
         `  自动化校验-提交模板样例:\n\n`,
       )}    ${chalk.green(`feat(compiler): add 'comments' option（冒号后有空格）`)}\n` +
         `    ${chalk.green(`fix(v-model): handle events on blur (close #28)`)}\n\n${chalk.red(
