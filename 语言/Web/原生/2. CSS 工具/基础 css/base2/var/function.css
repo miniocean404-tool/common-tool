@@ -25,9 +25,6 @@
   --mini-c-brand-3: var(--mini-c-indigo-3);
   --mini-c-brand-soft: var(--mini-c-indigo-soft);
 
-  /* DEPRECATED: Use `--mini-c-brand-1` instead. */
-  --mini-c-brand: var(--mini-c-brand-1);
-
   --mini-c-tip-1: var(--mini-c-brand-1);
   --mini-c-tip-2: var(--mini-c-brand-2);
   --mini-c-tip-3: var(--mini-c-brand-3);
