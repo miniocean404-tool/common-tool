@@ -1,0 +1,14 @@
+/**
+* Z-indexes
+* -------------------------------------------------------------------------- */
+
+:root {
+  --mini-z-index-bg: 0;
+  --mini-z-index-footer: 10;
+  --mini-z-index-local-nav: 20;
+  --mini-z-index-nav: 30;
+  --mini-z-index-layout-top: 40;
+  --mini-z-index-backdrop: 50;
+  --mini-z-index-sidebar: 60;
+  --mini-z-index-header: 70;
+}

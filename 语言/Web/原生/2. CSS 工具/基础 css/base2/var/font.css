@@ -1,0 +1,16 @@
+/**
+* 印刷版面式样
+* -------------------------------------------------------------------------- */
+
+:root {
+  --mini-font-family-base: "Inter", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --mini-font-family-mono: ui-monospace, "Menlo", "Monaco", "Consolas", "Liberation Mono",
+    "Courier New", monospace;
+  font-optical-sizing: auto;
+}
+
+:root:where(:lang(zh)) {
+  --mini-font-family-base: "Punctuation SC", "Inter", ui-sans-serif, system-ui, sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}

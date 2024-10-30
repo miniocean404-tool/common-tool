@@ -1,0 +1,65 @@
+/**
+* Colors: Function
+*
+* “default”（默认）：纯粹用于微妙指示的颜色，没有任何特殊含义，例如菜单悬停状态的背景颜色。
+*
+* “brand”（品牌）：用于主要品牌颜色，例如链接文本、具有品牌主题的按钮等。
+*
+* “tip”（提示）：用于指示有用信息。默认主题默认情况下将品牌颜色用于此。
+*
+* “warning”（警告）：用于向用户指示警告。用于自定义容器、徽章等。
+*
+* “danger”（危险）：用于向用户显示错误或危险消息。用于自定义容器、徽章等。
+*
+* To understand the scaling system, refer to "Colors: Palette" section.
+* -------------------------------------------------------------------------- */
+
+:root {
+  --mini-c-default-1: var(--mini-c-gray-1);
+  --mini-c-default-2: var(--mini-c-gray-2);
+  --mini-c-default-3: var(--mini-c-gray-3);
+  --mini-c-default-soft: var(--mini-c-gray-soft);
+
+  --mini-c-brand-1: var(--mini-c-indigo-1);
+  --mini-c-brand-2: var(--mini-c-indigo-2);
+  --mini-c-brand-3: var(--mini-c-indigo-3);
+  --mini-c-brand-soft: var(--mini-c-indigo-soft);
+
+  /* DEPRECATED: Use `--mini-c-brand-1` instead. */
+  --mini-c-brand: var(--mini-c-brand-1);
+
+  --mini-c-tip-1: var(--mini-c-brand-1);
+  --mini-c-tip-2: var(--mini-c-brand-2);
+  --mini-c-tip-3: var(--mini-c-brand-3);
+  --mini-c-tip-soft: var(--mini-c-brand-soft);
+
+  --mini-c-note-1: var(--mini-c-brand-1);
+  --mini-c-note-2: var(--mini-c-brand-2);
+  --mini-c-note-3: var(--mini-c-brand-3);
+  --mini-c-note-soft: var(--mini-c-brand-soft);
+
+  --mini-c-success-1: var(--mini-c-green-1);
+  --mini-c-success-2: var(--mini-c-green-2);
+  --mini-c-success-3: var(--mini-c-green-3);
+  --mini-c-success-soft: var(--mini-c-green-soft);
+
+  --mini-c-important-1: var(--mini-c-purple-1);
+  --mini-c-important-2: var(--mini-c-purple-2);
+  --mini-c-important-3: var(--mini-c-purple-3);
+  --mini-c-important-soft: var(--mini-c-purple-soft);
+
+  --mini-c-warning-1: var(--mini-c-yellow-1);
+  --mini-c-warning-2: var(--mini-c-yellow-2);
+  --mini-c-warning-3: var(--mini-c-yellow-3);
+  --mini-c-warning-soft: var(--mini-c-yellow-soft);
+
+  --mini-c-danger-1: var(--mini-c-red-1);
+  --mini-c-danger-2: var(--mini-c-red-2);
+  --mini-c-danger-3: var(--mini-c-red-3);
+  --mini-c-danger-soft: var(--mini-c-red-soft);
+
+  --mini-c-caution-1: var(--mini-c-red-1);
+  --mini-c-caution-2: var(--mini-c-red-2);
+  --mini-c-caution-3: var(--mini-c-red-3);
+  --mini-c-caution-soft: var(--mini-c-red-soft);
+}

@@ -1,7 +1,8 @@
 /* https://juejin.cn/post/7055845836298649636#heading-7 */
+
+@import "./var/index.css";
 @import "./tool.css";
 @import "./icons.css";
-@import "./var.css";
 
 @page {
   /* 打印A4大小 */

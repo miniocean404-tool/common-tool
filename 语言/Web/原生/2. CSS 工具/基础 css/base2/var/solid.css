@@ -1,0 +1,16 @@
+/**
+ * Colors: Solid (原色)
+ * -------------------------------------------------------------------------- */
+
+:root {
+  --mini-c-white: #ffffff;
+  --mini-c-black: #000000;
+
+  --mini-c-neutral: var(--mini-c-black);
+  --mini-c-neutral-inverse: var(--mini-c-white);
+}
+
+.dark {
+  --mini-c-neutral: var(--mini-c-white);
+  --mini-c-neutral-inverse: var(--mini-c-black);
+}

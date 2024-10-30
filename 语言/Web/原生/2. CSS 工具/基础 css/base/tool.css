@@ -110,7 +110,7 @@
   border-radius: 100%;
 }
 
-// 数字等宽
+/* 数字等宽 */
 .num-equal-with {
   font-variant-numeric: tabular-nums;
   font-feature-settings: "tnum";

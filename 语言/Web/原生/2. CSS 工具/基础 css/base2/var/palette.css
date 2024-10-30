@@ -1,0 +1,83 @@
+/**
+* Colors: Palette
+*
+* 用于强调色的基本颜色。这些颜色被功能性颜色（如 “文本”“背景” 或 “品牌”）引用。
+*
+* 每种颜色都有完全相同的颜色比例系统，包括三种不同亮度的纯色和一种柔和色。
+*
+* - `XXX-1`: 最实的颜色，主要用于彩色文本。当在 “XXX-soft” 之上使用时，必须满足对比度要求。
+*
+* - `XXX-2`: 主要用于按钮悬停状态的颜色。
+*
+* - `XXX-3`: 用于实色背景的颜色，例如按钮的背景颜色。当在其上放置纯白色（#ffffff）文本时，必须满足对比度要求。
+*
+* - `XXX-soft`: 用于微妙背景的颜色，例如自定义容器或徽章。当在其上放置 “XXX-1” 颜色时，必须满足对比度要求。
+*
+*    柔和色必须是半透明的 alpha 通道。这一点至关重要，因为它允许将多个 “柔和” 颜色叠加在一起以创建强调效果，例如在自定义容器内有内联代码块时。
+* -------------------------------------------------------------------------- */
+
+:root {
+  --mini-c-gray-1: #dddde3;
+  --mini-c-gray-2: #e4e4e9;
+  --mini-c-gray-3: #ebebef;
+  --mini-c-gray-soft: rgba(142, 150, 170, 0.14);
+
+  --mini-c-indigo-1: #3451b2;
+  --mini-c-indigo-2: #3a5ccc;
+  --mini-c-indigo-3: #5672cd;
+  --mini-c-indigo-soft: rgba(100, 108, 255, 0.14);
+
+  --mini-c-purple-1: #6f42c1;
+  --mini-c-purple-2: #7e4cc9;
+  --mini-c-purple-3: #8e5cd9;
+  --mini-c-purple-soft: rgba(159, 122, 234, 0.14);
+
+  --mini-c-green-1: #18794e;
+  --mini-c-green-2: #299764;
+  --mini-c-green-3: #30a46c;
+  --mini-c-green-soft: rgba(16, 185, 129, 0.14);
+
+  --mini-c-yellow-1: #915930;
+  --mini-c-yellow-2: #946300;
+  --mini-c-yellow-3: #9f6a00;
+  --mini-c-yellow-soft: rgba(234, 179, 8, 0.14);
+
+  --mini-c-red-1: #b8272c;
+  --mini-c-red-2: #d5393e;
+  --mini-c-red-3: #e0575b;
+  --mini-c-red-soft: rgba(244, 63, 94, 0.14);
+
+  --mini-c-sponsor: #db2777;
+}
+
+.dark {
+  --mini-c-gray-1: #515c67;
+  --mini-c-gray-2: #414853;
+  --mini-c-gray-3: #32363f;
+  --mini-c-gray-soft: rgba(101, 117, 133, 0.16);
+
+  --mini-c-indigo-1: #a8b1ff;
+  --mini-c-indigo-2: #5c73e7;
+  --mini-c-indigo-3: #3e63dd;
+  --mini-c-indigo-soft: rgba(100, 108, 255, 0.16);
+
+  --mini-c-purple-1: #c8abfa;
+  --mini-c-purple-2: #a879e6;
+  --mini-c-purple-3: #8e5cd9;
+  --mini-c-purple-soft: rgba(159, 122, 234, 0.16);
+
+  --mini-c-green-1: #3dd68c;
+  --mini-c-green-2: #30a46c;
+  --mini-c-green-3: #298459;
+  --mini-c-green-soft: rgba(16, 185, 129, 0.16);
+
+  --mini-c-yellow-1: #f9b44e;
+  --mini-c-yellow-2: #da8b17;
+  --mini-c-yellow-3: #a46a0a;
+  --mini-c-yellow-soft: rgba(234, 179, 8, 0.16);
+
+  --mini-c-red-1: #f66f81;
+  --mini-c-red-2: #f14158;
+  --mini-c-red-3: #b62a3c;
+  --mini-c-red-soft: rgba(244, 63, 94, 0.16);
+}
