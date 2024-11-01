@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 方法 1 -->
+    <div id="fake" style="opacity: 0;height: 0"><input type="password" clearable autocomplete="new-password"></div>
+    <input id="password" name="password">
+
+    <button type="submit">提交</button>
+
+    <script>
+        fake.onclick = function () {
+            password.focus()
+        }
+    </script>
+    <!-- 方法 2，input autocomplete 设置为 off|new-password  -->
+</body>
+
+</html>
