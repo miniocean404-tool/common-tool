@@ -4,7 +4,7 @@ import { nanoid } from "nanoid/non-secure"
 
 const phone = z.number()
 
-const schema = z.object({
+export const schema = z.object({
   id: z
     .string({
       required_error: "ID 是必须的",
@@ -48,26 +48,6 @@ const transform = schema.transform((data) => ({
   transform: data.id.split(""),
 }))
 
-type ValidatePayload = z.infer<typeof schema>
 // 获取 schema 经过 transform 转换前的类型，如果设置 default 即是不使用 transform Input 类型为可选，infer 类型为必选
 type ValidateInput = z.input<typeof schema>
 type ValidateTransform = z.infer<typeof transform>
-
-const payload: ValidatePayload = {
-  id: nanoid(),
-  age: 123,
-  phone: 123,
-}
-
-const parseSchema = (props: ValidatePayload) => {
-  const safe = schema.safeParse(props)
-
-  if (!safe.success) {
-    console.log(safe.error?.message)
-  }
-
-  return safe.data
-}
-
-const result = parseSchema(payload)
-console.log(JSON.stringify(result))
