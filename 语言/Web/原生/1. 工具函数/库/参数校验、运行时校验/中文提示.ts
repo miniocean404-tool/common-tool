@@ -38,6 +38,18 @@ const errorMap: z.ZodErrorMap = (issue, _ctx) => {
     case ZodIssueCode.invalid_date:
       message = `无效的日期`
       break
+    case ZodIssueCode.custom:
+      message = `无效输入`
+      break
+    case ZodIssueCode.invalid_intersection_types:
+      message = `交集结果无法合并`
+      break
+    case ZodIssueCode.not_multiple_of:
+      message = `数字必须是 ${issue.multipleOf} 的倍数`
+      break
+    case ZodIssueCode.not_finite:
+      message = "数字必须是有限的"
+      break
     case ZodIssueCode.invalid_string:
       if (typeof issue.validation === "object") {
         if ("includes" in issue.validation) {
@@ -61,55 +73,41 @@ const errorMap: z.ZodErrorMap = (issue, _ctx) => {
       break
     case ZodIssueCode.too_small:
       if (issue.type === "array")
-        message = `数组必须 ${issue.exact ? "恰好" : issue.inclusive ? "至少" : "多于"} 包含 ${issue.minimum} 个元素`
+        message = `数组必须${issue.exact ? "恰好" : issue.inclusive ? "至少" : "多于"}包含 ${issue.minimum} 个元素`
       else if (issue.type === "string")
-        message = `字符串必须 ${issue.exact ? "恰好" : issue.inclusive ? "至少" : "超过"} 包含 ${issue.minimum} 个字符`
+        message = `字符串必须${issue.exact ? "恰好" : issue.inclusive ? "至少" : "超过"}包含 ${issue.minimum} 个字符`
       else if (issue.type === "number")
-        message = `数字必须 ${issue.exact ? "恰好等于 " : issue.inclusive ? "大于或等于 " : "大于 "}${issue.minimum}`
+        message = `数字必须${issue.exact ? "恰好等于 " : issue.inclusive ? "大于或等于 " : "大于 "} ${issue.minimum} `
       else if (issue.type === "date")
-        message = `日期必须 ${issue.exact ? "恰好等于 " : issue.inclusive ? "大于或等于 " : "大于 "}${new Date(
+        message = `日期必须${issue.exact ? "恰好等于 " : issue.inclusive ? "大于或等于 " : "大于 "} ${new Date(
           Number(issue.minimum),
         )}`
       else message = "无效输入"
       break
     case ZodIssueCode.too_big:
       if (issue.type === "array")
-        message = `数组必须 ${issue.exact ? "恰好" : issue.inclusive ? "至多" : "少于"} 包含 ${issue.maximum} 个元素`
+        message = `数组必须 ${issue.exact ? "恰好" : issue.inclusive ? "至多" : "少于"}包含 ${issue.maximum} 个元素`
       else if (issue.type === "string")
-        message = `字符串必须 ${issue.exact ? "恰好" : issue.inclusive ? "至多" : "少于"} 包含 ${issue.maximum} 个字符`
+        message = `字符串必须 ${issue.exact ? "恰好" : issue.inclusive ? "至多" : "少于"}包含 ${issue.maximum} 个字符`
       else if (issue.type === "number")
-        message = `数字必须 ${issue.exact ? "恰好" : issue.inclusive ? "小于或等于" : "小于"} ${issue.maximum}`
+        message = `数字必须 ${issue.exact ? "恰好" : issue.inclusive ? "小于或等于" : "小于"} ${issue.maximum} `
       else if (issue.type === "bigint")
-        message = `BigInt必须 ${issue.exact ? "恰好" : issue.inclusive ? "小于或等于" : "小于"} ${issue.maximum}`
+        message = `BigInt 必须 ${issue.exact ? "恰好" : issue.inclusive ? "小于或等于" : "小于"} ${issue.maximum} `
       else if (issue.type === "date")
         message = `日期必须 ${issue.exact ? "恰好" : issue.inclusive ? "小于或等于" : "小于"} ${new Date(
           Number(issue.maximum),
         )}`
       else message = "无效输入"
       break
-    case ZodIssueCode.custom:
-      message = `无效输入`
-      break
-    case ZodIssueCode.invalid_intersection_types:
-      message = `交集结果无法合并`
-      break
-    case ZodIssueCode.not_multiple_of:
-      message = `数字必须是 ${issue.multipleOf} 的倍数`
-      break
-    case ZodIssueCode.not_finite:
-      message = "数字必须是有限的"
-      break
     // case ZodIssueCode.uniqueness:
-    //   message = issue.duplicateElements?.length
-    //    ? `元素 '${issue.duplicateElements}' 不唯一`
-    //     : "值必须唯一";
-    //   break;
+    //   message = issue.duplicateElements?.length ? `元素 '${issue.duplicateElements}' 不唯一` : "值必须唯一"
+    //   break
     // case ZodIssueCode.invalid_file_type:
-    //   message = `无效的文件类型。期望 ${util.joinValues(issue.expected)}, 实际收到 '${issue.received}'`;
-    //   break;
+    //   message = `无效的文件类型。期望${util.joinValues(issue.expected)}, 实际收到 '${issue.received}'`
+    //   break
     // case ZodIssueCode.invalid_file_name:
-    //   message = `无效的文件名`;
-    //   break;
+    //   message = `无效的文件名`
+    //   break
     default:
       message = _ctx.defaultError
       // @ts-ignore
