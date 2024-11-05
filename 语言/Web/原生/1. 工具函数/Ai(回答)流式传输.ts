@@ -1,4 +1,4 @@
-// Ai 回答一个字符一个字符展示的写法 适用于 SSE 的流式传输，text/stream
+// Ai 回答一个字符一个字符展示的写法 可以是 text/event-stream、或 SSE 方式
 const init = async () => {
   // 代表详情头刚好到达
   const res = await fetch("https://www.imooc.com/api/http/ai?name=imooc", {
