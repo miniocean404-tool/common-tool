@@ -1,0 +1,6 @@
+:root {
+  --mini-c-scrollbar-thumb: #c4c4c4;
+  --mini-c-scrollbar-thumb-right-distant: 3px;
+  --mini-c-scrollbar-thumb-radius: 9px 14px 14px 9px;
+  --mini-scrollbar-width: 9px;
+}
