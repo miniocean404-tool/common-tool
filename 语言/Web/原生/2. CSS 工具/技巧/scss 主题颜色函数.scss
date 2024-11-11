@@ -1,0 +1,28 @@
+$btnColors: #409eff, #67c23a, #e6a23c, #f56c6c, #909399;
+
+@for $i from 1 through length($btnColors) {
+  .btn-#{$i} {
+    $color: nth(
+      $list: $btnColors,
+      $n: $i,
+    );
+
+    background-color: $color;
+    color: #fff;
+
+    &:hover {
+      // lighten 变亮多少
+      background-color: lighten($color, 10%);
+    }
+
+    &:active {
+      // darken 变暗多少
+      background-color: darken($color, 10%);
+    }
+
+    &:disabled {
+      background-color: lighten($color, 20%);
+      color: #fff;
+    }
+  }
+}
