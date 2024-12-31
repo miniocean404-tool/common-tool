@@ -1,0 +1,181 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    /*********************************************************** flutter ***********************************************************/
+    // 启动dart 跨域代理，用于laumch.json调试
+    {
+      "label": "start proxy",
+      "type": "shell",
+      "command": "dart",
+      "args": ["${workspaceFolder}/script/proxy_server.dart"],
+      "isBackground": true,
+      "problemMatcher": []
+    },
+    {
+      "label": "生成闪屏页",
+      "type": "shell",
+      // 删除闪屏页 flutter pub run flutter_native_splash:remove
+      // powershell 使用;分别执行 cmd,shell是用 && 执行
+      "command": "flutter clean ; flutter pub get ; flutter pub run flutter_native_splash:create",
+      "isBackground": true,
+      "problemMatcher": [],
+      // option shell 配置使用的shell
+      "windows": {
+        "options": {
+          "shell": {
+            // executable 和  "args": ["/d", "/c"] 指定 cmd执行
+            // "executable": "cmd.exe",
+            // "args": ["/d", "/c"]
+          }
+        }
+      },
+      "options": {
+        "cwd": "${workspaceFolder}"
+      }
+    },
+    // 打包shell脚本
+    {
+      "label": "打包Android.sh",
+      "type": "shell",
+      "command": "sh",
+      "args": ["./script/papk.sh"],
+      "problemMatcher": [],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "windows": {
+        "command": "D:\\soft-dev\\env\\Git\\bin\\bash.exe"
+      }
+    },
+    {
+      "label": "打包iOS.sh",
+      "type": "shell",
+      "command": "sh",
+      "args": ["./script/papk.sh"],
+      "problemMatcher": [],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "windows": {
+        "command": "D:\\soft-dev\\env\\Git\\bin\\bash.exe"
+      }
+    },
+
+    /*********************************************************** git ***********************************************************/
+    // 多任务命令
+    {
+      "label": "添加文件并推送多个仓库",
+      "type": "shell",
+      // 执行其他任务
+      "dependsOn": ["git-add.", "git-commit-am", "git-push-github", "git-push-origin"],
+      "dependsOrder": "sequence",
+      "problemMatcher": [],
+      "presentation": {
+        // 任务完成时，是否关闭终端
+        "close": true
+      }
+      // "group": {
+      //   "kind": "build",
+      //   // 设置当前任务为默认任务，可以配合 launch.json 的 preLaunchTask 使用
+      //   "isDefault": true
+      // },
+      // "runOptions": {
+      //   // 对该任务何时运行进行配置。如果设置为 folderOpen，那么该任务将在文件夹打开时自动运行
+      //   "runOn": "folderOpen"
+      // }
+    },
+
+    // Git
+    {
+      "label": "git-add.",
+      "type": "shell",
+      "command": "git",
+      "args": ["add", "."],
+      "problemMatcher": []
+    },
+    {
+      "label": "git-commit-am",
+      "type": "shell",
+      "command": "git",
+      "args": ["commit", "-am", "${input:commit-info}"],
+      "problemMatcher": [],
+      "presentation": {
+        // 是否输出前 清除屏幕信息
+        "clear": true
+      }
+    },
+    {
+      "label": "git-push-github",
+      "type": "shell",
+      "command": "git",
+      "args": ["push", "github", "${input:branchName}"],
+      "problemMatcher": []
+    },
+    {
+      "label": "git-push-origin",
+      "type": "shell",
+      "command": "git",
+      "args": ["push", "origin"],
+      "problemMatcher": []
+    },
+
+    /*********************************************************** debug build ***********************************************************/
+
+    {
+      "label": "npm: watch:tsc",
+      "type": "npm",
+      "script": "watch:tsc",
+      "group": {
+        "kind": "build",
+        // 设置当前任务为默认任务
+        "isDefault": true
+      },
+      // $tsc-watch 是一个预定义的问题匹配器
+      // $tsc-watch 问题匹配器会解析任务输出中的错误和警告信息，并将其显示在 VSCode 的问题面板中
+      "problemMatcher": "$tsc-watch",
+      "isBackground": true,
+      "presentation": {
+        "group": "watch",
+        "reveal": "never"
+      }
+    },
+    {
+      "label": "watch-build",
+      // 执行其他任务
+      "dependsOn": ["npm: watch:tsc"],
+      "isBackground": true,
+      "presentation": {
+        "reveal": "never"
+      },
+      "group": {
+        "kind": "build"
+      },
+      "runOptions": {
+        // 对该任务何时运行进行配置。如果设置为 folderOpen，那么该任务将在文件夹打开时自动运行
+        "runOn": "folderOpen"
+      }
+    }
+  ],
+
+  // 行为类型
+  "inputs": [
+    {
+      "id": "commit-info",
+      "type": "promptString",
+      "description": "输入提交信息",
+      "default": "请填写提交信息"
+    },
+    {
+      "id": "branchName",
+      "type": "pickString",
+      "options": ["master", "dev", "feature/api"],
+      "description": "请选择分支"
+    },
+    {
+      "id": "branch",
+      "type": "pickString",
+      "options": ["dev", "release"],
+      "description": "请输入分支"
+    }
+  ]
+}

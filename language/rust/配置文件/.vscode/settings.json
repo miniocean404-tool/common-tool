@@ -1,0 +1,4 @@
+{
+  // 配置多个 cargo 项目
+  "rust-analyzer.linkedProjects": ["./Cargo.toml", "./bindings/Cargo.toml"]
+}

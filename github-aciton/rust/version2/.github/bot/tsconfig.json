@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "resolveJsonModule": true,
+    "moduleResolution": "NodeNext",
+    "target": "ESNext",
+    "module": "NodeNext",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true /* Ensure that casing is correct in imports. */,
+    "strict": true,
+    "skipLibCheck": true
+  }
+}

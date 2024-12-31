@@ -1,0 +1,58 @@
+name: Rust
+
+on:
+  push:
+    # branches: [master]
+    branches: [dev]
+    paths-ignore:
+      - ".idea/**"
+      - ".gitattributes"
+      - ".github/**.json"
+      - ".gitignore"
+      - ".gitmodules"
+      - "**.md"
+      - "**/*.txt"
+      - "**/*.png"
+      - "**/*.jpg"
+      - "LICENSE"
+      - "NOTICE"
+      - image/**
+  pull_request:
+    # branches: [master]
+    paths-ignore:
+      - ".idea/**"
+      - ".gitattributes"
+      - ".github/**.json"
+      - ".gitignore"
+      - ".gitmodules"
+      - "**.md"
+      - "**/*.txt"
+      - "**/*.png"
+      - "**/*.jpg"
+      - "LICENSE"
+      - "NOTICE"
+      - image/**
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    #      - name: Run tests
+    #        run: cargo test --verbose --release
+    steps:
+      - name: 设置 Release 名字
+        run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
+
+      - name: 开始发布
+        uses: softprops/action-gh-release@v1
+        # 403 错误 设置 Action 权限 github -> setting -> actiong -> general -> Workflow permissions
+        with:
+          generate_release_notes: true
+          tag_name: ${{ github.repository }}
+          body: ${{ github.event.head_commit.message }}
+          token: ${{ github.token }}
+          files: |
+            prod_cli/*
