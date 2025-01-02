@@ -95,7 +95,7 @@ jobs:
 
       - name: 发布
         uses: softprops/action-gh-release@v1
-        # 403 错误 设置 Action 权限 github -> setting -> actiong -> general -> Workflow permissions
+        # 403 错误 设置 Action 权限 github -> setting -> action -> general -> Workflow permissions
         with:
           generate_release_notes: true
           tag_name: ${{ github.repository }}
